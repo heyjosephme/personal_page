@@ -25,7 +25,7 @@ const Contact = () => {
   ];
 
   return (
-    <section className="px-4 py-16 mx-auto max-w-7xl">
+    <section className="px-4 py-4 mx-auto max-w-7xl">
       <motion.div
         className="text-center"
         initial={{ opacity: 0, y: 20 }}
