@@ -28,4 +28,6 @@ export default defineConfig({
       },
     ],
   },
+
+  site: "https://heyjoseph.me", // Replace with your actual domain
 });
