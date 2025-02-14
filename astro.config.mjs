@@ -1,23 +1,31 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
+import cloudflare from "@astrojs/cloudflare";
+import react from "@astrojs/react";
+import tailwindcss from "@tailwindcss/vite";
 
-import cloudflare from '@astrojs/cloudflare';
-
-import react from '@astrojs/react';
-
-import tailwindcss from '@tailwindcss/vite';
-
-// https://astro.build/config
 export default defineConfig({
   adapter: cloudflare({
     platformProxy: {
-      enabled: true
-    }
+      enabled: true,
+    },
   }),
 
   integrations: [react()],
 
   vite: {
-    plugins: [tailwindcss()]
-  }
+    plugins: [tailwindcss()],
+  },
+
+  image: {
+    // Using the default service (Squoosh)
+    service: {
+      entrypoint: "astro/assets/services/squoosh",
+    },
+    // Optional: Configure defaults
+    remotePatterns: [
+      {
+        protocol: "https",
+      },
+    ],
+  },
 });

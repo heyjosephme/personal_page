@@ -1,0 +1,17 @@
+---
+import { Image } from "astro:assets";
+import profilePic from "../assets/LProfile.jpg";
+---
+
+<div class="mb-6">
+  <Image
+    src={profilePic}
+    alt="Joseph Ju Profile Picture"
+    width={128}
+    height={128}
+    class="mx-auto rounded-full object-cover"
+    loading="eager"
+    format="webp"
+    quality={90}
+  />
+</div>
