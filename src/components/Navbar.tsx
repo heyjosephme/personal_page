@@ -8,9 +8,12 @@ const Navbar = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Blog", path: "https://blog.heyjoseph.me" },
-    { name: "Projects", path: "/projects" },
-    { name: "About", path: "/about" },
+    { name: "Blog", path: "https://blog.heyjoseph.me", external: true },
+    //{ name: "Projects", path: "/projects" },
+    //{ name: "About", path: "/" },
+    // TODO: Add projects and about
+    { name: "Projects", path: "/" },
+    { name: "About", path: "/" },
   ];
 
   return (
@@ -39,6 +42,8 @@ const Navbar = () => {
                   className="relative text-sm font-medium transition-colors hover:text-primary"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noopener noreferrer" : undefined}
                 >
                   <span className="relative">
                     {item.name}

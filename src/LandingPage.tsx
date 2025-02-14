@@ -12,7 +12,7 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Featured Projects */}
-      <section className="px-4 py-16 mx-auto max-w-7xl">
+      {/* <section className="px-4 py-16 mx-auto max-w-7xl">
         <h2 className="mb-12 text-3xl font-bold text-center">
           Featured Projects
         </h2>
@@ -34,7 +34,7 @@ const LandingPage = () => {
             </Card>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* Contact Section */}
       <section className="px-4 py-16 mx-auto max-w-7xl">
