@@ -34,8 +34,9 @@ const Hero = () => {
 
       {/* CTA Buttons */}
       <div className="flex flex-col items-center justify-center gap-4 mx-auto md:flex-row">
+        {/* TODO2: URL AND STYLE*/}
         <Button size="lg" className="w-full md:w-auto" asChild>
-          <a href="/blog">Learning Journal</a>
+          <a href="https://blog.heyjoseph.me">Learning Journal</a>
         </Button>
         <Button
           variant="outline"
@@ -43,7 +44,8 @@ const Hero = () => {
           className="w-full md:w-auto"
           asChild
         >
-          <a href="/about">About Me</a>
+          {/* TODO2: Add about page */}
+          <a href="/">More About Me</a>
         </Button>
       </div>
     </motion.div>

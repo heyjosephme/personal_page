@@ -1,12 +1,4 @@
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card.tsx";
-import { Github, Twitter, Mail } from "lucide-react";
+import Contact from "@/components/Contact";
 
 const LandingPage = () => {
   return (
@@ -37,22 +29,7 @@ const LandingPage = () => {
       </section> */}
 
       {/* Contact Section */}
-      <section className="px-4 py-16 mx-auto max-w-7xl">
-        <div className="text-center">
-          <h2 className="mb-8 text-3xl font-bold">Let's Connect</h2>
-          <div className="flex justify-center gap-4">
-            <Button variant="outline" size="icon">
-              <Github className="w-4 h-4" />
-            </Button>
-            <Button variant="outline" size="icon">
-              <Twitter className="w-4 h-4" />
-            </Button>
-            <Button variant="outline" size="icon">
-              <Mail className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
-      </section>
+      <Contact />
     </div>
   );
 };
