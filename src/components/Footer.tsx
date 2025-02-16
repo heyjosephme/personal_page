@@ -1,8 +1,9 @@
 import { Button } from "./ui/button";
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
+  const currentYear = 2025; //new Date().getFullYear();
+  // change every year manually
+  // so enable static and prevent SSR
   const footerLinks = [
     { name: "Blog", url: "https://blog.heyjoseph.me", external: true },
     { name: "GitHub", url: "https://github.com/heyjosephju", external: true },

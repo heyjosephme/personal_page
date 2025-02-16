@@ -4,29 +4,25 @@ import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
+  outout: "server",
   adapter: cloudflare({
     platformProxy: {
       enabled: true,
     },
+    imageService: "cloudflare",
   }),
 
   integrations: [react()],
 
   vite: {
     plugins: [tailwindcss()],
-  },
-
-  image: {
-    // Using the default service (Squoosh)
-    service: {
-      entrypoint: "astro/assets/services/squoosh",
-    },
-    // Optional: Configure defaults
-    remotePatterns: [
-      {
-        protocol: "https",
+    resolve: {
+      // Use react-dom/server.edge instead of react-dom/server.browser for React 19.
+      // Without this, MessageChannel from node:worker_threads needs to be polyfilled.
+      alias: import.meta.env.PROD && {
+        "react-dom/server": "react-dom/server.edge",
       },
-    ],
+    },
   },
 
   site: "https://heyjoseph.me", // Replace with your actual domain
