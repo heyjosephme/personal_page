@@ -45,7 +45,7 @@ const Hero = () => {
           asChild
         >
           {/* TODO2: Add about page */}
-          <a href="/">More About Me</a>
+          <a href="/about">More About Me</a>
         </Button>
       </div>
     </motion.div>
