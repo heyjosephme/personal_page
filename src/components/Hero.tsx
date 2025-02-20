@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { MapPin } from "lucide-react";
 
 const Hero = () => {
@@ -19,7 +19,7 @@ const Hero = () => {
         <span className="text-xl text-muted-foreground">
           Problem Solver & Lifetime Learner
         </span>
-        <span className="text-muted-foreground mx-2">•</span>
+        {/* <span className="text-muted-foreground mx-2">•</span> */}
         <span className="flex items-center gap-1 text-muted-foreground">
           <MapPin className="w-4 h-4" />
           Tokyo

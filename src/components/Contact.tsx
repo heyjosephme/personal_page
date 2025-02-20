@@ -1,6 +1,12 @@
 import { motion } from "framer-motion";
-import { Button } from "./ui/button";
-import { Github, Twitter, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  RiHeartFill,
+  RiGithubLine,
+  RiTwitterLine,
+  RiMailLine,
+  RiDiscordLine,
+} from "@remixicon/react";
 
 const username = "heyjosephme";
 const email = "contact@heyjoseph.me";
@@ -9,17 +15,22 @@ const Contact = () => {
   const socialLinks = [
     {
       name: "GitHub",
-      icon: <Github className="w-4 h-4" />,
+      icon: <RiGithubLine className="w-4 h-4" />,
       url: `https://github.com/${username}`,
     },
     {
       name: "Twitter",
-      icon: <Twitter className="w-4 h-4" />,
+      icon: <RiTwitterLine className="w-4 h-4" />,
       url: `https://x.com/${username}`,
     },
     {
+      name: "Discord",
+      icon: <RiDiscordLine className="w-4 h-4" />,
+      url: `https://discord.com/users/${username}`,
+    },
+    {
       name: "Email",
-      icon: <Mail className="w-4 h-4" />,
+      icon: <RiMailLine className="w-4 h-4" />,
       url: `mailto:${email}`,
     },
   ];
