@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Blog", path: "https://blog.heyjoseph.me", external: true },
+    { name: "Blog", path: "/blog" },
     //{ name: "Projects", path: "/projects" },
     //{ name: "About", path: "/" },
     // TODO: Add projects and about
