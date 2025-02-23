@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
+import blogTimestamps from "./src/integration/blog-timestamps";
 
 export default defineConfig({
   outout: "server",
@@ -11,7 +12,7 @@ export default defineConfig({
     },
   }),
 
-  integrations: [react()],
+  integrations: [react(), blogTimestamps()],
 
   vite: {
     plugins: [tailwindcss()],

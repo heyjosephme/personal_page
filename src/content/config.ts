@@ -1,19 +1,16 @@
 import { defineCollection, z } from "astro:content";
 
 const blogCollection = defineCollection({
-  type: "content", // 'content' for MDX/Markdown
+  type: "content",
   schema: z.object({
-    // Required frontmatter fields
     title: z.string(),
-    date: z.date(),
-    author: z.string(),
-
-    // Optional fields
-    draft: z.boolean().optional(),
-    tags: z.array(z.string()).optional(),
+    date: z.date().optional(),
+    lastUpdated: z.date().optional(),
+    draft: z.boolean().optional().default(false),
     category: z.string().optional(),
     description: z.string().optional(),
-    image: z.string().optional(),
+    createTime: z.string().datetime().optional(),
+    updateTime: z.string().datetime().optional(),
   }),
 });
 

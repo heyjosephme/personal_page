@@ -1,17 +1,63 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
-// Get all blog posts, excluding drafts
-const posts = await getCollection("blog", ({ data }) => {
-  console.log("Post data:", data); // Check what's being returned
-  return import.meta.env.PROD ? !data.draft : true;
+// Define the blog post schema type
+type BlogPost = CollectionEntry<"blog">;
+
+interface BlogFrontmatter {
+  title: string;
+  date?: Date;
+  lastUpdated?: Date;
+  draft?: boolean;
+  category?: string;
+  description?: string;
+}
+
+// Type-safe function to get post date
+const getPostDate = (post: BlogPost): number => {
+  if (post.data.date) {
+    return post.data.date.getTime();
+  }
+  if (post.data.createTime) {
+    return new Date(post.data.createTime).getTime();
+  }
+  return 0; // fallback, though this shouldn't happen due to schema
+};
+
+const allPosts = await getCollection("blog");
+
+// Filter out drafts in production
+const posts = import.meta.env.DEV
+  ? allPosts
+  : allPosts.filter((post): post is BlogPost => !post.data.draft);
+
+// Sort posts by date with proper type safety
+const sortedPosts = [...posts].sort((a, b) => {
+  return getPostDate(b) - getPostDate(a);
 });
 
-// Sort by date
-const sortedPosts = posts.sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+// Type-safe date formatter
+const formatDate = (date: Date | string): string => {
+  const dateObj = typeof date === "string" ? new Date(date) : date;
+  return dateObj.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
+// For debugging
+if (import.meta.env.DEV) {
+  console.log(
+    "Posts sorted by date:",
+    sortedPosts.map((post) => ({
+      title: post.data.title,
+      date: post.data.date?.toISOString() ?? post.data.createTime,
+    }))
+  );
+}
 ---
 
 <Layout
@@ -34,7 +80,7 @@ const sortedPosts = posts.sort(
       {/* Posts list */}
       <div class="space-y-8">
         {
-          sortedPosts.map((post) => (
+          sortedPosts.map((post: BlogPost) => (
             <article class="border-b pb-8 last:border-0">
               <h2 class="text-2xl font-semibold mb-2">
                 <a href={`/blog/${post.slug}`} class="hover:text-primary">
@@ -42,13 +88,21 @@ const sortedPosts = posts.sort(
                 </a>
               </h2>
               <div class="flex gap-2 text-sm text-muted-foreground mb-4">
-                <time datetime={post.data.date.toISOString()}>
-                  {post.data.date.toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </time>
+                {post.data.createTime && (
+                  <time datetime={post.data.createTime}>
+                    Created{" "}
+                    {new Date(post.data.createTime).toLocaleDateString()}
+                  </time>
+                )}
+                {post.data.updateTime && (
+                  <>
+                    <span>•</span>
+                    <time datetime={post.data.updateTime}>
+                      Updated{" "}
+                      {new Date(post.data.updateTime).toLocaleDateString()}
+                    </time>
+                  </>
+                )}
                 {post.data.category && (
                   <>
                     <span>•</span>
