@@ -2,9 +2,24 @@ import fs from "fs/promises";
 import path from "path";
 import type { CollectionEntry } from "astro:content";
 
+export interface BlogFrontmatter {
+  title: string;
+  date?: Date;
+  lastUpdated?: Date;
+  draft?: boolean;
+  categories?: string[];
+  description?: string;
+}
+
 export interface BlogTimestamps {
   createdAt: string;
   updatedAt: string;
+}
+
+export interface EnhancedBlogPost
+  extends Omit<CollectionEntry<"blog">, "data"> {
+  data: BlogFrontmatter;
+  timestamps: BlogTimestamps;
 }
 
 export async function getBlogTimestamps(
@@ -35,10 +50,6 @@ export async function getBlogTimestamps(
   }
 }
 
-export interface EnhancedBlogPost extends CollectionEntry<"blog"> {
-  timestamps: BlogTimestamps;
-}
-
 export async function enhanceBlogPosts(
   posts: CollectionEntry<"blog">[]
 ): Promise<EnhancedBlogPost[]> {
@@ -48,7 +59,7 @@ export async function enhanceBlogPosts(
       return {
         ...post,
         timestamps,
-      };
+      } as EnhancedBlogPost;
     })
   );
 }

@@ -11,10 +11,8 @@ const posts = import.meta.env.DEV
   : allPosts.filter(
       (post): post is CollectionEntry<"blog"> => !post.data.draft
     );
-
 // Enhance posts with timestamps
 const enhancedPosts = await enhanceBlogPosts(posts);
-
 // Sort by creation time
 const sortedPosts = [...enhancedPosts].sort((a, b) => {
   return (
@@ -30,6 +28,7 @@ if (import.meta.env.DEV) {
     sortedPosts.map((post) => ({
       title: post.data.title,
       createTime: post.timestamps.createdAt,
+      categories: post.data.categories,
     }))
   );
 }
