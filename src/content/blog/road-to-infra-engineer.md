@@ -3,6 +3,7 @@ title: "Pivoting to Infrastructure Engineering: My DevOps Journey Begins"
 date: 2025-01-06
 categories: [Career, DevOps]
 tags: [kubernetes, gcp, certification,learning]     # TAG names should always be lowercase
+description: Journey of DevOps journey
 ---
 
 Recently, a friend suggested me an infrastructure engineering role, 

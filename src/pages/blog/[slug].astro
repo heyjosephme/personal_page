@@ -1,0 +1,100 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import { enhanceBlogPosts } from "@/lib/blog-helpers";
+import { CalendarIcon } from "lucide-react";
+import { RiFolderOpenLine } from "@remixicon/react";
+import { Badge } from "@/components/ui/badge";
+import type { GetStaticPaths } from "astro";
+
+// Get all posts and their paths
+export const getStaticPaths = (async () => {
+  const allPosts = await getCollection("blog");
+  const posts = import.meta.env.DEV
+    ? allPosts
+    : allPosts.filter((post) => !post.data.draft);
+
+  const enhancedPosts = await enhanceBlogPosts(posts);
+
+  return enhancedPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+// Get the current post
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+// Format date helper
+function formatDate(dateStr: string) {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+---
+
+<Layout
+  title={`${post.data.title} - Joseph Ju`}
+  description={post.data.description}
+>
+  <article class="px-4 py-24 mx-auto max-w-7xl">
+    <div class="w-full mx-auto prose dark:prose-invert md:w-11/12 xl:w-9/12">
+      <h1 class="mb-4">{post.data.title}</h1>
+
+      <div
+        class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8"
+      >
+        <div class="flex items-center gap-1">
+          <CalendarIcon class="w-4 h-4" />
+          <time>{formatDate(post.timestamps.createdAt)}</time>
+        </div>
+
+        {
+          post.data.categories && post.data.categories.length > 0 && (
+            <div class="flex items-center gap-2">
+              <RiFolderOpenLine class="w-4 h-4" />
+              <div class="flex flex-wrap gap-1">
+                {post.data.categories.map((category) => (
+                  <Badge
+                    variant="secondary"
+                    class="text-xs hover:bg-secondary/80 transition-colors"
+                  >
+                    <a
+                      href={`/category/${category.toLowerCase()}`}
+                      class="hover:text-primary"
+                    >
+                      {category}
+                    </a>
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )
+        }
+      </div>
+
+      {
+        post.data.description && (
+          <p class="text-xl text-muted-foreground mb-8">
+            {post.data.description}
+          </p>
+        )
+      }
+
+      <Content />
+    </div>
+  </article>
+</Layout>
+
+<style is:global>
+  .prose {
+    max-width: none;
+  }
+  .prose img {
+    margin: 2rem auto;
+  }
+</style>
