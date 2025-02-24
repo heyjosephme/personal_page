@@ -1,52 +1,27 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import { BlogCard } from "@/components/BlogCard";
+import { enhanceBlogPosts } from "@/lib/blog-helpers";
 import type { CollectionEntry } from "astro:content";
 
-// Define the blog post schema type
-type BlogPost = CollectionEntry<"blog">;
-
-interface BlogFrontmatter {
-  title: string;
-  date?: Date;
-  lastUpdated?: Date;
-  draft?: boolean;
-  category?: string;
-  description?: string;
-}
-
-// Type-safe function to get post date
-const getPostDate = (post: BlogPost): number => {
-  if (post.data.date) {
-    return post.data.date.getTime();
-  }
-  if (post.data.createTime) {
-    return new Date(post.data.createTime).getTime();
-  }
-  return 0; // fallback, though this shouldn't happen due to schema
-};
-
 const allPosts = await getCollection("blog");
-
-// Filter out drafts in production
 const posts = import.meta.env.DEV
   ? allPosts
-  : allPosts.filter((post): post is BlogPost => !post.data.draft);
+  : allPosts.filter(
+      (post): post is CollectionEntry<"blog"> => !post.data.draft
+    );
 
-// Sort posts by date with proper type safety
-const sortedPosts = [...posts].sort((a, b) => {
-  return getPostDate(b) - getPostDate(a);
+// Enhance posts with timestamps
+const enhancedPosts = await enhanceBlogPosts(posts);
+
+// Sort by creation time
+const sortedPosts = [...enhancedPosts].sort((a, b) => {
+  return (
+    new Date(b.timestamps.createdAt).getTime() -
+    new Date(a.timestamps.createdAt).getTime()
+  );
 });
-
-// Type-safe date formatter
-const formatDate = (date: Date | string): string => {
-  const dateObj = typeof date === "string" ? new Date(date) : date;
-  return dateObj.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-};
 
 // For debugging
 if (import.meta.env.DEV) {
@@ -54,7 +29,7 @@ if (import.meta.env.DEV) {
     "Posts sorted by date:",
     sortedPosts.map((post) => ({
       title: post.data.title,
-      date: post.data.date?.toISOString() ?? post.data.createTime,
+      createTime: post.timestamps.createdAt,
     }))
   );
 }
@@ -66,8 +41,6 @@ if (import.meta.env.DEV) {
 >
   <div class="px-4 py-24 mx-auto max-w-7xl">
     <div class="w-full mx-auto md:w-11/12 xl:w-9/12">
-      <h1 class="mb-8 text-4xl font-bold">Blog</h1>
-
       {/* If no posts yet */}
       {
         sortedPosts.length === 0 && (
@@ -78,44 +51,8 @@ if (import.meta.env.DEV) {
       }
 
       {/* Posts list */}
-      <div class="space-y-8">
-        {
-          sortedPosts.map((post: BlogPost) => (
-            <article class="border-b pb-8 last:border-0">
-              <h2 class="text-2xl font-semibold mb-2">
-                <a href={`/blog/${post.slug}`} class="hover:text-primary">
-                  {post.data.title}
-                </a>
-              </h2>
-              <div class="flex gap-2 text-sm text-muted-foreground mb-4">
-                {post.data.createTime && (
-                  <time datetime={post.data.createTime}>
-                    Created{" "}
-                    {new Date(post.data.createTime).toLocaleDateString()}
-                  </time>
-                )}
-                {post.data.updateTime && (
-                  <>
-                    <span>•</span>
-                    <time datetime={post.data.updateTime}>
-                      Updated{" "}
-                      {new Date(post.data.updateTime).toLocaleDateString()}
-                    </time>
-                  </>
-                )}
-                {post.data.category && (
-                  <>
-                    <span>•</span>
-                    <span>{post.data.category}</span>
-                  </>
-                )}
-              </div>
-              {post.data.description && (
-                <p class="text-muted-foreground">{post.data.description}</p>
-              )}
-            </article>
-          ))
-        }
+      <div class="grid gap-6">
+        {sortedPosts.map((post) => <BlogCard post={post} />)}
       </div>
     </div>
   </div>
