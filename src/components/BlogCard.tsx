@@ -1,5 +1,5 @@
 import type { EnhancedBlogPost } from "@/lib/blog-helpers";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Tags } from "lucide-react";
 import { RiFolderOpenLine } from "@remixicon/react";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -68,6 +68,29 @@ export function BlogCard({ post, class: className }: BlogCardProps) {
                       onClick={(e) => e.stopPropagation()}
                     >
                       {category}
+                    </a>
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {post.data.tags && post.data.tags.length > 0 && (
+            <div className="flex items-center gap-2 ml-4">
+              <Tags className="w-4 h-4" />
+              <div className="flex flex-wrap gap-1">
+                {post.data.tags.map((tag) => (
+                  <Badge
+                    key={tag}
+                    variant="outline"
+                    className="text-xs hover:bg-secondary/80 transition-colors"
+                  >
+                    <a
+                      href={`/tag/${tag.toLowerCase()}`}
+                      className="hover:text-primary"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {tag}
                     </a>
                   </Badge>
                 ))}

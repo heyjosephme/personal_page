@@ -1,25 +1,26 @@
 import type { EnhancedBlogPost } from "@/lib/blog-helpers";
 import { Badge } from "@/components/ui/badge";
-import { Hash } from "lucide-react";
+import { Tags } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface TrendingTagsProps {
   posts: EnhancedBlogPost[];
 }
 
 export function TrendingTags({ posts }: TrendingTagsProps) {
-  // Extract all categories from posts and count occurrences
-  const categoryCount: Record<string, number> = {};
+  // Extract all tags from posts and count occurrences
+  const tagCount: Record<string, number> = {};
 
   posts.forEach((post) => {
-    if (post.data.categories && post.data.categories.length > 0) {
-      post.data.categories.forEach((category) => {
-        categoryCount[category] = (categoryCount[category] || 0) + 1;
+    if (post.data.tags && post.data.tags.length > 0) {
+      post.data.tags.forEach((tag) => {
+        tagCount[tag] = (tagCount[tag] || 0) + 1;
       });
     }
   });
 
-  // Sort categories by count (descending)
-  const sortedCategories = Object.entries(categoryCount)
+  // Sort tags by count (descending)
+  const sortedTags = Object.entries(tagCount)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10); // Take top 10
 
@@ -27,31 +28,48 @@ export function TrendingTags({ posts }: TrendingTagsProps) {
     <div className="bg-background">
       <div className="flex flex-row items-center justify-between pb-2">
         <h3 className="text-lg font-semibold flex items-center gap-2">
-          <Hash className="w-4 h-4" />
-          Trending Categories
+          <Tags className="w-4 h-4" />
+          Trending Tags
         </h3>
       </div>
 
       <div className="pt-2">
-        {sortedCategories.length > 0 ? (
+        {sortedTags.length > 0 ? (
           <div className="flex flex-wrap gap-2">
-            {sortedCategories.map(([category, count]) => (
-              <Badge
-                key={category}
-                variant="secondary"
-                className="hover:bg-secondary/80 transition-colors"
+            {sortedTags.map(([tag, count]) => (
+              <motion.div
+                key={tag}
+                whileHover={{
+                  scale: 1.05,
+                  y: -2,
+                  transition: { duration: 0.2 },
+                }}
+                whileTap={{ scale: 0.95 }}
               >
-                <a
-                  href={`/category/${category.toLowerCase()}`}
-                  className="hover:text-primary"
+                <Badge
+                  variant="secondary"
+                  className="relative overflow-hidden group transition-colors duration-300
+                            hover:bg-primary/10 dark:hover:bg-primary/20"
                 >
-                  {category} ({count})
-                </a>
-              </Badge>
+                  <a
+                    href={`/tag/${tag.toLowerCase()}`}
+                    className="relative z-10 transition-colors duration-300
+                              group-hover:text-primary font-medium"
+                  >
+                    {tag}{" "}
+                    <span
+                      className="text-muted-foreground transition-colors duration-300
+                                          group-hover:text-primary/70"
+                    >
+                      ({count})
+                    </span>
+                  </a>
+                </Badge>
+              </motion.div>
             ))}
           </div>
         ) : (
-          <div className="text-sm text-muted-foreground">No categories yet</div>
+          <div className="text-sm text-muted-foreground">No tags yet</div>
         )}
       </div>
     </div>

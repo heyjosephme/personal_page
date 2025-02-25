@@ -6,16 +6,25 @@ import { useState, useEffect, useRef } from "react";
 interface RecentlyUpdatedProps {
   posts: EnhancedBlogPost[];
   currentSlug?: string;
+  maxPosts?: number; // Allow customizing the number of posts
 }
 
-export function RecentlyUpdated({ posts, currentSlug }: RecentlyUpdatedProps) {
+export function RecentlyUpdated({
+  posts,
+  currentSlug,
+  maxPosts = 5, // Default to 5 posts
+}: RecentlyUpdatedProps) {
   // Filter out current post if we're on a blog post page
   const filteredPosts = currentSlug
     ? posts.filter((post) => post.slug !== currentSlug)
     : posts;
 
-  // Take only the 5 most recently updated posts
-  const recentPosts = filteredPosts.slice(0, 5);
+  // Take only the specified number of most recently updated posts
+  const recentPosts = filteredPosts.slice(0, maxPosts);
+
+  // Calculate a consistent height based on the maximum number of posts
+  // Each post is approximately 32px tall (24px for content + 8px for margin)
+  const minHeight = maxPosts * 32;
 
   return (
     <div className="bg-background">
@@ -26,7 +35,7 @@ export function RecentlyUpdated({ posts, currentSlug }: RecentlyUpdatedProps) {
         </h3>
       </div>
 
-      <div className="pt-2">
+      <div className="pt-2" style={{ minHeight: `${minHeight}px` }}>
         {recentPosts.length > 0 ? (
           <div className="space-y-3">
             {recentPosts.map((post, index) => (

@@ -8,6 +8,7 @@ export interface BlogFrontmatter {
   lastUpdated?: Date;
   draft?: boolean;
   categories?: string[];
+  tags?: string[];
   description?: string;
 }
 
