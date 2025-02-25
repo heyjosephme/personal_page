@@ -36,7 +36,7 @@ const Hero = () => {
       <div className="flex flex-col items-center justify-center gap-4 mx-auto md:flex-row">
         {/* TODO2: URL AND STYLE*/}
         <Button size="lg" className="w-full md:w-auto" asChild>
-          <a href="https://blog.heyjoseph.me">Learning Journal</a>
+          <a href="/blog">Learning Journal</a>
         </Button>
         <Button
           variant="outline"

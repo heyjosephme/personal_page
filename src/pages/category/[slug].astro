@@ -1,0 +1,114 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { BlogCard } from "@/components/BlogCard";
+import { enhanceBlogPosts } from "@/lib/blog-helpers";
+import { RecentlyUpdated } from "@/components/RecentlyUpdated";
+import { TrendingTags } from "@/components/TrendingTags";
+import { RiFolderOpenLine } from "@remixicon/react";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+  const allPosts = await getCollection("blog");
+  const posts = import.meta.env.DEV
+    ? allPosts
+    : allPosts.filter((post) => !post.data.draft);
+
+  // Get all unique categories
+  const categories = new Set<string>();
+  posts.forEach((post) => {
+    if (post.data.categories && post.data.categories.length > 0) {
+      post.data.categories.forEach((category) => {
+        categories.add(category.toLowerCase());
+      });
+    }
+  });
+
+  // Create a path for each category
+  return Array.from(categories).map((category) => ({
+    params: { slug: category },
+    props: { category },
+  }));
+}) satisfies GetStaticPaths;
+
+const { category } = Astro.props;
+const categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);
+
+// Get all posts
+const allPosts = await getCollection("blog");
+const posts = import.meta.env.DEV
+  ? allPosts
+  : allPosts.filter((post) => !post.data.draft);
+
+// Enhance posts with timestamps
+const enhancedPosts = await enhanceBlogPosts(posts);
+
+// Filter posts by category (case insensitive)
+const categoryPosts = enhancedPosts.filter(
+  (post) =>
+    post.data.categories &&
+    post.data.categories.some(
+      (cat) => cat.toLowerCase() === category.toLowerCase()
+    )
+);
+
+// Sort by creation time
+const sortedPosts = [...categoryPosts].sort((a, b) => {
+  return (
+    new Date(b.timestamps.createdAt).getTime() -
+    new Date(a.timestamps.createdAt).getTime()
+  );
+});
+
+// Sort by update time for sidebar
+const recentlyUpdated = [...enhancedPosts].sort((a, b) => {
+  return (
+    new Date(b.timestamps.updatedAt).getTime() -
+    new Date(a.timestamps.updatedAt).getTime()
+  );
+});
+---
+
+<Layout
+  title={`${categoryTitle} - Joseph Ju`}
+  description={`Articles about ${categoryTitle}`}
+>
+  <div class="px-4 py-24 mx-auto max-w-7xl">
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- Main content -->
+      <div class="w-full md:w-4/5">
+        <h1 class="text-3xl font-bold mb-6 flex items-center gap-2">
+          <RiFolderOpenLine className="w-7 h-7 text-primary" />
+          <span class="text-primary">{categoryTitle}</span>
+          <span class="text-lg text-muted-foreground"
+            >({sortedPosts.length} posts)</span
+          >
+        </h1>
+
+        {
+          sortedPosts.length === 0 && (
+            <p class="text-muted-foreground">
+              No posts found in this category.
+            </p>
+          )
+        }
+
+        <div class="grid gap-6">
+          {sortedPosts.map((post) => <BlogCard post={post} />)}
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="w-full md:w-1/5">
+        <div class="flex flex-col gap-10">
+          <RecentlyUpdated
+            posts={recentlyUpdated}
+            maxPosts={5}
+            client:visible
+          />
+          <TrendingTags posts={enhancedPosts} />
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
