@@ -63,7 +63,7 @@ export function BlogCard({ post, class: className }: BlogCardProps) {
                     className="relative z-20 text-xs hover:bg-secondary/80 transition-colors"
                   >
                     <a
-                      href={`/category/${category.toLowerCase()}`}
+                      href={`/category/${category.toLowerCase()}/`}
                       className="hover:text-primary"
                       onClick={(e) => e.stopPropagation()}
                     >
@@ -86,7 +86,7 @@ export function BlogCard({ post, class: className }: BlogCardProps) {
                     className="text-xs hover:bg-secondary/80 transition-colors"
                   >
                     <a
-                      href={`/tag/${tag.toLowerCase()}`}
+                      href={`/tag/${tag.toLowerCase()}/`}
                       className="hover:text-primary"
                       onClick={(e) => e.stopPropagation()}
                     >

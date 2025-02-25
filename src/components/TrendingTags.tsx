@@ -52,7 +52,7 @@ export function TrendingTags({ posts }: TrendingTagsProps) {
                             hover:bg-primary/10 dark:hover:bg-primary/20"
                 >
                   <a
-                    href={`/tag/${tag.toLowerCase()}`}
+                    href={`/tag/${tag.toLowerCase()}/`}
                     className="relative z-10 transition-colors duration-300
                               group-hover:text-primary font-medium"
                   >
