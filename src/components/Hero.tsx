@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MapPin } from "lucide-react";
 
+// TODO: make animation only works on home indx page
 const Hero = () => {
   return (
     <motion.div

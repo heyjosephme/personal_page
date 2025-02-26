@@ -9,13 +9,13 @@ const Footer = () => {
   const socialLinks = [
     {
       name: "GitHub",
-      url: "https://github.com/heyjosephju",
+      url: "https://github.com/heyjosephme",
       icon: <RiGithubLine className="w-5 h-5" />,
       external: true,
     },
     {
       name: "Twitter",
-      url: "https://x.com/heyjosephju",
+      url: "https://x.com/heyjosephme",
       icon: <RiTwitterXLine className="w-5 h-5" />,
       external: true,
     },
