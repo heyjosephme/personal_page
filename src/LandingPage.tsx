@@ -1,4 +1,5 @@
 import Contact from "@/components/Contact";
+import { Projects } from "./components/Projects";
 
 const LandingPage = () => {
   return (
@@ -29,6 +30,7 @@ const LandingPage = () => {
       </section> */}
 
       {/* Contact Section */}
+      <Projects limit={3} className="py-12 max-w-7xl mx-auto px-4" />
       <Contact />
     </div>
   );
