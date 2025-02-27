@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
+import { ButtonThemeSwitcher } from "@/components/ThemeSwitcher";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,6 +57,11 @@ const Navbar = () => {
 
           {/* Right side spacer - for future theme/language switcher */}
           <div className="flex-none md:w-[68px]">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center space-x-4">
+                <ButtonThemeSwitcher />
+              </div>
+            </div>
             {/* Mobile Menu Button */}
             <div className="md:hidden">
               <Button
