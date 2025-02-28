@@ -64,3 +64,75 @@ export async function enhanceBlogPosts(
     })
   );
 }
+
+export interface CategoryNode {
+  name: string;
+  count: number;
+  children: Record<string, CategoryNode>;
+}
+
+export function buildCategoryTree(posts: any[]) {
+  const categoryTree: Record<string, CategoryNode> = {};
+
+  posts.forEach((post) => {
+    if (!post.data.categories || post.data.categories.length === 0) return;
+
+    post.data.categories.forEach((categoryPath: string) => {
+      // Split by '/' or '>' or any other separator you prefer
+      const categories = categoryPath.split("/").map((c) => c.trim());
+
+      let currentLevel = categoryTree;
+
+      categories.forEach((category, index) => {
+        if (!currentLevel[category]) {
+          currentLevel[category] = {
+            name: category,
+            count: 0,
+            children: {},
+          };
+        }
+
+        // Only increment count for the last category in the path
+        if (index === categories.length - 1) {
+          currentLevel[category].count++;
+        }
+
+        currentLevel = currentLevel[category].children;
+      });
+    });
+  });
+
+  return categoryTree;
+}
+
+export function getAllCategories(posts: any[]) {
+  const categories: Record<string, number> = {};
+
+  posts.forEach((post) => {
+    if (!post.data.categories) return;
+
+    post.data.categories.forEach((category: string) => {
+      // Count the full category path
+      categories[category] = (categories[category] || 0) + 1;
+    });
+  });
+
+  return categories;
+}
+
+/**
+ * Gets all unique tags from blog posts with their counts
+ */
+export function getAllTags(posts: any[]) {
+  const tags: Record<string, number> = {};
+
+  posts.forEach((post) => {
+    if (!post.data.tags) return;
+
+    post.data.tags.forEach((tag: string) => {
+      tags[tag] = (tags[tag] || 0) + 1;
+    });
+  });
+
+  return tags;
+}
