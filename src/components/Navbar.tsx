@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { ButtonThemeSwitcher } from "@/components/ThemeSwitcher";
-
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -59,6 +59,7 @@ const Navbar = () => {
           <div className="flex-none md:w-[68px]">
             <div className="flex items-center gap-4">
               <div className="flex items-center space-x-4">
+                <LanguageSwitcher />
                 <ButtonThemeSwitcher />
               </div>
             </div>
