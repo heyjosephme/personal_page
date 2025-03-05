@@ -6,7 +6,7 @@ import { RecentlyUpdated } from "@/components/RecentlyUpdated";
 import { TrendingTags } from "@/components/TrendingTags";
 import { enhanceBlogPosts } from "@/lib/blog-helpers";
 import type { CollectionEntry } from "astro:content";
-
+import { Breadcrumb } from "@/components/Breadcrumb";
 const allPosts = await getCollection("blog");
 const posts = import.meta.env.DEV
   ? allPosts
@@ -51,6 +51,7 @@ if (import.meta.env.DEV) {
   description="Thoughts, tutorials, and insights about TypeScript, React, and web development."
 >
   <div class="px-4 py-24 mx-auto max-w-7xl">
+    <Breadcrumb items={[{ label: "Blog" }]} className="mb-6" />
     <div class="flex flex-col md:flex-row gap-8">
       <!-- Main content -->
       <div class="w-full md:w-4/5">
