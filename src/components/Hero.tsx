@@ -29,8 +29,8 @@ const Hero = () => {
 
       {/* Mission Statement */}
       <p className="px-0 mb-8 text-lg text-muted-foreground md:text-xl lg:px-24">
-        Freelance developer crafting solutions with TypeScript ecosystem. Always
-        open to new challenges and embracing continuous growth through learning.
+        Developer specializing in Ruby and TypeScript ecosystem. Always open to
+        new challenges and embracing continuous growth through learning.
       </p>
 
       {/* CTA Buttons */}
