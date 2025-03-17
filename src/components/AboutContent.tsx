@@ -26,7 +26,7 @@ const AboutContent = () => {
     {
       title: "Technical Focus",
       badge: "Skills",
-      text: "Full-stack developer specializing in TypeScript ecosystem. From React and Next.js on the frontend to Node.js backends, I enjoy working across the entire stack to build complete solutions.",
+      text: "Full-stack developer specializing in Ruby and TypeScript ecosystem. Experienced in Ruby on Rails with Hotwire, and leveraging React.js with TypeScript for versatile full-stack development solutions.",
     },
     {
       title: "Current Chapter",
