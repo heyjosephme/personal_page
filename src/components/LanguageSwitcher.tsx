@@ -18,7 +18,7 @@ const LanguageSwitcher = ({ currentPath = "" }) => {
   // Get current language from URL or default to 'en'
   const [currentLang, setCurrentLang] = React.useState("en");
 
-  const handleLanguageChange = (langCode) => {
+  const handleLanguageChange = (langCode: string) => {
     setCurrentLang(langCode);
     // Update URL using Astro's routing
     // TODO: Implement language switching

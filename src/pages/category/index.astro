@@ -2,53 +2,18 @@
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { Badge } from "@/components/ui/badge";
-import { buildCategoryTree, type CategoryNode } from "@/lib/blog-helpers";
-import { ChevronRight } from "lucide-react";
+import { getAllCategories } from "@/lib/blog-helpers";
 
 // Get all blog posts
 const posts = await getCollection("blog");
 
-// Build the category tree
-const categoryTree = buildCategoryTree(posts);
+// Get categories with post counts
+const categories = getAllCategories(posts);
 
-// Recursive component to render category tree
-const CategoryItem = ({
-  category,
-  path = "",
-}: {
-  category: CategoryNode;
-  path?: string;
-}) => {
-  const currentPath = path ? `${path}/${category.name}` : category.name;
-  const hasChildren = Object.keys(category.children).length > 0;
-
-  return (
-    <div class="mb-4">
-      <div class="flex items-center justify-between p-4 border rounded-lg hover:bg-secondary/50 transition-colors">
-        <a
-          href={`/category/${currentPath.toLowerCase()}/`}
-          class="flex items-center group"
-        >
-          <span class="text-lg group-hover:text-primary transition-colors">
-            {category.name}
-          </span>
-          {hasChildren && <ChevronRight className="h-4 w-4 ml-2" />}
-        </a>
-        <Badge variant="secondary">
-          {category.count} {category.count === 1 ? "post" : "posts"}
-        </Badge>
-      </div>
-
-      {hasChildren && (
-        <div class="ml-6 mt-2 border-l-2 pl-4">
-          {Object.values(category.children).map((child) => (
-            <CategoryItem category={child} path={currentPath} />
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
+// Sort categories alphabetically
+const sortedCategories = Object.entries(categories).sort((a, b) =>
+  a[0].localeCompare(b[0])
+);
 ---
 
 <Layout
@@ -58,10 +23,20 @@ const CategoryItem = ({
   <div class="container py-12">
     <h1 class="text-4xl font-bold mb-8">All Categories</h1>
 
-    <div class="space-y-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {
-        Object.values(categoryTree).map((category) => (
-          <CategoryItem category={category} />
+        sortedCategories.map(([category, count]) => (
+          <a
+            href={`/category/${category.toLowerCase()}/`}
+            class="group flex items-center justify-between p-4 border rounded-lg hover:bg-secondary/50 transition-colors"
+          >
+            <span class="text-lg group-hover:text-primary transition-colors">
+              {category}
+            </span>
+            <Badge variant="secondary">
+              {count} {count === 1 ? "post" : "posts"}
+            </Badge>
+          </a>
         ))
       }
     </div>

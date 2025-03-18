@@ -43,8 +43,6 @@ const Navbar = () => {
                   className="relative text-sm font-medium transition-colors hover:text-primary"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  target={item.external ? "_blank" : undefined}
-                  rel={item.external ? "noopener noreferrer" : undefined}
                 >
                   <span className="relative">
                     {item.name}
