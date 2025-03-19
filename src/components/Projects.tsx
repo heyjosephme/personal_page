@@ -25,33 +25,32 @@ export interface Project {
 // Sample projects data (you'll want to move this to a separate file later)
 const projects: Project[] = [
   {
-    id: "project-1",
-    title: "Personal Blog",
+    id: "bookkeeper",
+    title: "Bookkeeper",
     description:
-      "A blog built with Astro and TypeScript featuring dynamic content and responsive design.",
-    tags: ["Astro", "TypeScript", "React", "Tailwind CSS"],
-    githubUrl: "https://github.com/yourusername/blog",
-    liveUrl: "https://yourblog.com",
+      "A bookkeeping app for freelancers to manage their finances with ease.",
+    tags: ["TypeScript", "React", "nextjs", "shadcn/ui", "Tailwind CSS"],
+    githubUrl: "https://github.com/heyjosephme/freelancer",
+    /* liveUrl: "https://yourblog.com", */
     featured: true,
   },
   {
-    id: "project-2",
-    title: "Task Manager",
+    id: "jobListing",
+    title: "Job Listing",
     description:
-      "A productivity app for managing tasks and projects with team collaboration features.",
-    tags: ["React", "Node.js", "MongoDB", "Express"],
-    githubUrl: "https://github.com/yourusername/task-manager",
-    liveUrl: "https://yourtaskapp.com",
+      "A job listing app for freelancers to find jobs and apply to them.",
+    tags: ["Ruby on Rails", "Hotwire", "Tailwind CSS"],
+    /* githubUrl: "https://github.com/yourusername/task-manager",
+    liveUrl: "https://yourtaskapp.com", */
     featured: true,
   },
   {
-    id: "project-3",
-    title: "Weather Dashboard",
-    description:
-      "Real-time weather information with interactive maps and forecasts.",
-    tags: ["JavaScript", "API", "CSS", "HTML"],
-    githubUrl: "https://github.com/yourusername/weather-app",
-    featured: false,
+    id: "BitCare",
+    title: "BitCare",
+    description: "A mobile app to manage your health and fitness with ease.",
+    tags: ["React Native", "TypeScript"],
+    /* githubUrl: "https://github.com/yourusername/weather-app", */
+    featured: true,
   },
 ];
 

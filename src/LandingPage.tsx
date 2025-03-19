@@ -1,5 +1,5 @@
 import Contact from "@/components/Contact";
-import { Projects } from "./components/Projects";
+import { Projects } from "@/components/Projects";
 
 const LandingPage = () => {
   return (
