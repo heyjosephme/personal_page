@@ -8,14 +8,17 @@ import { TechStackUniverse } from "@/components/TechStackUniverse";
 
 <Layout
   title="Joseph Ju - Developer & Problem Solver"
-  description="Freelance developer based in Tokyo, specializing in TypeScript ecosystem. Building solutions and embracing continuous learning."
+  description="Developer based in Tokyo, specializing in Ruby and TypeScript ecosystem. Building solutions and embracing continuous learning."
 >
-  <section class="px-4 py-24 mx-auto max-w-7xl">
-    <div class="w-full mx-auto text-center md:w-11/12 xl:w-9/12">
-      <HeroImage />
-      <Hero client:load />
-    </div>
-    <TechStackUniverse client:load />
-  </section>
-  <LandingPage client:load />
+  <div class="relative overflow-hidden">
+    <section class="container px-4 py-12 mx-auto relative z-10">
+      <div class="w-full mx-auto text-center md:w-11/12 xl:w-9/12 mb-8">
+        <HeroImage />
+        <Hero client:load />
+        <TechStackUniverse client:load />
+      </div>
+    </section>
+
+    <LandingPage client:load />
+  </div>
 </Layout>
