@@ -1,7 +1,7 @@
 ---
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import "../styles/global.css";
+import "@/styles/global.css";
 interface Props {
   title?: string;
   description?: string;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const {
-  title = "Joseph Ju - Developer",
+  title = "Joseph - Developer",
   description = "Freelance developer crafting solutions with Ruby and TypeScript ecosystem.",
   image = "/og-image.png",
   canonicalURL = Astro.url,
@@ -22,7 +22,7 @@ const ogImageUrl = image.startsWith("http")
   : new URL(image, Astro.site || "https://heyjoseph.me").toString();
 
 // Format the title
-const siteTitle = title.includes("Joseph Ju") ? title : `${title} | Joseph Ju`;
+const siteTitle = title.includes("Joseph") ? title : `${title} | Joseph`;
 ---
 
 <!doctype html>
@@ -81,11 +81,11 @@ const siteTitle = title.includes("Joseph Ju") ? title : `${title} | Joseph Ju`;
   </head>
   <body>
     <div class="flex min-h-screen flex-col bg-background">
-      <Navbar client:load />
+      <Navbar />
       <main class="flex-1">
         <slot />
       </main>
-      <Footer client:load />
+      <Footer />
     </div>
   </body>
 </html>

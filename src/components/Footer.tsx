@@ -1,5 +1,6 @@
 import { Button } from "./ui/button";
 import { RiGithubLine, RiTwitterXLine, RiMailLine } from "@remixicon/react";
+import { Linkedin } from "lucide-react";
 
 const Footer = () => {
   const currentYear = 2025; //new Date().getFullYear();
@@ -20,6 +21,12 @@ const Footer = () => {
       external: true,
     },
     {
+      name: "LinkedIn",
+      url: "https://www.linkedin.com/in/tokyojoseph/",
+      icon: <Linkedin className="w-5 h-5" />,
+      external: true,
+    },
+    {
       name: "Email",
       url: "mailto:contact@heyjoseph.me",
       icon: <RiMailLine className="w-5 h-5" />,
@@ -33,7 +40,7 @@ const Footer = () => {
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
-            © {currentYear} Joseph Ju. All rights reserved.
+            © {currentYear} Joseph. All rights reserved.
           </p>
 
           <div className="flex items-center gap-4">

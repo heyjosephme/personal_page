@@ -3,22 +3,22 @@ import Layout from "../layouts/Layout.astro";
 import HeroImage from "../components/HeroImage.astro";
 import Hero from "../components/Hero";
 import LandingPage from "@/LandingPage.tsx";
-import { TechStackUniverse } from "@/components/TechStackUniverse";
+// import { TechStackUniverse } from "@/components/TechStackUniverse";
+const title = "Joseph - Developer & Problem Solver";
+const description =
+  "Developer based in Tokyo, specializing in Ruby and TypeScript ecosystem. Building solutions and embracing continuous learning.";
 ---
 
-<Layout
-  title="Joseph Ju - Developer & Problem Solver"
-  description="Developer based in Tokyo, specializing in Ruby and TypeScript ecosystem. Building solutions and embracing continuous learning."
->
+<Layout title={title} description={description}>
   <div class="relative overflow-hidden">
     <section class="container px-4 py-12 mx-auto relative z-10">
       <div class="w-full mx-auto text-center md:w-11/12 xl:w-9/12 mb-8">
         <HeroImage />
-        <Hero client:load />
-        <TechStackUniverse client:load />
+        <Hero />
+        <!-- <TechStackUniverse client:load /> -->
       </div>
     </section>
 
-    <LandingPage client:load />
+    <LandingPage />
   </div>
 </Layout>

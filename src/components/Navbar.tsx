@@ -1,9 +1,9 @@
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { ButtonThemeSwitcher } from "@/components/ThemeSwitcher";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,47 +22,43 @@ const Navbar = () => {
       <div className="mx-auto max-w-7xl px-4">
         <div className="flex h-16 items-center">
           {/* Logo/Name */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex-none text-xl font-bold"
-          >
-            <a href="/" className="hover:text-primary transition-colors">
-              Joseph Ju
+          <div className="flex-none text-xl font-bold animate-fade-in-up">
+            <a
+              href="/"
+              className="hover:text-primary transition-colors duration-300"
+            >
+              Joseph
             </a>
-          </motion.div>
+          </div>
 
           {/* Desktop Navigation - Centered */}
           <div className="hidden md:flex flex-1 items-center justify-center">
             <div className="flex items-center space-x-8">
               {navItems.map((item) => (
-                <motion.a
+                <a
                   key={item.name}
                   href={item.path}
-                  className="relative text-sm font-medium transition-colors hover:text-primary"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="relative text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 active:scale-95 group"
                 >
                   <span className="relative">
                     {item.name}
-                    <span className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 transform bg-primary transition-transform duration-300 ease-out group-hover:scale-x-100" />
+                    <span className="absolute inset-x-0 -bottom-0.5 h-0.5 bg-primary scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100" />
                   </span>
-                </motion.a>
+                </a>
               ))}
             </div>
           </div>
 
           {/* Right side spacer - for future theme/language switcher */}
-          <div className="flex-none md:w-[68px]">
+          {/* <div className="flex-none md:w-[68px]">
             <div className="flex items-center gap-4">
               <div className="flex items-center space-x-4">
                 <LanguageSwitcher />
                 <ButtonThemeSwitcher />
               </div>
-            </div>
-            {/* Mobile Menu Button */}
-            <div className="md:hidden">
+            </div> */}
+          {/* Mobile Menu Button */}
+          {/*  <div className="md:hidden">
               <Button
                 variant="ghost"
                 size="icon"
@@ -76,30 +72,24 @@ const Navbar = () => {
                 )}
               </Button>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md:hidden"
-          >
+          <div className="md:hidden animate-slide-in-down">
             <div className="space-y-1 pb-3 pt-2">
               {navItems.map((item) => (
-                <motion.a
+                <a
                   key={item.name}
                   href={item.path}
-                  className="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent hover:text-accent-foreground"
-                  whileTap={{ scale: 0.95 }}
+                  className="block rounded-md px-3 py-2 text-base font-medium hover:bg-accent hover:text-accent-foreground transition-all duration-150 active:scale-95"
                 >
                   {item.name}
-                </motion.a>
+                </a>
               ))}
             </div>
-          </motion.div>
+          </div>
         )}
       </div>
     </nav>

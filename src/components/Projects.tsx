@@ -24,14 +24,14 @@ export interface Project {
 
 // Sample projects data (you'll want to move this to a separate file later)
 const projects: Project[] = [
-  {
+  /* {
     id: "bookkeeper",
     title: "Bookkeeper",
     description:
       "A bookkeeping app for freelancers to manage their finances with ease.",
     tags: ["TypeScript", "React", "nextjs", "shadcn/ui", "Tailwind CSS"],
     githubUrl: "https://github.com/heyjosephme/freelancer",
-    /* liveUrl: "https://yourblog.com", */
+    liveUrl: "https://yourblog.com",
     featured: true,
   },
   {
@@ -40,8 +40,8 @@ const projects: Project[] = [
     description:
       "A job listing app for freelancers to find jobs and apply to them.",
     tags: ["Ruby on Rails", "Hotwire", "Tailwind CSS"],
-    /* githubUrl: "https://github.com/yourusername/task-manager",
-    liveUrl: "https://yourtaskapp.com", */
+    githubUrl: "https://github.com/yourusername/task-manager",
+    liveUrl: "https://yourtaskapp.com",
     featured: true,
   },
   {
@@ -49,9 +49,9 @@ const projects: Project[] = [
     title: "BitCare",
     description: "A mobile app to manage your health and fitness with ease.",
     tags: ["React Native", "TypeScript"],
-    /* githubUrl: "https://github.com/yourusername/weather-app", */
+    githubUrl: "https://github.com/yourusername/weather-app",
     featured: true,
-  },
+  }, */
 ];
 
 interface ProjectsProps {

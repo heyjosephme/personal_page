@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
   RiGithubLine,
@@ -6,6 +5,7 @@ import {
   RiMailLine,
   RiDiscordLine,
 } from "@remixicon/react";
+import { Linkedin } from "lucide-react";
 
 const username = "heyjosephme";
 const email = "contact@heyjoseph.me";
@@ -23,6 +23,11 @@ const Contact = () => {
       url: `https://x.com/${username}`,
     },
     {
+      name: "LinkedIn",
+      icon: <Linkedin className="w-4 h-4" />,
+      url: `https://www.linkedin.com/in/tokyojoseph/`,
+    },
+    {
       name: "Discord",
       icon: <RiDiscordLine className="w-4 h-4" />,
       url: `https://discord.com/users/${username}`,
@@ -36,12 +41,7 @@ const Contact = () => {
 
   return (
     <section className="px-4 py-4 mx-auto max-w-7xl">
-      <motion.div
-        className="text-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      <div className="text-center animate-fade-in-up">
         <h2 className="mb-8 text-3xl font-bold">Let's Connect</h2>
         <div className="flex justify-center gap-4">
           {socialLinks.map((link) => (
@@ -58,7 +58,7 @@ const Contact = () => {
             </Button>
           ))}
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

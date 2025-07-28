@@ -1,15 +1,10 @@
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MapPin } from "lucide-react";
 
 // TODO: make animation only works on home indx page
 const Hero = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div className="animate-fade-in-up">
       {/* Main Heading */}
       <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-normal text-primary md:text-6xl md:tracking-tight">
         I'm Joseph
@@ -49,7 +44,7 @@ const Hero = () => {
           <a href="/about">More About Me</a>
         </Button>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
