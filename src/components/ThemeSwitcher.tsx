@@ -1,23 +1,55 @@
-import React from "react";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { useEffect, useState } from "react";
+
+// Helper functions for theme management
+const getTheme = () => {
+  if (typeof window === "undefined") return "light";
+  return localStorage.getItem("theme") || "light";
+};
+
+const setTheme = (theme: string) => {
+  localStorage.setItem("theme", theme);
+  document.documentElement.classList.toggle("dark", theme === "dark");
+  // Dispatch custom event to sync across components
+  window.dispatchEvent(new CustomEvent("themechange", { detail: theme }));
+};
 
 // Button version
 export const ButtonThemeSwitcher = () => {
-  const [theme, setTheme] = React.useState(() =>
-    typeof window !== "undefined"
-      ? localStorage.getItem("theme") || "dark"
-      : "dark"
-  );
+  const [currentTheme, setCurrentTheme] = useState<string>("light");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // Set initial theme on mount
+    setCurrentTheme(getTheme());
+    setMounted(true);
+
+    // Listen for theme changes from other components
+    const handleThemeChange = (e: CustomEvent) => {
+      setCurrentTheme(e.detail);
+    };
+
+    window.addEventListener("themechange", handleThemeChange as EventListener);
+    return () => {
+      window.removeEventListener("themechange", handleThemeChange as EventListener);
+    };
+  }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
     setTheme(newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
-    localStorage.setItem("theme", newTheme);
+    setCurrentTheme(newTheme);
   };
+
+  if (!mounted) {
+    return (
+      <Button variant="ghost" size="icon" disabled>
+        <Sun className="h-5 w-5" />
+      </Button>
+    );
+  }
 
   return (
     <Button variant="ghost" size="icon" onClick={toggleTheme}>
@@ -29,19 +61,38 @@ export const ButtonThemeSwitcher = () => {
 };
 
 export const SwitchThemeSwitcher = () => {
-  const [theme, setTheme] = React.useState("light");
+  const [currentTheme, setCurrentTheme] = useState<string>("light");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setCurrentTheme(getTheme());
+    setMounted(true);
+
+    const handleThemeChange = (e: CustomEvent) => {
+      setCurrentTheme(e.detail);
+    };
+
+    window.addEventListener("themechange", handleThemeChange as EventListener);
+    return () => {
+      window.removeEventListener("themechange", handleThemeChange as EventListener);
+    };
+  }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
     setTheme(newTheme);
-    document.documentElement.classList.toggle("dark");
+    setCurrentTheme(newTheme);
   };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="flex items-center space-x-2">
       <Sun className="h-4 w-4" />
       <Switch
-        checked={theme === "dark"}
+        checked={currentTheme === "dark"}
         onCheckedChange={toggleTheme}
         aria-label="Toggle theme"
       />

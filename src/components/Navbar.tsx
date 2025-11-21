@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { ButtonThemeSwitcher } from "@/components/ThemeSwitcher";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,16 +48,13 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Right side spacer - for future theme/language switcher */}
-          {/* <div className="flex-none md:w-[68px]">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center space-x-4">
-                <LanguageSwitcher />
-                <ButtonThemeSwitcher />
-              </div>
-            </div> */}
-          {/* Mobile Menu Button */}
-          {/*  <div className="md:hidden">
+          {/* Right side actions */}
+          <div className="flex-none flex items-center gap-2">
+            <div className="hidden md:flex items-center space-x-2">
+              <ButtonThemeSwitcher />
+            </div>
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
               <Button
                 variant="ghost"
                 size="icon"
@@ -72,7 +68,7 @@ const Navbar = () => {
                 )}
               </Button>
             </div>
-          </div> */}
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -88,6 +84,12 @@ const Navbar = () => {
                   {item.name}
                 </a>
               ))}
+              <div className="px-3 py-2 border-t mt-2 pt-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">Theme</span>
+                  <ButtonThemeSwitcher />
+                </div>
+              </div>
             </div>
           </div>
         )}

@@ -78,10 +78,24 @@ const siteTitle = title.includes("Joseph") ? title : `${title} | Joseph`;
     {/* Additional Meta */}
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#ffffff" />
+
+    {/* Theme initialization script - prevents flash on page load */}
+    <script is:inline>
+      (function() {
+        const getThemePreference = () => {
+          const stored = localStorage.getItem('theme');
+          if (stored) return stored;
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        };
+
+        const theme = getThemePreference();
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+      })();
+    </script>
   </head>
   <body>
     <div class="flex min-h-screen flex-col bg-background">
-      <Navbar />
+      <Navbar client:load />
       <main class="flex-1">
         <slot />
       </main>
