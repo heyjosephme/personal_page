@@ -9,10 +9,8 @@ const Navbar = () => {
   const navItems = [
     { name: "Home", path: "/" },
     { name: "Blog", path: "/blog" },
-    //{ name: "Projects", path: "/projects" },
-    //{ name: "About", path: "/" },
-    // TODO: Add projects and about
-    { name: "Projects", path: "/" },
+    { name: "Projects", path: "/projects" },
+    { name: "Now", path: "/now" },
     { name: "About", path: "/about" },
   ];
 
