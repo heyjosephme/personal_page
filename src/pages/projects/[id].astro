@@ -1,0 +1,204 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
+import { Button } from "../../components/ui/button";
+import { ArrowLeft, Github, ExternalLink } from "lucide-react";
+import { projects } from "../../data/projects";
+
+// Get the project from the URL parameter - this runs at build time
+export async function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project }, // Pass the project data as props
+  }));
+}
+
+const { project } = Astro.props;
+
+if (!project) {
+  return Astro.redirect("/404");
+}
+
+const title = `${project.title} - Joseph Ju`;
+const description = project.description;
+---
+
+<Layout title={title} description={description}>
+  <div class="container mx-auto px-4 py-8">
+    <!-- Back Button -->
+    <div class="mb-8">
+      <Button variant="ghost" size="sm" asChild>
+        <a href="/projects" class="flex items-center gap-2">
+          <ArrowLeft className="h-4 w-4" />
+          Back to Projects
+        </a>
+      </Button>
+    </div>
+
+    <!-- Project Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold mb-4">{project.title}</h1>
+      <p class="text-xl text-muted-foreground mb-6">{project.description}</p>
+
+      <!-- Links -->
+      <div class="flex gap-4 mb-6">
+        {
+          project.githubUrl && (
+            <Button asChild>
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-2"
+              >
+                <Github className="h-4 w-4" />
+                View on GitHub
+              </a>
+            </Button>
+          )
+        }
+        {
+          project.liveUrl && (
+            <Button variant="outline" asChild>
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-2"
+              >
+                <ExternalLink className="h-4 w-4" />
+                Live Demo
+              </a>
+            </Button>
+          )
+        }
+      </div>
+
+      <!-- Tech Stack -->
+      <div class="flex flex-wrap gap-2">
+        {
+          project.tags.map((tag) => (
+            <span class="px-3 py-1 bg-secondary text-secondary-foreground text-sm rounded-full">
+              {tag}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-3">
+      <!-- Main Content -->
+      <div class="lg:col-span-2 space-y-8">
+        <!-- Overview -->
+        <Card>
+          <CardHeader>
+            <CardTitle>Overview</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p class="text-muted-foreground leading-relaxed">
+              {project.longDescription}
+            </p>
+          </CardContent>
+        </Card>
+
+        <!-- Challenges -->
+        {
+          project.challenges && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Key Challenges</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul class="space-y-2 text-muted-foreground">
+                  {project.challenges.map((challenge) => (
+                    <li class="flex items-start gap-2">
+                      <span class="text-primary mt-1">•</span>
+                      <span>{challenge}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          )
+        }
+
+        <!-- Learnings -->
+        {
+          project.learnings && (
+            <Card>
+              <CardHeader>
+                <CardTitle>What I Learned</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul class="space-y-2 text-muted-foreground">
+                  {project.learnings.map((learning) => (
+                    <li class="flex items-start gap-2">
+                      <span class="text-primary mt-1">•</span>
+                      <span>{learning}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          )
+        }
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-6">
+        <!-- Project Info -->
+        <Card>
+          <CardHeader>
+            <CardTitle>Project Info</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <h4 class="font-semibold mb-2">Status</h4>
+              <span
+                class="px-2 py-1 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 text-xs rounded-full"
+              >
+                {project.featured ? "Active Development" : "Stable"}
+              </span>
+            </div>
+
+            <div>
+              <h4 class="font-semibold mb-2">Technology Stack</h4>
+              <div class="space-y-1">
+                {
+                  project.tags.map((tag) => (
+                    <div class="text-sm text-muted-foreground">{tag}</div>
+                  ))
+                }
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <!-- Other Projects -->
+        <Card>
+          <CardHeader>
+            <CardTitle>Other Projects</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div class="space-y-2">
+              <a
+                href="/projects"
+                class="block p-3 text-center hover:bg-accent hover:text-accent-foreground rounded-md transition-colors border border-dashed"
+              >
+                <div class="font-medium text-sm">View All Projects</div>
+                <div class="text-xs text-muted-foreground">
+                  See my complete portfolio
+                </div>
+              </a>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  </div>
+</Layout>

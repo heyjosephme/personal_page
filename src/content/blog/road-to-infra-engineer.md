@@ -2,13 +2,14 @@
 title: "Pivoting to Infrastructure Engineering: My DevOps Journey Begins"
 date: 2025-01-06
 categories: [Career, DevOps]
-tags: [kubernetes, gcp, certification,learning]     # TAG names should always be lowercase
+tags: [kubernetes, gcp, certification, learning] # TAG names should always be lowercase
 description: Journey of DevOps journey
+draft: true
 ---
 
-Recently, a friend suggested me an infrastructure engineering role, 
+Recently, a friend suggested me an infrastructure engineering role,
 and it resonated with me. As a full-stack developer, I've always been curious about how applications scale
-and run in production. This suggestion came at the perfect time, and I've decided to take the leap into 
+and run in production. This suggestion came at the perfect time, and I've decided to take the leap into
 DevOps and infrastructure.
 
 ## Why Infrastructure Engineering?
@@ -25,6 +26,7 @@ Infrastructure engineering offers a perfect blend of development and operations.
 I've mapped out a focused learning approach:
 
 1. **Google Cloud DevOps Professional Path**
+
    - Complete the Google Cloud DevOps learning path
    - Focus on practical implementations
    - Build hands-on experience with GCP services
@@ -37,6 +39,7 @@ I've mapped out a focused learning approach:
 ## Goals
 
 I've set two concrete certification goals:
+
 1. Pass the Google Cloud Professional DevOps Engineer certification
 2. Obtain the Certified Kubernetes Administrator (CKA) certification
 
