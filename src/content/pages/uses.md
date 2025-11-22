@@ -10,59 +10,66 @@ A living document of the tools, software, and hardware that power my daily work.
 
 ## 💻 Editor & Terminal
 
-**Visual Studio Code**
-- Theme: [Your theme here]
+**Cursor** (Primary)
+- AI-powered fork of VS Code
+- Theme: Dark High Contrast
 - Font: Fira Code with ligatures
-- Extensions: Prettier, ESLint, GitLens, Live Share
+- Key Extension: Claude Code (connects IDE with Claude Code for AI-assisted development)
+
+**Neovim** (Secondary)
+- For quick edits and remote work
+- LazyVim for sensible defaults and plugin management
 
 **Terminal**
-- iTerm2 on macOS
+- Ghostty (modern GPU-accelerated terminal)
 - Zsh with Oh My Zsh
-- Starship prompt for better Git info
+- tmux for session management
 
 ## 🛠️ Development Tools
 
 **Version Control**
-- Git + GitHub for all projects
-- GitHub Desktop for visual diffs
+- Git + GitHub (prefer `gh` CLI over web interface)
+- Command-line focused workflow
 
 **API Development**
-- Postman for API testing
-- Insomnia as backup
+- Postman for complex API testing
+- HTTPie for quick CLI requests
 
 **Containers & Deployment**
-- Docker for local development
-- Cloudflare Pages for this site
-- Vercel for Next.js projects
+- Docker + Colima (lightweight Docker runtime)
+- Kamal for Rails deployment (Rails ecosystem)
+- Cloudflare Pages for static sites
 
-**Database Tools**
-- TablePlus for database management
-- Redis for caching
+**Database**
+- SQLite3 for most projects
+- Primarily CLI-based (no GUI tools)
 
 ## 🖥️ Hardware
 
 **Primary Machine**
-- MacBook Pro [Your spec here]
-- 16GB RAM / 512GB SSD
+- MacBook Air/Pro (personal and work)
+- Minimalist setup - just the laptop
 
-**Peripherals**
-- Monitor: [Your monitor]
-- Keyboard: [Your keyboard]
-- Mouse: [Your mouse]
+No fancy peripherals, no elaborate desk setup. Simple and portable.
 
 ## 📝 Productivity
 
-**Note Taking**
-- Obsidian for personal knowledge base
-- Notion for project management
+**Note Taking** (in preference order)
+- Obsidian → Markdown files → Notion → Apple Notes
+- Plain text and portability matter
 
 **Task Management**
-- GitHub Issues for code-related tasks
-- Simple markdown todo.md files
+- `todo.md` files for personal tasks
+- GitHub Issues for code-related work
+- GitHub Projects & Notion when collaborating
 
 **Communication**
-- Slack for team communication
+- Slack for work
 - Discord for dev communities
+
+**Browser**
+- Brave (primary) for privacy
+- Firefox as backup
 
 ## 🌐 This Site
 
