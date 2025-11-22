@@ -21,6 +21,7 @@ export interface EnhancedBlogPost
   extends Omit<CollectionEntry<"blog">, "data"> {
   data: BlogFrontmatter;
   timestamps: BlogTimestamps;
+  readingTime: number;
 }
 
 export async function getBlogTimestamps(
@@ -51,15 +52,29 @@ export async function getBlogTimestamps(
   }
 }
 
+/**
+ * Calculate reading time based on word count
+ * Average reading speed: 200 words per minute
+ */
+export function calculateReadingTime(content: string): number {
+  const wordsPerMinute = 200;
+  const words = content.trim().split(/\s+/).length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+  return minutes;
+}
+
 export async function enhanceBlogPosts(
   posts: CollectionEntry<"blog">[]
 ): Promise<EnhancedBlogPost[]> {
   return Promise.all(
     posts.map(async (post) => {
       const timestamps = await getBlogTimestamps(post);
+      const { Content } = await post.render();
+      const readingTime = calculateReadingTime(post.body);
       return {
         ...post,
         timestamps,
+        readingTime,
       } as EnhancedBlogPost;
     })
   );

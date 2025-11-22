@@ -1,5 +1,5 @@
 import type { EnhancedBlogPost } from "@/lib/blog-helpers";
-import { CalendarIcon, Tags } from "lucide-react";
+import { CalendarIcon, Tags, Clock } from "lucide-react";
 import { RiFolderOpenLine } from "@remixicon/react";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -50,6 +50,11 @@ export function BlogCard({ post, class: className }: BlogCardProps) {
           <div className="flex items-center gap-1">
             <CalendarIcon className="w-4 h-4" />
             <time>{formatDate(post.timestamps.createdAt)}</time>
+          </div>
+
+          <div className="flex items-center gap-1">
+            <Clock className="w-4 h-4" />
+            <span>{post.readingTime} min read</span>
           </div>
 
           {post.data.categories && post.data.categories.length > 0 && (
