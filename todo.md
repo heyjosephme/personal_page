@@ -10,13 +10,11 @@
 
 ## 📝 Priority 2: Content & Storytelling
 
-- [ ] Create /now page showing current focus
 - [ ] Expand blog content:
   - [ ] Technical learning posts
   - [ ] Indie hacking progress updates
   - [ ] Tokyo dev life experiences
   - [ ] Anime/manga influence on coding
-- [ ] Add reading time estimates to blog posts
 - [ ] Create "uses" page (tools, setup, workflow)
 
 ## 🎨 Priority 3: Visual Personality
@@ -38,10 +36,11 @@
 ## 🔧 Technical Improvements
 
 - [ ] Add blog post search/filtering
-- [ ] Implement dark/light theme (ThemeSwitcher exists)
 - [ ] Add RSS feed for blog
 - [ ] Optimize images and performance
 - [ ] Add analytics (privacy-focused)
+- [ ] Remove TypeScript 'as' keyword usage (anti-pattern)
+- [ ] Refine Biome config for stricter code quality
 
 ## 📊 Content Ideas Bank
 
