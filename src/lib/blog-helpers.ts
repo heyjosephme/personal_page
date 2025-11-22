@@ -69,13 +69,12 @@ export async function enhanceBlogPosts(
   return Promise.all(
     posts.map(async (post) => {
       const timestamps = await getBlogTimestamps(post);
-      const { Content } = await post.render();
       const readingTime = calculateReadingTime(post.body);
       return {
         ...post,
         timestamps,
         readingTime,
-      } as EnhancedBlogPost;
+      };
     })
   );
 }
