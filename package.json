@@ -3,9 +3,9 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro build && wrangler pages dev",
+    "dev": "COMMIT_SHA=$(git rev-parse HEAD 2>/dev/null || echo 'dev') astro dev",
+    "build": "COMMIT_SHA=$(git rev-parse HEAD 2>/dev/null || echo 'unknown') astro build",
+    "preview": "COMMIT_SHA=$(git rev-parse HEAD 2>/dev/null || echo 'dev') astro build && wrangler pages dev",
     "astro": "astro",
     "deploy": "astro build && wrangler pages deploy",
     "cf-typegen": "wrangler types",

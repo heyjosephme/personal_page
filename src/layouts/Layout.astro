@@ -16,6 +16,9 @@ const {
   canonicalURL = Astro.url,
 } = Astro.props;
 
+// Get commit hash from environment (Cloudflare Pages provides CF_PAGES_COMMIT_SHA)
+const commitHash = import.meta.env.CF_PAGES_COMMIT_SHA || import.meta.env.COMMIT_SHA;
+
 // Safer URL construction with fallback
 const ogImageUrl = image.startsWith("http")
   ? image
@@ -107,7 +110,7 @@ const siteTitle = title.includes("Joseph") ? title : `${title} | Joseph`;
       <main class="flex-1">
         <slot />
       </main>
-      <Footer />
+      <Footer commitHash={commitHash} client:load />
     </div>
   </body>
 </html>
