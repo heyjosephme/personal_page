@@ -17,6 +17,8 @@
     "@astrojs/check": "^0.9.5",
     "@astrojs/cloudflare": "^12.6.11",
     "@astrojs/react": "^4.4.2",
+    "@astrojs/rss": "^4.0.14",
+    "@astrojs/sitemap": "^3.6.0",
     "@radix-ui/react-dropdown-menu": "^2.1.16",
     "@radix-ui/react-navigation-menu": "^1.2.14",
     "@radix-ui/react-slot": "^1.2.4",

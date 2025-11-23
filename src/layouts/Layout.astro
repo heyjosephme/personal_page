@@ -79,6 +79,14 @@ const siteTitle = title.includes("Joseph") ? title : `${title} | Joseph`;
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#ffffff" />
 
+    {/* RSS Feed */}
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Joseph's Blog"
+      href={new URL("rss.xml", Astro.site).href}
+    />
+
     {/* Theme initialization script - prevents flash on page load */}
     <script is:inline>
       (function() {
