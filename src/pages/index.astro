@@ -1,21 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import HeroImage from "../components/HeroImage.astro";
 import Hero from "../components/Hero";
 import LandingPage from "@/LandingPage.tsx";
-// import { TechStackUniverse } from "@/components/TechStackUniverse";
-const title = "Joseph - Developer & Problem Solver";
+
+const title = "Joseph - Full-stack Developer in Tokyo";
 const description =
-  "Developer based in Tokyo, specializing in Ruby and TypeScript ecosystem. Building solutions and embracing continuous learning.";
+  "I build web applications that solve real problems. Full-stack developer in Tokyo specializing in Rails 8 + Hotwire, TypeScript, and React.";
 ---
 
 <Layout title={title} description={description}>
   <div class="relative overflow-hidden">
-    <section class="container px-4 py-12 mx-auto relative z-10">
-      <div class="w-full mx-auto text-center md:w-11/12 xl:w-9/12 mb-8">
-        <HeroImage />
-        <Hero />
-        <!-- <TechStackUniverse client:load /> -->
+    <section class="container px-4 py-16 mx-auto relative z-10">
+      <div class="w-full mx-auto text-center md:w-11/12 xl:w-9/12 mb-12">
+        <Hero client:load />
       </div>
     </section>
 
