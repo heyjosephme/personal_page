@@ -1,11 +1,27 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero";
+import { RecentBlogPosts } from "@/components/RecentBlogPosts";
 import LandingPage from "@/LandingPage.tsx";
+import { getCollection } from "astro:content";
+import { enhanceBlogPosts } from "@/lib/blog-helpers";
 
 const title = "Joseph - Full-stack Developer in Tokyo";
 const description =
   "I build web applications that solve real problems. Full-stack developer in Tokyo specializing in Rails 8 + Hotwire, TypeScript, and React.";
+
+// Get recent blog posts
+const allPosts = await getCollection("blog");
+const posts = import.meta.env.DEV
+  ? allPosts
+  : allPosts.filter((post) => !post.data.draft);
+const enhancedPosts = await enhanceBlogPosts(posts);
+const sortedPosts = enhancedPosts.sort((a, b) => {
+  return (
+    new Date(b.timestamps.createdAt).getTime() -
+    new Date(a.timestamps.createdAt).getTime()
+  );
+});
 ---
 
 <Layout title={title} description={description}>
@@ -15,6 +31,8 @@ const description =
         <Hero client:load />
       </div>
     </section>
+
+    <RecentBlogPosts posts={sortedPosts} maxPosts={5} client:load />
 
     <LandingPage />
   </div>
