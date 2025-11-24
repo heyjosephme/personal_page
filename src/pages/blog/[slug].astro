@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
+import StructuredData from "@/components/StructuredData.astro";
 import { enhanceBlogPosts } from "@/lib/blog-helpers";
 import { CalendarIcon, Clock } from "lucide-react";
 import { RiFolderOpenLine } from "@remixicon/react";
@@ -51,6 +52,17 @@ function formatDate(dateStr: string) {
   title={`${post.data.title} - Joseph Ju`}
   description={post.data.description}
 >
+  <StructuredData
+    type="blogPost"
+    data={{
+      title: post.data.title,
+      description: post.data.description,
+      publishedAt: post.timestamps.createdAt,
+      updatedAt: post.timestamps.updatedAt,
+      url: `https://heyjoseph.me/blog/${post.slug}`,
+      categories: post.data.categories,
+    }}
+  />
   <div class="px-4 py-24 mx-auto max-w-7xl">
     <div class="flex flex-col md:flex-row gap-8">
       <!-- Main content - increased width -->

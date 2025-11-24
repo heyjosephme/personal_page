@@ -1,0 +1,70 @@
+---
+interface Props {
+  type: "person" | "blogPost";
+  data?: any;
+}
+
+const { type, data } = Astro.props;
+
+let structuredData = {};
+
+if (type === "person") {
+  // Person/ProfilePage schema for homepage
+  structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Joseph Ju",
+    url: "https://heyjoseph.me",
+    jobTitle: "Full-Stack Developer",
+    worksFor: {
+      "@type": "Organization",
+      name: "Freelance",
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Tokyo",
+      addressCountry: "JP",
+    },
+    sameAs: [
+      "https://github.com/heyjosephme",
+      "https://x.com/heyjosephme",
+      "https://www.linkedin.com/in/tokyojoseph/",
+    ],
+    knowsAbout: [
+      "Ruby on Rails",
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Hotwire",
+      "Web Development",
+    ],
+  };
+} else if (type === "blogPost" && data) {
+  // BlogPosting schema for blog posts
+  structuredData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: data.title,
+    description: data.description,
+    datePublished: data.publishedAt,
+    dateModified: data.updatedAt || data.publishedAt,
+    author: {
+      "@type": "Person",
+      name: "Joseph Ju",
+      url: "https://heyjoseph.me",
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Joseph Ju",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": data.url,
+    },
+    image: data.image || "https://heyjoseph.me/og-image.png",
+    keywords: data.categories?.join(", "),
+  };
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
