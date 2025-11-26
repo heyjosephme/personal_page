@@ -5,7 +5,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  outout: "server",
+  output: "server",
   adapter: cloudflare({
     platformProxy: {
       enabled: true,

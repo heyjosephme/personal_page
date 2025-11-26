@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import { BlogCard } from "@/components/BlogCard";
+import { BlogSearch } from "@/components/BlogSearch";
 import { RecentlyUpdated } from "@/components/RecentlyUpdated";
 import { TrendingTags } from "@/components/TrendingTags";
 import { enhanceBlogPosts } from "@/lib/blog-helpers";
@@ -53,19 +53,9 @@ if (import.meta.env.DEV) {
   <div class="px-4 py-24 mx-auto max-w-7xl">
     <Breadcrumb items={[{ label: "Blog" }]} className="mb-6" />
     <div class="flex flex-col md:flex-row gap-8">
-      <!-- Main content -->
+      <!-- Main content with search -->
       <div class="w-full md:w-4/5">
-        {
-          sortedPosts.length === 0 && (
-            <p class="text-muted-foreground">
-              Coming soon! I'm working on some interesting content.
-            </p>
-          )
-        }
-
-        <div class="grid gap-6">
-          {sortedPosts.map((post) => <BlogCard post={post} />)}
-        </div>
+        <BlogSearch posts={sortedPosts} client:load />
       </div>
 
       <!-- Sidebar - with fixed layout -->
