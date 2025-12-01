@@ -4,9 +4,10 @@ import { Linkedin } from "lucide-react";
 
 interface FooterProps {
   commitHash?: string;
+  buildDate?: string;
 }
 
-const Footer = ({ commitHash }: FooterProps) => {
+const Footer = ({ commitHash, buildDate }: FooterProps) => {
   const currentYear = 2025; //new Date().getFullYear();
   // change every year manually
   // so enable static and prevent SSR
@@ -160,19 +161,27 @@ const Footer = ({ commitHash }: FooterProps) => {
               >
                 Cloudflare Pages
               </a>
-              {commitHash && (
+              {(commitHash || buildDate) && (
                 <>
                   {" "}
                   (
-                  <a
-                    href={`https://github.com/heyjosephme/personal_page/commit/${commitHash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-foreground transition-colors font-mono"
-                    title="View deployment commit"
-                  >
-                    {commitHash.slice(0, 7)}
-                  </a>
+                  {commitHash && (
+                    <a
+                      href={`https://github.com/heyjosephme/personal_page/commit/${commitHash}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-foreground transition-colors font-mono"
+                      title="View deployment commit"
+                    >
+                      {commitHash.slice(0, 7)}
+                    </a>
+                  )}
+                  {commitHash && buildDate && " · "}
+                  {buildDate && (
+                    <span className="font-mono" title="Build date">
+                      {buildDate}
+                    </span>
+                  )}
                   )
                 </>
               )}

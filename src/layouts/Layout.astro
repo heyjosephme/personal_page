@@ -19,6 +19,13 @@ const {
 // Get commit hash from environment (Cloudflare Pages provides CF_PAGES_COMMIT_SHA)
 const commitHash = import.meta.env.CF_PAGES_COMMIT_SHA || import.meta.env.COMMIT_SHA;
 
+// Get build date (formatted at build time)
+const buildDate = new Date().toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric'
+});
+
 // Safer URL construction with fallback
 const ogImageUrl = image.startsWith("http")
   ? image
@@ -113,7 +120,7 @@ const siteTitle = title.includes("Joseph") ? title : `${title} | Joseph`;
       <main class="flex-1">
         <slot />
       </main>
-      <Footer commitHash={commitHash} client:load />
+      <Footer commitHash={commitHash} buildDate={buildDate} client:load />
     </div>
   </body>
 </html>
