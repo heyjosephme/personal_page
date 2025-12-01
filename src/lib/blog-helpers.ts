@@ -17,8 +17,7 @@ export interface BlogTimestamps {
   updatedAt: string;
 }
 
-export interface EnhancedBlogPost
-  extends Omit<CollectionEntry<"blog">, "data"> {
+export interface EnhancedBlogPost extends CollectionEntry<"blog"> {
   data: BlogFrontmatter;
   timestamps: BlogTimestamps;
   readingTime: number;
@@ -70,11 +69,13 @@ export async function enhanceBlogPosts(
     posts.map(async (post) => {
       const timestamps = await getBlogTimestamps(post);
       const readingTime = calculateReadingTime(post.body);
-      return {
-        ...post,
-        timestamps,
-        readingTime,
-      };
+
+      // Don't spread - preserve the original object and its methods
+      const enhanced = post as EnhancedBlogPost;
+      enhanced.timestamps = timestamps;
+      enhanced.readingTime = readingTime;
+
+      return enhanced;
     })
   );
 }

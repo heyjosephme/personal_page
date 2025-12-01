@@ -8,6 +8,9 @@ import { TrendingTags } from "@/components/TrendingTags";
 import { RiFolderOpenLine } from "@remixicon/react";
 import type { GetStaticPaths } from "astro";
 
+// Enable prerendering for this dynamic route
+export const prerender = true;
+
 export const getStaticPaths = (async () => {
   const allPosts = await getCollection("blog");
   const posts = import.meta.env.DEV

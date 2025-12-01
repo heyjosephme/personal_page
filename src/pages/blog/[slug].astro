@@ -10,6 +10,9 @@ import { RecentlyUpdated } from "@/components/RecentlyUpdated";
 import { TrendingTags } from "@/components/TrendingTags";
 import type { GetStaticPaths } from "astro";
 
+// Enable prerendering for this dynamic route
+export const prerender = true;
+
 // Get all posts and their paths
 export const getStaticPaths = (async () => {
   const allPosts = await getCollection("blog");
