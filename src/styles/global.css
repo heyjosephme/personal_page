@@ -106,3 +106,45 @@
     @apply cursor-pointer;
   }
 }
+
+/* Table of Contents (tocbot) styles */
+@layer components {
+  .toc-wrapper {
+    max-height: calc(100vh - 8rem);
+    overflow-y: auto;
+  }
+
+  .toc-list {
+    @apply list-none m-0 p-0;
+  }
+
+  .toc-list-item {
+    @apply my-1;
+  }
+
+  .toc-link {
+    @apply block py-1 px-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md border-l-2 border-transparent;
+  }
+
+  .toc-link.is-active-link {
+    @apply text-foreground bg-accent font-medium border-l-2 border-primary;
+  }
+
+  /* Nested headings (h3) */
+  .toc-list .toc-list {
+    @apply pl-4 mt-1;
+  }
+
+  /* Smooth scrollbar for TOC */
+  .toc-wrapper::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .toc-wrapper::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .toc-wrapper::-webkit-scrollbar-thumb {
+    @apply bg-border rounded;
+  }
+}

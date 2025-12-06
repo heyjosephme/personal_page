@@ -8,6 +8,7 @@ import { RiFolderOpenLine } from "@remixicon/react";
 import { Badge } from "@/components/ui/badge";
 import { RecentlyUpdated } from "@/components/RecentlyUpdated";
 import { TrendingTags } from "@/components/TrendingTags";
+import { TableOfContents } from "@/components/TableOfContents";
 import type { GetStaticPaths } from "astro";
 
 // Enable prerendering for this dynamic route
@@ -125,13 +126,20 @@ function formatDate(dateStr: string) {
       <!-- Sidebar - with fixed layout -->
       <div class="w-full md:w-1/5">
         <div class="flex flex-col gap-10">
-          <RecentlyUpdated
+          {/* Table of Contents */}
+          <TableOfContents client:load />
+
+          {/*
+            Commented out - Move to /blog index page for better UX
+            TOC is more valuable in sidebar for individual posts
+          */}
+          {/* <RecentlyUpdated
             posts={recentlyUpdated}
             currentSlug={post.slug}
             maxPosts={5}
             client:visible
           />
-          <TrendingTags posts={allPosts} />
+          <TrendingTags posts={allPosts} /> */}
         </div>
       </div>
     </div>
