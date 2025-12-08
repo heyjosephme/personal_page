@@ -92,10 +92,12 @@ export function DistanceGlobe() {
   }, []);
 
   useEffect(() => {
-    // Auto-rotate globe
+    // Auto-rotate globe and disable zoom on scroll
     if (globeEl.current) {
       globeEl.current.controls().autoRotate = true;
       globeEl.current.controls().autoRotateSpeed = 0.5;
+      // Disable zoom on mouse wheel scroll
+      globeEl.current.controls().enableZoom = false;
     }
   }, []);
 
@@ -136,8 +138,8 @@ export function DistanceGlobe() {
   }
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <div className="relative w-full aspect-square">
+    <div className="flex flex-col items-center gap-4 w-full">
+      <div className="relative w-full max-w-sm aspect-square">
         <GlobeComponent
           ref={globeEl}
           globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
@@ -153,6 +155,8 @@ export function DistanceGlobe() {
           arcDashGap={2}
           arcDashAnimateTime={2000}
           arcStroke={0.5}
+          width={384}
+          height={384}
         />
       </div>
 

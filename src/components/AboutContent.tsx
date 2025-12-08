@@ -57,17 +57,17 @@ const AboutContent = () => {
       </motion.div>
 
       {/* Two Column Layout: Globe Sidebar + Content */}
-      <div className="flex flex-col lg:flex-row gap-12">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
         {/* Left Sidebar - Globe (Sticky on desktop) */}
         <motion.aside
-          className="w-full lg:w-1/3 lg:sticky lg:top-24 lg:self-start"
+          className="w-full lg:w-96 lg:flex-shrink-0 lg:sticky lg:top-24"
           variants={fadeInUp}
         >
           <DistanceGlobeWrapper />
         </motion.aside>
 
         {/* Right Content - About Sections */}
-        <div className="w-full lg:w-2/3 space-y-8">
+        <div className="w-full lg:flex-1 lg:min-w-0 space-y-8">
           {sections.map((section, index) => (
             <motion.div key={section.title} variants={fadeInUp}>
               <Card className="overflow-hidden">
