@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
+import { DistanceGlobeWrapper } from "./DistanceGlobeWrapper";
 
 const AboutContent = () => {
   const fadeInUp = {
@@ -42,7 +43,7 @@ const AboutContent = () => {
 
   return (
     <motion.section
-      className="px-4 py-24 mx-auto max-w-3xl"
+      className="px-4 py-24 mx-auto max-w-7xl"
       initial="initial"
       animate="animate"
       variants={staggerChildren}
@@ -55,23 +56,34 @@ const AboutContent = () => {
         </p>
       </motion.div>
 
-      {/* Content Sections */}
-      <div className="space-y-8">
-        {sections.map((section, index) => (
-          <motion.div key={section.title} variants={fadeInUp}>
-            <Card className="overflow-hidden">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <h2 className="text-2xl font-semibold">{section.title}</h2>
-                  <Badge variant="secondary">{section.badge}</Badge>
-                </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  {section.text}
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
+      {/* Two Column Layout: Globe Sidebar + Content */}
+      <div className="flex flex-col lg:flex-row gap-12">
+        {/* Left Sidebar - Globe (Sticky on desktop) */}
+        <motion.aside
+          className="w-full lg:w-1/3 lg:sticky lg:top-24 lg:self-start"
+          variants={fadeInUp}
+        >
+          <DistanceGlobeWrapper />
+        </motion.aside>
+
+        {/* Right Content - About Sections */}
+        <div className="w-full lg:w-2/3 space-y-8">
+          {sections.map((section, index) => (
+            <motion.div key={section.title} variants={fadeInUp}>
+              <Card className="overflow-hidden">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <h2 className="text-2xl font-semibold">{section.title}</h2>
+                    <Badge variant="secondary">{section.badge}</Badge>
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {section.text}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </motion.section>
   );

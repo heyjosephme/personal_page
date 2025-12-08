@@ -14,8 +14,8 @@
     "format": "biome format --write ."
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.5",
-    "@astrojs/cloudflare": "^12.6.11",
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/react": "^4.4.2",
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
@@ -26,15 +26,16 @@
     "@radix-ui/react-switch": "^1.2.6",
     "@remixicon/react": "^4.7.0",
     "@tailwindcss/vite": "^4.1.17",
-    "@types/react": "^19.2.6",
+    "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "astro": "^5.16.0",
+    "astro": "^5.16.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.23.24",
+    "framer-motion": "^12.23.25",
     "lucide-react": "^0.483.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "react-globe.gl": "^2.37.0",
     "react-icons": "^5.5.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.17",
@@ -43,10 +44,10 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20251121.0",
+    "@cloudflare/workers-types": "^4.20251205.0",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^22.19.1",
-    "wrangler": "^4.50.0"
+    "wrangler": "^4.53.0"
   },
   "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af"
 }
