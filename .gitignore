@@ -29,3 +29,6 @@ pnpm-debug.log*
 
 # lighthouse generated reports
 reports
+
+# Auto-generated version file
+src/version.ts

@@ -2,6 +2,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { BackToTop } from "@/components/BackToTop";
+import { VERSION } from "@/version";
 import "@/styles/global.css";
 interface Props {
   title?: string;
@@ -17,15 +18,8 @@ const {
   canonicalURL = Astro.url,
 } = Astro.props;
 
-// Get commit hash from environment (Cloudflare Pages provides CF_PAGES_COMMIT_SHA)
-const commitHash = import.meta.env.CF_PAGES_COMMIT_SHA || import.meta.env.COMMIT_SHA;
-
-// Get build date (formatted at build time)
-const buildDate = new Date().toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric'
-});
+// Get version info from build-time generated file
+const { commitHash, buildDate } = VERSION;
 
 // Safer URL construction with fallback
 const ogImageUrl = image.startsWith("http")
@@ -103,15 +97,17 @@ const siteTitle = title.includes("Joseph") ? title : `${title} | Joseph`;
 
     {/* Theme initialization script - prevents flash on page load */}
     <script is:inline>
-      (function() {
+      (function () {
         const getThemePreference = () => {
-          const stored = localStorage.getItem('theme');
+          const stored = localStorage.getItem("theme");
           if (stored) return stored;
-          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
         };
 
         const theme = getThemePreference();
-        document.documentElement.classList.toggle('dark', theme === 'dark');
+        document.documentElement.classList.toggle("dark", theme === "dark");
       })();
     </script>
   </head>

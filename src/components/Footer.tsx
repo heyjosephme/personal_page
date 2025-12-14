@@ -1,5 +1,10 @@
 import { Button } from "./ui/button";
-import { RiGithubLine, RiTwitterXLine, RiMailLine, RiRssLine } from "@remixicon/react";
+import {
+  RiGithubLine,
+  RiTwitterXLine,
+  RiMailLine,
+  RiRssLine,
+} from "@remixicon/react";
 import { Linkedin } from "lucide-react";
 
 interface FooterProps {
@@ -125,7 +130,7 @@ const Footer = ({ commitHash, buildDate }: FooterProps) => {
           {/* Built with section */}
           <div className="border-t pt-4 text-center">
             <p className="text-xs text-muted-foreground">
-              Built with{" "}
+              Built with
               <a
                 href="https://astro.build"
                 target="_blank"
@@ -134,7 +139,7 @@ const Footer = ({ commitHash, buildDate }: FooterProps) => {
               >
                 Astro
               </a>
-              ,{" "}
+              ,
               <a
                 href="https://react.dev"
                 target="_blank"
@@ -143,7 +148,7 @@ const Footer = ({ commitHash, buildDate }: FooterProps) => {
               >
                 React
               </a>
-              , and{" "}
+              , and
               <a
                 href="https://tailwindcss.com"
                 target="_blank"
@@ -163,7 +168,6 @@ const Footer = ({ commitHash, buildDate }: FooterProps) => {
               </a>
               {(commitHash || buildDate) && (
                 <>
-                  {" "}
                   (
                   {commitHash && (
                     <a
