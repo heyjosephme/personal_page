@@ -53,6 +53,37 @@ const Footer = ({ commitHash, buildDate }: FooterProps) => {
     },
   ];
 
+  // Tech stack links
+  const techLinks = [
+    { name: "Astro", url: "https://astro.build" },
+    { name: "React", url: "https://react.dev" },
+    { name: "Tailwind CSS", url: "https://tailwindcss.com" },
+    { name: "Cloudflare Pages", url: "https://pages.cloudflare.com" },
+  ];
+
+  // Reusable external link component
+  const ExternalLink = ({
+    href,
+    children,
+    className = "",
+    ...props
+  }: {
+    href: string;
+    children: React.ReactNode;
+    className?: string;
+    [key: string]: any;
+  }) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`hover:text-foreground transition-colors ${className}`}
+      {...props}
+    >
+      {children}
+    </a>
+  );
+
   return (
     <footer className="border-t bg-background mt-auto">
       <div className="mx-auto max-w-7xl px-4 py-8">
@@ -130,55 +161,29 @@ const Footer = ({ commitHash, buildDate }: FooterProps) => {
           {/* Built with section */}
           <div className="border-t pt-4 text-center">
             <p className="text-xs text-muted-foreground">
-              Built with
-              <a
-                href="https://astro.build"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground transition-colors"
-              >
-                Astro
-              </a>
-              ,
-              <a
-                href="https://react.dev"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground transition-colors"
-              >
-                React
-              </a>
-              , and
-              <a
-                href="https://tailwindcss.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground transition-colors"
-              >
-                Tailwind CSS
-              </a>
+              Built with{" "}
+              {techLinks.slice(0, 3).map((tech, index) => (
+                <span key={tech.name}>
+                  <ExternalLink href={tech.url}>{tech.name}</ExternalLink>
+                  {index === 0 && ", "}
+                  {index === 1 && ", and "}
+                </span>
+              ))}
               . Deployed on{" "}
-              <a
-                href="https://pages.cloudflare.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground transition-colors"
-              >
-                Cloudflare Pages
-              </a>
+              <ExternalLink href={techLinks[3].url}>
+                {techLinks[3].name}
+              </ExternalLink>
               {(commitHash || buildDate) && (
                 <>
-                  (
+                  {" "}(
                   {commitHash && (
-                    <a
+                    <ExternalLink
                       href={`https://github.com/heyjosephme/personal_page/commit/${commitHash}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-foreground transition-colors font-mono"
+                      className="font-mono"
                       title="View deployment commit"
                     >
                       {commitHash.slice(0, 7)}
-                    </a>
+                    </ExternalLink>
                   )}
                   {commitHash && buildDate && " · "}
                   {buildDate && (
