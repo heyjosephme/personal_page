@@ -10,6 +10,9 @@ import { Button } from "../../components/ui/button";
 import { ArrowLeft, Github, ExternalLink } from "lucide-react";
 import { projects } from "../../data/projects";
 
+// Enable prerendering for this dynamic route
+export const prerender = true;
+
 // Get the project from the URL parameter - this runs at build time
 export async function getStaticPaths() {
   return projects.map((project) => ({
