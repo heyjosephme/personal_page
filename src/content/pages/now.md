@@ -1,6 +1,6 @@
 ---
 title: "What I'm up to now"
-lastUpdated: 2025-11-21T00:00:00Z
+lastUpdated: 2026-01-03T00:00:00Z
 description: "What Joseph is currently working on and focused on"
 ---
 
@@ -12,17 +12,17 @@ Based in **Tokyo, Japan**, working remotely and exploring the local dev communit
 
 ## 💻 Currently Building
 
-**ThreeWeigh** - A Rails 8 weight tracker and intermittent fasting app built with Hotwire. Experimenting with real-time features and modern Rails patterns.
+**Bumplink** - A bilateral contact exchange app for iOS and Android. When you meet someone in person, scan QR codes, preview each other's info, approve the exchange, and take a selfie together. Built with React Native (Expo) + Rails 8 API with real-time WebSocket coordination. Currently in active development before App Store/Play Store release.
 
-**YenKit** - Financial calculators and tools specifically for expats living in Japan. Built with React Router to help people understand taxes, pension calculations, and cost of living.
+**ThreeWeigh** - A Rails 8 weight tracker and intermittent fasting app built with Hotwire. Experimenting with real-time features and modern Rails patterns.
 
 **keio-course** - Distance learning management tool for Keio University students. Built with Next.js.
 
 ## 🌱 Learning
 
 - **Rails 8 + Hotwire** - Diving deep into Turbo and Stimulus for building reactive applications without heavy JavaScript
+- **React Native** - Developing mobile apps
 - **Astro 5** - Exploring modern SSG/SSR patterns with this portfolio site
-- **Infrastructure Engineering** - Transitioning my career focus (see [my blog post](/blog/road-to-infra-engineer))
 
 ## 📚 Reading & Watching
 
@@ -32,7 +32,7 @@ Based in **Tokyo, Japan**, working remotely and exploring the local dev communit
 
 ## 🎯 Current Focus
 
-Looking for opportunities in infrastructure engineering while building side projects. Documenting my journey through blog posts about:
+Looking for opportunities in full-stack developement at startups while building side projects. Documenting my journey through blog posts about:
 
 - Job switching in Japan's tech market
 - Building indie hacker projects

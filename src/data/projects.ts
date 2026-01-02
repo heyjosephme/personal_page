@@ -15,6 +15,40 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: "bumplink",
+    title: "Bumplink",
+    description:
+      "A bilateral contact exchange app using QR codes and real-time coordination. Meet someone, scan, approve, take a selfie together, save the contact.",
+    longDescription:
+      "Bumplink reimagines how people exchange contact information by making it bilateral, visual, and memorable. When two users meet, one generates a QR code containing their contact preset. After scanning, both users see a preview and must approve the exchange before continuing. The app then opens the camera for a selfie together, creating a memorable association with the new contact. Built with React Native (Expo) for cross-platform mobile and Rails 8 API with Action Cable for real-time WebSocket coordination.",
+    tags: [
+      "React Native",
+      "Expo",
+      "Rails 8 API",
+      "Action Cable",
+      "WebSockets",
+      "TypeScript",
+    ],
+    featured: true,
+    challenges: [
+      "Real-time bilateral coordination via WebSockets between two mobile devices",
+      "QR code generation with embedded contact preset data",
+      "Managing exchange session lifecycle with 10-minute expiration",
+      "Camera integration for shared selfies during the exchange flow",
+      "Cross-platform mobile development (iOS & Android) with Expo",
+      "Secure session management with token-based API authentication",
+    ],
+    learnings: [
+      "React Native with Expo Router file-based navigation",
+      "Rails 8 Solid stack (solid_cache, solid_queue, solid_cable)",
+      "Action Cable for real-time WebSocket communication from mobile clients",
+      "QR code bilateral exchange patterns and UX flows",
+      "Mobile camera and image handling with expo-camera and expo-image-picker",
+      "Cross-platform mobile development targeting iOS and Android",
+      "Stateful session management with real-time coordination",
+    ],
+  },
+  {
     id: "threeweigh",
     title: "ThreeWeigh",
     description:
