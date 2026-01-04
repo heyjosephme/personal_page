@@ -181,4 +181,28 @@ export const projects: Project[] = [
       "Philosophical product design and meaningful user experiences",
     ],
   },
+  {
+    id: "is-react-dead",
+    title: "Is React Dead?",
+    description:
+      "A satirical single-purpose site answering the internet's favorite recurring question with the appropriate nuance: No. Features real-time stats from npm and GitHub APIs.",
+    longDescription:
+      "Every few months, someone asks 'Is React dead?' despite it powering millions of websites. This site exists to answer with appropriate nuance: No. The stats page fetches real-time data from npm downloads and GitHub (stars, forks, issues) to prove React is very much alive. Built with Astro for static generation and Tailwind CSS for styling, the site ironically uses no React at all—just pure HTML, CSS, and minimal JavaScript. Inspired by isrubydead.com and israilsdead.com, it captures the deadpan humor needed to respond to technology 'obituary' takes.",
+    tags: ["Astro 5", "Tailwind CSS 4", "API Integration", "Satire"],
+    githubUrl: "https://github.com/heyjosephme/isReactDead",
+    liveUrl: "https://is-react-dead.pages.dev",
+    featured: false,
+    challenges: [
+      "Fetching real-time data from npm and GitHub APIs at build time",
+      "Creating a bold, minimalist design with maximum impact",
+      "Deploying static site with dynamic data on Cloudflare Pages",
+      "Capturing deadpan humor through design and copy",
+    ],
+    learnings: [
+      "Astro's server-side rendering for API data fetching",
+      "Cloudflare Pages deployment for Astro projects",
+      "Satirical product design and minimalist UX",
+      "Building single-purpose sites with clear messaging",
+    ],
+  },
 ];
