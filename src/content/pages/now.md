@@ -1,6 +1,6 @@
 ---
 title: "What I'm up to now"
-lastUpdated: 2026-01-03T00:00:00Z
+lastUpdated: 2026-01-08T00:00:00Z
 description: "What Joseph is currently working on and focused on"
 ---
 
@@ -14,9 +14,7 @@ Based in **Tokyo, Japan**, working remotely and exploring the local dev communit
 
 **Bumplink** - A bilateral contact exchange app for iOS and Android. When you meet someone in person, scan QR codes, preview each other's info, approve the exchange, and take a selfie together. Built with React Native (Expo) + Rails 8 API with real-time WebSocket coordination. Currently in active development before App Store/Play Store release.
 
-**ThreeWeigh** - A Rails 8 weight tracker and intermittent fasting app built with Hotwire. Experimenting with real-time features and modern Rails patterns.
-
-**keio-course** - Distance learning management tool for Keio University students. Built with Next.js.
+**ThreeWeigh** - A Rails 8 weight tracker and intermittent fasting app built with Hotwire. Real-time features with WebSockets, interactive charts, and comprehensive fasting management. Now live at threeweigh.heyjoseph.me!
 
 ## 🌱 Learning
 

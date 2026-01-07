@@ -21,7 +21,7 @@ const Hero = ({ showAnimation = true }: HeroProps) => {
 
       {/* Story - Main Message */}
       <p className="px-0 mb-4 text-xl md:text-2xl lg:px-24 text-foreground/90 leading-relaxed">
-        I build web applications
+        I build applications
         <br />
         that solve real problems.
       </p>

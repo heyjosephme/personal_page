@@ -22,17 +22,17 @@ const AboutContent = () => {
     {
       title: "Background",
       badge: "Journey",
-      text: "Originally from China, now based in Tokyo, Japan. While studying Computer Science in college, I spent most of my time self-learning programming rather than following traditional coursework. Later, I left college but continued my self-taught journey, driven by genuine curiosity.",
+      text: "Originally from China, now based in Tokyo, Japan. While studying Computer Science in college, I spent most of my time self-learning programming rather than following traditional coursework.",
     },
     {
       title: "Technical Focus",
       badge: "Skills",
-      text: "Full-stack developer specializing in Ruby and TypeScript ecosystem. Experienced in Ruby on Rails with Hotwire, and leveraging React.js with TypeScript for versatile full-stack development solutions.",
+      text: "Full-stack developer specializing in Ruby and TypeScript ecosystem. Experienced in Ruby on Rails with Hotwire, and leveraging React/React Native with TypeScript for versatile full-stack development solutions.",
     },
     {
       title: "Current Chapter",
       badge: "Now",
-      text: "Currently working on indie projects while running the Tokyo Indie Hackers community. Building in public and sharing the journey with fellow creators.",
+      text: "Currently working on indie projects. Building in public and sharing the journey with fellow creators.",
     },
     {
       title: "Beyond Code",
