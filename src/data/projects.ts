@@ -79,6 +79,38 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: "keio-tsushin",
+    title: "Keio Tsushin",
+    description:
+      "A deadline and credit management system for Keio University distance learning students. Built with Rails 8 and Phlex, a modern Ruby-based view component framework.",
+    longDescription:
+      "Keio Tsushin (慶應通信) is a course management application designed for Keio University's distance learning program. It helps students track report submission deadlines, exam dates, and manage their academic progress. The application showcases modern Rails 8 patterns including Phlex for Ruby-based view components (replacing traditional ERB templates), the Solid stack for production infrastructure, and Kamal for Docker-based deployment. Features include deadline tracking with calendar views, categorization by type (reports vs exams), and responsive design for mobile and desktop.",
+    tags: [
+      "Ruby on Rails 8",
+      "Phlex",
+      "Hotwire",
+      "Tailwind CSS 4",
+      "Kamal",
+      "SQLite",
+    ],
+    githubUrl: "https://github.com/heyjosephme/keio-tsushin",
+    liveUrl: "https://keiotsushin.heyjoseph.me",
+    featured: true,
+    challenges: [
+      "Adopting Phlex as a Ruby-based alternative to ERB templates",
+      "Configuring Kamal for Docker-based deployment with SQLite persistence",
+      "Building a clean UI for deadline management without JavaScript complexity",
+      "Setting up CI/CD pipeline with GitHub Actions for automated testing",
+    ],
+    learnings: [
+      "Phlex component architecture for type-safe Ruby views",
+      "Rails 8 Solid stack (solid_cache, solid_queue, solid_cable)",
+      "Kamal deployment orchestration with Docker",
+      "Modern Rails patterns without heavy JavaScript frameworks",
+      "Building domain-specific tools for education",
+    ],
+  },
+  {
     id: "days-at-work",
     title: "Days at Work--",
     description:

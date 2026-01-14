@@ -1,5 +1,10 @@
 # Personal Website Todo
 
+## TODO
+- [ ] update favicon
+- [ ] link ConnectX & BumpLink
+- [ ] change footer copyright year
+
 ## ✅ Recently Completed (Dec 2024)
 
 - [x] SEO enhancements (robots.txt, sitemap, RSS feed, meta tags, structured data)
@@ -25,11 +30,9 @@
 
 ## 🎯 Priority 1: Projects Section
 
-- [ ] Add real projects to Projects.tsx (currently empty)
-  - [ ] **ThreeWeigh** - Rails 8 weight tracker & intermittent fasting app with Hotwire
-  - [ ] **YenKit** - Financial calculators and tools for life in Japan (React Router)
+- [x] Add real projects to Projects.tsx (currently empty)
+  - [x] **ThreeWeigh** - Rails 8 weight tracker & intermittent fasting app with Hotwire
   - [ ] **keio-course** - Keio distance learning management tool (Next.js)
-  - [ ] **PocketLedger** - Personal finance/bookkeeping app (Ruby on Rails)
 
 ## 📝 Priority 2: Content & Storytelling
 
@@ -70,8 +73,6 @@
 
 - [ ] "My Tokyo Dev Setup" post
 - [ ] "Building ThreeWeigh: Rails 8 + Hotwire for Real-time Apps"
-- [ ] "YenKit: Financial Tools for Japan Expats"
 - [ ] "Learning Management at Keio University"
 - [ ] "From China to Tokyo: Dev Journey" deep dive
-- [ ] "Ruby on Rails vs Next.js: Project Comparison"
 - [ ] Monthly "What I'm Learning" posts

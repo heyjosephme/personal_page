@@ -1,6 +1,6 @@
 ---
 title: "What I'm up to now"
-lastUpdated: 2026-01-08T00:00:00Z
+lastUpdated: 2026-01-15T00:00:00Z
 description: "What Joseph is currently working on and focused on"
 ---
 
@@ -16,11 +16,14 @@ Based in **Tokyo, Japan**, working remotely and exploring the local dev communit
 
 **ThreeWeigh** - A Rails 8 weight tracker and intermittent fasting app built with Hotwire. Real-time features with WebSockets, interactive charts, and comprehensive fasting management. Now live at threeweigh.heyjoseph.me!
 
+**Keio Tsushin** - A deadline and credit management system for Keio University distance learning students. Built with Rails 8 and Phlex (Ruby-based view components). Live at keiotsushin.heyjoseph.me!
+
 ## 🌱 Learning
 
 - **Rails 8 + Hotwire** - Diving deep into Turbo and Stimulus for building reactive applications without heavy JavaScript
+- **Phlex** - Exploring Ruby-based view components as an alternative to ERB templates
+- **Kamal** - Docker-based deployment orchestration for Rails apps
 - **React Native** - Developing mobile apps
-- **Astro 5** - Exploring modern SSG/SSR patterns with this portfolio site
 
 ## 📚 Reading & Watching
 
