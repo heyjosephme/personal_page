@@ -12,10 +12,16 @@ interface FooterProps {
   buildDate?: string;
 }
 
+// Site launch year - update this only if you rebrand/restart the site
+const START_YEAR = 2025;
+
 const Footer = ({ commitHash, buildDate }: FooterProps) => {
-  const currentYear = 2025; //new Date().getFullYear();
-  // change every year manually
-  // so enable static and prevent SSR
+  // Get current year at build time (SSG) - auto-updates on each build
+  const currentYear = new Date().getFullYear();
+
+  // Format copyright year: "2025" if same year, "2025-2026" if different
+  const copyrightYear =
+    START_YEAR === currentYear ? `${START_YEAR}` : `${START_YEAR}-${currentYear}`;
 
   // Navigation links
   const navLinks = [
@@ -93,7 +99,7 @@ const Footer = ({ commitHash, buildDate }: FooterProps) => {
             {/* Left: Copyright */}
             <div className="text-center md:text-left">
               <p className="text-sm text-muted-foreground">
-                © {currentYear} Joseph. All rights reserved.
+                © {copyrightYear} Joseph. All rights reserved.
               </p>
             </div>
 
