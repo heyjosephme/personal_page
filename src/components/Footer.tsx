@@ -27,6 +27,7 @@ const Footer = ({ commitHash, buildDate }: FooterProps) => {
   const navLinks = [
     { name: "Blog", url: "/blog" },
     { name: "Projects", url: "/projects" },
+    { name: "Reading", url: "/reading" },
     { name: "Now", url: "/now" },
     { name: "Uses", url: "/uses" },
   ];

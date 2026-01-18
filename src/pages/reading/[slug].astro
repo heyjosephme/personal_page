@@ -1,0 +1,145 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { Badge } from "@/components/ui/badge";
+import { ArrowLeft, Star, Calendar, User, BookOpen } from "lucide-react";
+import type { GetStaticPaths } from "astro";
+
+// Enable prerendering for this dynamic route
+export const prerender = true;
+
+// Get all books and their paths
+export const getStaticPaths = (async () => {
+  const allBooksRaw = await getCollection("books");
+  // Filter out drafts in production, show all in dev
+  const allBooks = import.meta.env.DEV
+    ? allBooksRaw
+    : allBooksRaw.filter((book) => !book.data.draft);
+
+  return allBooks.map((book) => ({
+    params: { slug: book.slug },
+    props: { book },
+  }));
+}) satisfies GetStaticPaths;
+
+// Get the current book
+const { book } = Astro.props;
+const { Content } = await book.render();
+
+// Helper to render star rating
+function renderStars(rating: number | undefined) {
+  if (!rating) return null;
+  return "★".repeat(rating) + "☆".repeat(5 - rating);
+}
+
+// Helper to format date
+function formatDate(date: Date | undefined) {
+  if (!date) return null;
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+// Status badge colors
+const statusColors = {
+  reading: "bg-green-500/10 text-green-600 border-green-500/20",
+  completed: "bg-blue-500/10 text-blue-600 border-blue-500/20",
+  "want-to-read": "bg-yellow-500/10 text-yellow-600 border-yellow-500/20",
+};
+
+const statusLabels = {
+  reading: "Currently Reading",
+  completed: "Completed",
+  "want-to-read": "Want to Read",
+};
+---
+
+<Layout
+  title={`${book.data.title} - Reading`}
+  description={`${book.data.title} by ${book.data.author}`}
+>
+  <div class="px-4 py-24 mx-auto max-w-4xl">
+    <Breadcrumb
+      items={[
+        { label: "Reading", href: "/reading" },
+        { label: book.data.title },
+      ]}
+      className="mb-6"
+    />
+
+    <a
+      href="/reading"
+      class="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
+    >
+      <ArrowLeft className="w-4 h-4" />
+      Back to Reading List
+    </a>
+
+    <article class="mt-8">
+      {/* Book Header */}
+      <div class="flex flex-col md:flex-row gap-8 mb-12">
+        {book.data.coverImage && (
+          <div class="flex-shrink-0">
+            <img
+              src={book.data.coverImage}
+              alt={book.data.title}
+              class="w-48 h-auto object-cover rounded-lg shadow-xl"
+            />
+          </div>
+        )}
+
+        <div class="flex-1">
+          <div class="mb-4">
+            <span
+              class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${statusColors[book.data.status]}`}
+            >
+              <BookOpen className="w-3 h-3 mr-1.5" />
+              {statusLabels[book.data.status]}
+            </span>
+          </div>
+
+          <h1 class="text-3xl md:text-4xl font-bold mb-2">{book.data.title}</h1>
+
+          <p class="text-xl text-muted-foreground flex items-center gap-2 mb-4">
+            <User className="w-5 h-5" />
+            {book.data.author}
+          </p>
+
+          {book.data.rating && (
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-yellow-500 text-xl">
+                {renderStars(book.data.rating)}
+              </span>
+              <span class="text-muted-foreground">
+                ({book.data.rating}/5)
+              </span>
+            </div>
+          )}
+
+          {book.data.dateFinished && (
+            <p class="text-muted-foreground flex items-center gap-2 mb-4">
+              <Calendar className="w-4 h-4" />
+              Finished {formatDate(book.data.dateFinished)}
+            </p>
+          )}
+
+          {book.data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {book.data.tags.map((tag) => (
+                <Badge variant="secondary">{tag}</Badge>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Book Content (Notes/Review) */}
+      <div class="prose dark:prose-invert max-w-none">
+        <Content />
+      </div>
+    </article>
+  </div>
+</Layout>

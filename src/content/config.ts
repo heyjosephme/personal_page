@@ -22,7 +22,22 @@ const pagesCollection = defineCollection({
   }),
 });
 
+const booksCollection = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    author: z.string(),
+    status: z.enum(["reading", "completed", "want-to-read"]),
+    draft: z.boolean().optional().default(false),
+    rating: z.number().min(1).max(5).optional(),
+    dateFinished: z.date().optional(),
+    coverImage: z.string().optional(),
+    tags: z.array(z.string()).optional().default([]),
+  }),
+});
+
 export const collections = {
   blog: blogCollection,
   pages: pagesCollection,
+  books: booksCollection,
 };
