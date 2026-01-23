@@ -117,12 +117,9 @@ const description = project.description;
                 <CardTitle>Key Challenges</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul class="space-y-2 text-muted-foreground">
+                <ul class="list-disc list-outside ml-4 space-y-2 text-muted-foreground">
                   {project.challenges.map((challenge) => (
-                    <li class="flex items-start gap-2">
-                      <span class="text-primary mt-1">•</span>
-                      <span>{challenge}</span>
-                    </li>
+                    <li>{challenge}</li>
                   ))}
                 </ul>
               </CardContent>
@@ -138,12 +135,9 @@ const description = project.description;
                 <CardTitle>What I Learned</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul class="space-y-2 text-muted-foreground">
+                <ul class="list-disc list-outside ml-4 space-y-2 text-muted-foreground">
                   {project.learnings.map((learning) => (
-                    <li class="flex items-start gap-2">
-                      <span class="text-primary mt-1">•</span>
-                      <span>{learning}</span>
-                    </li>
+                    <li>{learning}</li>
                   ))}
                 </ul>
               </CardContent>
