@@ -2,8 +2,11 @@
 
 ## TODO
 - [ ] update favicon
-- [ ] link ConnectX & BumpLink
-- [ ] change footer copyright year
+- [ ] add comment system Giscus
+- [ ] ChangeLog
+
+## UI
+- [ ] bullet point(does not allign with text)
 
 ## ✅ Recently Completed (Dec 2024)
 

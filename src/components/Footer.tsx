@@ -30,6 +30,7 @@ const Footer = ({ commitHash, buildDate }: FooterProps) => {
     { name: "Reading", url: "/reading" },
     { name: "Now", url: "/now" },
     { name: "Uses", url: "/uses" },
+    { name: "Changelog", url: "/changelog" },
   ];
 
   // Social icon links
