@@ -1,14 +1,12 @@
-import fs from "fs/promises";
-import path from "path";
 import type { CollectionEntry } from "astro:content";
 
 export interface BlogFrontmatter {
   title: string;
   date?: Date;
   lastUpdated?: Date;
-  draft?: boolean;
-  categories?: string[];
-  tags?: string[];
+  draft: boolean;
+  categories: string[];
+  tags: string[];
   description?: string;
 }
 
@@ -18,37 +16,18 @@ export interface BlogTimestamps {
 }
 
 export interface EnhancedBlogPost extends CollectionEntry<"blog"> {
-  data: BlogFrontmatter;
   timestamps: BlogTimestamps;
   readingTime: number;
 }
 
-export async function getBlogTimestamps(
+export function getBlogTimestamps(
   post: CollectionEntry<"blog">
-): Promise<BlogTimestamps> {
-  const filePath = path.join(
-    process.cwd(),
-    "src/content/blog",
-    `${post.slug}.md`
-  );
-  try {
-    const stat = await fs.stat(filePath);
-    return {
-      createdAt: post.data.date
-        ? post.data.date.toISOString()
-        : stat.birthtime.toISOString(),
-      updatedAt: post.data.lastUpdated
-        ? post.data.lastUpdated.toISOString()
-        : stat.mtime.toISOString(),
-    };
-  } catch (error) {
-    console.error(`Error getting timestamps for ${post.slug}:`, error);
-    return {
-      createdAt: post.data.date?.toISOString() ?? new Date().toISOString(),
-      updatedAt:
-        post.data.lastUpdated?.toISOString() ?? new Date().toISOString(),
-    };
-  }
+): BlogTimestamps {
+  const now = new Date().toISOString();
+  return {
+    createdAt: post.data.date?.toISOString() ?? now,
+    updatedAt: post.data.lastUpdated?.toISOString() ?? post.data.date?.toISOString() ?? now,
+  };
 }
 
 /**
@@ -62,22 +41,19 @@ export function calculateReadingTime(content: string): number {
   return minutes;
 }
 
-export async function enhanceBlogPosts(
+export function enhanceBlogPosts(
   posts: CollectionEntry<"blog">[]
-): Promise<EnhancedBlogPost[]> {
-  return Promise.all(
-    posts.map(async (post) => {
-      const timestamps = await getBlogTimestamps(post);
-      const readingTime = calculateReadingTime(post.body);
+): EnhancedBlogPost[] {
+  return posts.map((post) => {
+    const timestamps = getBlogTimestamps(post);
+    const readingTime = calculateReadingTime(post.body ?? "");
 
-      // Don't spread - preserve the original object and its methods
-      const enhanced = post as EnhancedBlogPost;
-      enhanced.timestamps = timestamps;
-      enhanced.readingTime = readingTime;
+    const enhanced = post as EnhancedBlogPost;
+    enhanced.timestamps = timestamps;
+    enhanced.readingTime = readingTime;
 
-      return enhanced;
-    })
-  );
+    return enhanced;
+  });
 }
 
 export interface CategoryNode {

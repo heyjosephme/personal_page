@@ -16,7 +16,7 @@ const allPosts = await getCollection("blog");
 const posts = import.meta.env.DEV
   ? allPosts
   : allPosts.filter((post) => !post.data.draft);
-const enhancedPosts = await enhanceBlogPosts(posts);
+const enhancedPosts = enhanceBlogPosts(posts);
 const sortedPosts = enhancedPosts.sort((a, b) => {
   return (
     new Date(b.timestamps.createdAt).getTime() -

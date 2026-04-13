@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import StructuredData from "@/components/StructuredData.astro";
 import { enhanceBlogPosts } from "@/lib/blog-helpers";
@@ -21,17 +21,17 @@ export const getStaticPaths = (async () => {
     ? allPosts
     : allPosts.filter((post) => !post.data.draft);
 
-  const enhancedPosts = await enhanceBlogPosts(posts);
+  const enhancedPosts = enhanceBlogPosts(posts);
 
   return enhancedPosts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post, allPosts: enhancedPosts },
   }));
 }) satisfies GetStaticPaths;
 
 // Get the current post
 const { post, allPosts } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 
 // Sort by update time for sidebar
 const recentlyUpdated = [...allPosts].sort((a, b) => {
@@ -63,7 +63,7 @@ function formatDate(dateStr: string) {
       description: post.data.description,
       publishedAt: post.timestamps.createdAt,
       updatedAt: post.timestamps.updatedAt,
-      url: `https://heyjoseph.me/blog/${post.slug}`,
+      url: `https://heyjoseph.me/blog/${post.id}`,
       categories: post.data.categories,
     }}
   />
@@ -135,7 +135,7 @@ function formatDate(dateStr: string) {
           */}
           {/* <RecentlyUpdated
             posts={recentlyUpdated}
-            currentSlug={post.slug}
+            currentSlug={post.id}
             maxPosts={5}
             client:visible
           />

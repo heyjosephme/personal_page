@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { Badge } from "@/components/ui/badge";
@@ -18,14 +18,14 @@ export const getStaticPaths = (async () => {
     : allBooksRaw.filter((book) => !book.data.draft);
 
   return allBooks.map((book) => ({
-    params: { slug: book.slug },
+    params: { slug: book.id },
     props: { book },
   }));
 }) satisfies GetStaticPaths;
 
 // Get the current book
 const { book } = Astro.props;
-const { Content } = await book.render();
+const { Content } = await render(book);
 
 // Helper to render star rating
 function renderStars(rating: number | undefined) {

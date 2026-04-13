@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { getEntry } from "astro:content";
+import { getEntry, render } from "astro:content";
 
 // Get the now page content
 const nowPage = await getEntry("pages", "now");
@@ -9,7 +9,7 @@ if (!nowPage) {
   throw new Error("Now page not found");
 }
 
-const { Content } = await nowPage.render();
+const { Content } = await render(nowPage);
 const { title, description, lastUpdated } = nowPage.data;
 
 // Format date helper

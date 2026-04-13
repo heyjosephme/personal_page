@@ -16,7 +16,7 @@ export function RecentlyUpdated({
 }: RecentlyUpdatedProps) {
   // Filter out current post if we're on a blog post page
   const filteredPosts = currentSlug
-    ? posts.filter((post) => post.slug !== currentSlug)
+    ? posts.filter((post) => post.id !== currentSlug)
     : posts;
 
   // Take only the specified number of most recently updated posts
@@ -40,7 +40,7 @@ export function RecentlyUpdated({
           <div className="space-y-3">
             {recentPosts.map((post, index) => (
               <TimelineItem
-                key={post.slug}
+                key={post.id}
                 post={post}
                 isLast={index === recentPosts.length - 1}
               />
@@ -139,7 +139,7 @@ function TimelineItem({
       <div className="flex flex-col">
         <div ref={containerRef} className="relative overflow-hidden">
           <a
-            href={`/blog/${post.slug}`}
+            href={`/blog/${post.id}`}
             className="font-medium inline-block w-full"
             title={post.data.title}
           >

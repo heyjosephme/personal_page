@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { getEntry } from "astro:content";
+import { getEntry, render } from "astro:content";
 
 export const prerender = true;
 
@@ -11,7 +11,7 @@ if (!changelogPage) {
   throw new Error("Changelog page not found");
 }
 
-const { Content } = await changelogPage.render();
+const { Content } = await render(changelogPage);
 const { title, description } = changelogPage.data;
 ---
 

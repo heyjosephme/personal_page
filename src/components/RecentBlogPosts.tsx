@@ -37,7 +37,7 @@ export function RecentBlogPosts({ posts, maxPosts = 5 }: RecentBlogPostsProps) {
         {/* Blog Posts Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {recentPosts.map((post) => (
-            <BlogCard key={post.slug} post={post} />
+            <BlogCard key={post.id} post={post} />
           ))}
         </div>
 

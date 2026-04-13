@@ -15,7 +15,7 @@ const posts = import.meta.env.DEV
     );
 
 // Enhance posts with timestamps
-const enhancedPosts = await enhanceBlogPosts(posts);
+const enhancedPosts = enhanceBlogPosts(posts);
 
 // Sort by creation time for main list
 const sortedPosts = [...enhancedPosts].sort((a, b) => {

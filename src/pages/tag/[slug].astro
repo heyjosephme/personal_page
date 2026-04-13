@@ -44,7 +44,7 @@ const posts = import.meta.env.DEV
   : allPosts.filter((post) => !post.data.draft);
 
 // Enhance posts with timestamps
-const enhancedPosts = await enhanceBlogPosts(posts);
+const enhancedPosts = enhanceBlogPosts(posts);
 
 // Filter posts by tag (case insensitive)
 const tagPosts = enhancedPosts.filter(

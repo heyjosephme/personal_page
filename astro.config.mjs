@@ -7,22 +7,13 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   output: "server",
   adapter: cloudflare({
-    platformProxy: {
-      enabled: true,
-    },
+    prerenderEnvironment: "node",
   }),
 
   integrations: [react(), sitemap()],
 
   vite: {
     plugins: [tailwindcss()],
-    resolve: {
-      // Use react-dom/server.edge instead of react-dom/server.browser for React 19.
-      // Without this, MessageChannel from node:worker_threads needs to be polyfilled.
-      alias: import.meta.env.PROD && {
-        "react-dom/server": "react-dom/server.edge",
-      },
-    },
   },
 
   site: "https://heyjoseph.me", // Replace with your actual domain

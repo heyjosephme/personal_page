@@ -33,7 +33,7 @@ export function BlogCard({ post, class: className }: BlogCardProps) {
       )}
     >
       <a
-        href={`/blog/${post.slug}`}
+        href={`/blog/${post.id}`}
         className="absolute inset-0 z-10"
         aria-label={`Read ${post.data.title}`}
       />

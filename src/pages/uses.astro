@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { getEntry } from "astro:content";
+import { getEntry, render } from "astro:content";
 
 // Get the uses page content
 const usesPage = await getEntry("pages", "uses");
@@ -9,7 +9,7 @@ if (!usesPage) {
   throw new Error("Uses page not found");
 }
 
-const { Content } = await usesPage.render();
+const { Content } = await render(usesPage);
 const { title, description, lastUpdated } = usesPage.data;
 
 // Format date helper

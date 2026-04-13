@@ -11,7 +11,7 @@ export async function GET(context: APIContext) {
     ? allPosts
     : allPosts.filter((post) => !post.data.draft);
 
-  const enhancedPosts = await enhanceBlogPosts(posts);
+  const enhancedPosts = enhanceBlogPosts(posts);
 
   // Sort by date (newest first)
   const sortedPosts = enhancedPosts.sort((a, b) => {
@@ -30,7 +30,7 @@ export async function GET(context: APIContext) {
       title: post.data.title,
       description: post.data.description || "",
       pubDate: new Date(post.timestamps.createdAt),
-      link: `/blog/${post.slug}/`,
+      link: `/blog/${post.id}/`,
       categories: post.data.categories,
     })),
     customData: `<language>en-us</language>`,
