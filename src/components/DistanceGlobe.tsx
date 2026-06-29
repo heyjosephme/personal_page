@@ -45,7 +45,7 @@ export function DistanceGlobe() {
   const [distance, setDistance] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [GlobeComponent, setGlobeComponent] = useState<any>(null);
-  const globeEl = useRef<any>();
+  const globeEl = useRef<any>(null);
 
   // Dynamically import Globe component only on client
   useEffect(() => {

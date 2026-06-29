@@ -38,8 +38,6 @@ export function TableOfContents({ contentSelector = '.prose' }: TableOfContentsP
       activeListItemClass: 'is-active-li',
       // List item class
       listItemClass: 'toc-list-item',
-      // Disable click if you don't want links
-      onClick: false,
     });
 
     // Cleanup on unmount

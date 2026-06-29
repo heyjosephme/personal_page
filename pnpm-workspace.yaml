@@ -1,0 +1,8 @@
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true
+minimumReleaseAgeExclude:
+  - yaml@2.8.3
+  - esbuild@0.28.1
+  - '@cloudflare/workers-types@4.20260629.1'

@@ -1,6 +1,6 @@
 ---
 title: "Uses"
-lastUpdated: 2025-11-22T00:00:00Z
+lastUpdated: 2026-04-04T00:00:00Z
 description: "Tools, software, and hardware I use for development"
 ---
 
@@ -10,15 +10,13 @@ A living document of the tools, software, and hardware that power my daily work.
 
 ## 💻 Editor & Terminal
 
-**Cursor** (Primary)
-- AI-powered fork of VS Code
-- Theme: Dark High Contrast
-- Font: Fira Code with ligatures
-- Key Extension: Claude Code (connects IDE with Claude Code for AI-assisted development)
+**Claude Code** (Primary)
+- AI-powered CLI for code generation and refactoring
+- Paired with LazyVim for reviewing and refining generated code
 
-**Neovim** (Secondary)
-- For quick edits and remote work
+**Neovim + LazyVim** (Code Review & Editing)
 - LazyVim for sensible defaults and plugin management
+- Used for reviewing AI-generated code, quick edits, and remote work
 
 **Terminal**
 - Ghostty (modern GPU-accelerated terminal)
@@ -38,7 +36,7 @@ A living document of the tools, software, and hardware that power my daily work.
 **Containers & Deployment**
 - Docker + Colima (lightweight Docker runtime)
 - Kamal for Rails deployment (Rails ecosystem)
-- Cloudflare Pages for static sites
+- Cloudflare Workers for this site
 
 **Database**
 - SQLite3 for most projects
@@ -74,14 +72,14 @@ No fancy peripherals, no elaborate desk setup. Simple and portable.
 ## 🌐 This Site
 
 **Tech Stack**
-- **Framework**: Astro 5 (SSR on Cloudflare Pages)
+- **Framework**: Astro 6 (SSR on Cloudflare Workers)
 - **UI**: React 19 + TailwindCSS 4
 - **Components**: shadcn/ui
 - **Styling**: Tailwind with custom design system
-- **Icons**: Lucide React
+- **Icons**: Lucide React + Remix Icons
 - **Animations**: Framer Motion
 - **Linting**: Biome
-- **Deployment**: Cloudflare Pages
+- **Deployment**: Cloudflare Workers with static assets
 
 **Content**
 - Markdown with frontmatter

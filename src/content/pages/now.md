@@ -1,6 +1,6 @@
 ---
 title: "What I'm up to now"
-lastUpdated: 2026-01-15T00:00:00Z
+lastUpdated: 2026-04-04T00:00:00Z
 description: "What Joseph is currently working on and focused on"
 ---
 
@@ -12,9 +12,7 @@ Based in **Tokyo, Japan**, working remotely and exploring the local dev communit
 
 ## 💻 Currently Building
 
-**Bumplink** - A bilateral contact exchange app for iOS and Android. When you meet someone in person, scan QR codes, preview each other's info, approve the exchange, and take a selfie together. Built with React Native (Expo) + Rails 8 API with real-time WebSocket coordination. Currently in active development before App Store/Play Store release.
-
-**ThreeWeigh** - A Rails 8 weight tracker and intermittent fasting app built with Hotwire. Real-time features with WebSockets, interactive charts, and comprehensive fasting management. Now live at threeweigh.heyjoseph.me!
+**Koe** - An AI voice mobile app. Building with React Native (Expo) + Rails API.
 
 **Keio Tsushin** - A deadline and credit management system for Keio University distance learning students. Built with Rails 8 and Phlex (Ruby-based view components). Live at keiotsushin.heyjoseph.me!
 
@@ -33,11 +31,10 @@ Based in **Tokyo, Japan**, working remotely and exploring the local dev communit
 
 ## 🎯 Current Focus
 
-Looking for opportunities in full-stack developement at startups while building side projects. Documenting my journey through blog posts about:
+Building side-projects for personal use and MVPs with partners. Documenting my journey through blog posts about:
 
-- Job switching in Japan's tech market
-- Building indie hacker projects
 - Lessons from the Tokyo dev scene
+- Full-stack development with Rails and React
 
 ---
 

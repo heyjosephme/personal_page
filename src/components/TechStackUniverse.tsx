@@ -15,10 +15,10 @@ import {
   SiDebian,
   SiJavascript,
   SiDocker,
-  SiAmazonwebservices,
   SiGooglecloud,
   SiCloudflare,
 } from "react-icons/si";
+import { FaAws } from "react-icons/fa";
 
 const technologies = [
   { Icon: SiRuby, name: "Ruby", color: "#CC342D" },
@@ -35,7 +35,7 @@ const technologies = [
   { Icon: SiExpo, name: "Expo", color: "#000000" },
   { Icon: SiDocker, name: "Docker", color: "#2496ED" },
   { Icon: SiDebian, name: "Debian", color: "#A41633" },
-  { Icon: SiAmazonwebservices, name: "AWS", color: "#232F3E" },
+  { Icon: FaAws, name: "AWS", color: "#232F3E" },
   { Icon: SiGooglecloud, name: "Google Cloud", color: "#1A73E8" },
   { Icon: SiMongodb, name: "MongoDB", color: "#4DB33D" },
   { Icon: SiCloudflare, name: "Cloudflare", color: "#F38020" },

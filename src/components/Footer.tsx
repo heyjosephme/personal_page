@@ -66,7 +66,7 @@ const Footer = ({ commitHash, buildDate }: FooterProps) => {
     { name: "Astro", url: "https://astro.build" },
     { name: "React", url: "https://react.dev" },
     { name: "Tailwind CSS", url: "https://tailwindcss.com" },
-    { name: "Cloudflare Pages", url: "https://pages.cloudflare.com" },
+    { name: "Cloudflare Workers", url: "https://workers.cloudflare.com" },
   ];
 
   // Reusable external link component
