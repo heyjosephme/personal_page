@@ -49,8 +49,6 @@ export default defineConfig({
         "@radix-ui/react-switch",
         "lucide-react",
         "@remixicon/react",
-        "react-icons/fa",
-        "react-icons/si",
         "framer-motion",
         "react-globe.gl",
         "tocbot",

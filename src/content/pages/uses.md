@@ -1,6 +1,6 @@
 ---
 title: "Uses"
-lastUpdated: 2026-04-04T00:00:00Z
+lastUpdated: 2026-07-01T00:00:00Z
 description: "Tools, software, and hardware I use for development"
 ---
 
@@ -72,7 +72,7 @@ No fancy peripherals, no elaborate desk setup. Simple and portable.
 ## 🌐 This Site
 
 **Tech Stack**
-- **Framework**: Astro 6 (SSR on Cloudflare Workers)
+- **Framework**: Astro 7 (SSR on Cloudflare Workers)
 - **UI**: React 19 + TailwindCSS 4
 - **Components**: shadcn/ui
 - **Styling**: Tailwind with custom design system

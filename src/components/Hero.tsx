@@ -44,7 +44,7 @@ const Hero = ({ showAnimation = true }: HeroProps) => {
           className="w-full md:w-auto"
           asChild
         >
-          <a href="/blog">Read Blog</a>
+          <a href="/reading">What I'm Reading</a>
         </Button>
       </div>
     </div>
