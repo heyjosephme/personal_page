@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { RecentlyUpdated } from "@/components/RecentlyUpdated";
 import { TrendingTags } from "@/components/TrendingTags";
 import { TableOfContents } from "@/components/TableOfContents";
+import Comments from "@/components/Comments.astro";
 import type { GetStaticPaths } from "astro";
 
 // Enable prerendering for this dynamic route
@@ -143,6 +144,8 @@ function formatDate(dateStr: string) {
         </div>
       </div>
     </div>
+
+    <Comments />
   </div>
 </Layout>
 
