@@ -10,6 +10,7 @@ import { RecentlyUpdated } from "@/components/RecentlyUpdated";
 import { TrendingTags } from "@/components/TrendingTags";
 import { TableOfContents } from "@/components/TableOfContents";
 import Comments from "@/components/Comments.astro";
+import ViewCounter from "@/components/ViewCounter.astro";
 import type { GetStaticPaths } from "astro";
 
 // Enable prerendering for this dynamic route
@@ -87,6 +88,8 @@ function formatDate(dateStr: string) {
               <Clock className="w-4 h-4" />
               <span>{post.readingTime} min read</span>
             </div>
+
+            <ViewCounter slug={`/blog/${post.id}`} increment />
 
             {
               post.data.categories && post.data.categories.length > 0 && (

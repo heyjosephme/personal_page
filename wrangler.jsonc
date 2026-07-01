@@ -15,6 +15,11 @@
 		"binding": "ASSETS",
 		"not_found_handling": "404-page"
 	},
+	// Blog view-counter storage (Cloudflare KV namespace "VIEWS").
+	// Local `astro dev` uses a simulated KV; production uses this namespace.
+	"kv_namespaces": [
+		{ "binding": "VIEWS", "id": "acc64c989a9144b6908fdeb185e828cb" }
+	],
 	"observability": {
 		"enabled": true
 	}
