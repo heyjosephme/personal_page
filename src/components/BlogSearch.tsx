@@ -79,8 +79,19 @@ export function BlogSearch({ posts }: BlogSearchProps) {
 
       {/* Empty State */}
       {filteredPosts.length === 0 && !searchQuery.trim() && (
-        <div className="text-center py-12">
-          <p className="text-lg text-muted-foreground">No posts found.</p>
+        <div className="text-center py-16">
+          <p className="text-lg font-medium">No posts published yet.</p>
+          <p className="text-muted-foreground mt-2">
+            The first ones are in the works. In the meantime, see{" "}
+            <a href="/reading" className="text-primary hover:underline">
+              what I'm reading
+            </a>{" "}
+            or{" "}
+            <a href="/projects" className="text-primary hover:underline">
+              my projects
+            </a>
+            .
+          </p>
         </div>
       )}
     </div>
