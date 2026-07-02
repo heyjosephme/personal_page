@@ -1,5 +1,6 @@
+import { useEffect, useState } from "react";
 import type { EnhancedBlogPost } from "@/lib/blog-helpers";
-import { CalendarIcon, Tags, Clock } from "lucide-react";
+import { CalendarIcon, Tags, Clock, Eye } from "lucide-react";
 import { RiFolderOpenLine } from "@remixicon/react";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -16,6 +17,21 @@ interface BlogCardProps {
 }
 
 export function BlogCard({ post, class: className }: BlogCardProps) {
+  // Read-only view count (no increment — that only happens on the post page).
+  const [views, setViews] = useState<number | null>(null);
+  useEffect(() => {
+    let active = true;
+    fetch(`/api/views?slug=/blog/${post.id}`)
+      .then((r) => r.json() as Promise<{ views?: number | null }>)
+      .then((d) => {
+        if (active && typeof d.views === "number") setViews(d.views);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, [post.id]);
+
   const formatDate = (dateStr: string): string => {
     const date = new Date(dateStr);
     const day = date.getDate();
@@ -56,6 +72,15 @@ export function BlogCard({ post, class: className }: BlogCardProps) {
             <Clock className="w-4 h-4" />
             <span>{post.readingTime} min read</span>
           </div>
+
+          {views !== null && (
+            <div className="flex items-center gap-1">
+              <Eye className="w-4 h-4" />
+              <span className="tabular-nums">
+                {new Intl.NumberFormat().format(views)}
+              </span>
+            </div>
+          )}
 
           {post.data.categories && post.data.categories.length > 0 && (
             <div className="flex items-center gap-2">
