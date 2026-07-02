@@ -1,6 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Projects } from "../components/Projects";
+import { features } from "@/config/features";
+
+if (!features.projects) return Astro.redirect("/");
 
 const title = "Projects - Joseph Ju";
 const description =

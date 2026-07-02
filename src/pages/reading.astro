@@ -5,6 +5,9 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 import StructuredData from "@/components/StructuredData.astro";
 import { Badge } from "@/components/ui/badge";
 import { Book, Star } from "lucide-react";
+import { features } from "@/config/features";
+
+if (!features.reading) return Astro.redirect("/");
 
 const allBooksRaw = await getCollection("books");
 // Filter out drafts in production, show all in dev

@@ -2,7 +2,7 @@
 title: "Welcome to My Site"
 date: 2026-07-02T00:00:00Z
 lastUpdated: 2026-07-02T00:00:00Z
-draft: false
+draft: true
 categories: ["Meta"]
 tags: ["Astro", "Writing", "IndieHacking"]
 description: "A quick hello and a short tour of my corner of the web — who I am, what I'm building, and what I'll be writing about here."

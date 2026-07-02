@@ -6,6 +6,7 @@ import {
   RiRssLine,
 } from "@remixicon/react";
 import { Linkedin } from "lucide-react";
+import { features, type Feature } from "@/config/features";
 
 interface FooterProps {
   commitHash?: string;
@@ -24,14 +25,16 @@ const Footer = ({ commitHash, buildDate }: FooterProps) => {
     START_YEAR === currentYear ? `${START_YEAR}` : `${START_YEAR}-${currentYear}`;
 
   // Navigation links
-  const navLinks = [
-    { name: "Blog", url: "/blog" },
-    { name: "Projects", url: "/projects" },
-    { name: "Reading", url: "/reading" },
-    { name: "Now", url: "/now" },
-    { name: "Uses", url: "/uses" },
-    { name: "Changelog", url: "/changelog" },
-  ];
+  const navLinks = (
+    [
+      { name: "Blog", url: "/blog" },
+      { name: "Projects", url: "/projects", feature: "projects" },
+      { name: "Reading", url: "/reading", feature: "reading" },
+      { name: "Now", url: "/now" },
+      { name: "Uses", url: "/uses" },
+      { name: "Changelog", url: "/changelog" },
+    ] as { name: string; url: string; feature?: Feature }[]
+  ).filter((link) => link.feature === undefined || features[link.feature]);
 
   // Social icon links
   const socialLinks = [

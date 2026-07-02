@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
+import { features } from "./src/config/features";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
@@ -14,7 +15,15 @@ export default defineConfig({
     imageService: "compile",
   }),
 
-  integrations: [react(), sitemap()],
+  integrations: [
+    react(),
+    sitemap({
+      // Drop disabled sections from the sitemap (see src/config/features.ts)
+      filter: (page) =>
+        (features.projects || !page.includes("/projects")) &&
+        (features.reading || !page.includes("/reading")),
+    }),
+  ],
 
   vite: {
     plugins: [tailwindcss()],

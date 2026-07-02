@@ -1,11 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { MapPin } from "lucide-react";
+import { features } from "@/config/features";
 
 interface HeroProps {
   showAnimation?: boolean;
 }
 
 const Hero = ({ showAnimation = true }: HeroProps) => {
+  // CTAs adapt to which sections are enabled (src/config/features.ts)
+  const ctas = (
+    [
+      features.projects && { href: "/projects", label: "View Projects" },
+      features.reading && { href: "/reading", label: "What I'm Reading" },
+      { href: "/blog", label: "Read the Blog" },
+      { href: "/about", label: "About Me" },
+    ].filter(Boolean) as { href: string; label: string }[]
+  ).slice(0, 2);
+
   return (
     <div className={showAnimation ? "animate-fade-in-up" : ""}>
       {/* Main Heading */}
@@ -35,17 +46,21 @@ const Hero = ({ showAnimation = true }: HeroProps) => {
 
       {/* CTA Buttons */}
       <div className="flex flex-col items-center justify-center gap-4 mx-auto md:flex-row">
-        <Button size="lg" className="w-full md:w-auto" asChild>
-          <a href="/projects">View Projects</a>
-        </Button>
-        <Button
-          variant="outline"
-          size="lg"
-          className="w-full md:w-auto"
-          asChild
-        >
-          <a href="/reading">What I'm Reading</a>
-        </Button>
+        {ctas[0] && (
+          <Button size="lg" className="w-full md:w-auto" asChild>
+            <a href={ctas[0].href}>{ctas[0].label}</a>
+          </Button>
+        )}
+        {ctas[1] && (
+          <Button
+            variant="outline"
+            size="lg"
+            className="w-full md:w-auto"
+            asChild
+          >
+            <a href={ctas[1].href}>{ctas[1].label}</a>
+          </Button>
+        )}
       </div>
     </div>
   );

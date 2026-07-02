@@ -6,12 +6,14 @@ import StructuredData from "@/components/StructuredData.astro";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Star, Calendar, User, BookOpen } from "lucide-react";
 import type { GetStaticPaths } from "astro";
+import { features } from "@/config/features";
 
 // Enable prerendering for this dynamic route
 export const prerender = true;
 
 // Get all books and their paths
 export const getStaticPaths = (async () => {
+  if (!features.reading) return [];
   const allBooksRaw = await getCollection("books");
   // Filter out drafts in production, show all in dev
   const allBooks = import.meta.env.DEV

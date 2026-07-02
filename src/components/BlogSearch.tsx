@@ -82,13 +82,13 @@ export function BlogSearch({ posts }: BlogSearchProps) {
         <div className="text-center py-16">
           <p className="text-lg font-medium">No posts published yet.</p>
           <p className="text-muted-foreground mt-2">
-            The first ones are in the works. In the meantime, see{" "}
-            <a href="/reading" className="text-primary hover:underline">
-              what I'm reading
+            The first ones are in the works. In the meantime, read{" "}
+            <a href="/about" className="text-primary hover:underline">
+              about me
             </a>{" "}
             or{" "}
-            <a href="/projects" className="text-primary hover:underline">
-              my projects
+            <a href="/now" className="text-primary hover:underline">
+              what I'm up to now
             </a>
             .
           </p>

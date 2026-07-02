@@ -2,19 +2,22 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { ButtonThemeSwitcher } from "@/components/ThemeSwitcher";
+import { features, type Feature } from "@/config/features";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const navItems = [
-    { name: "Home", path: "/" },
-    { name: "Blog", path: "/blog" },
-    { name: "Projects", path: "/projects" },
-    { name: "Reading", path: "/reading" },
-    { name: "Now", path: "/now" },
-    { name: "Uses", path: "/uses" },
-    { name: "About", path: "/about" },
-  ];
+  const navItems = (
+    [
+      { name: "Home", path: "/" },
+      { name: "Blog", path: "/blog" },
+      { name: "Projects", path: "/projects", feature: "projects" },
+      { name: "Reading", path: "/reading", feature: "reading" },
+      { name: "Now", path: "/now" },
+      { name: "Uses", path: "/uses" },
+      { name: "About", path: "/about" },
+    ] as { name: string; path: string; feature?: Feature }[]
+  ).filter((item) => item.feature === undefined || features[item.feature]);
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
