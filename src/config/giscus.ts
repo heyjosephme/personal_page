@@ -10,7 +10,7 @@
 // Until repoId and categoryId are filled in, the comments section is
 // hidden in production (and shows a small reminder in dev).
 export const giscusConfig = {
-  repo: "heyjosephme/your-site-repo", // e.g. "heyjosephme/personal-site"
+  repo: "heyjosephme/personal_page",
   repoId: "", // data-repo-id from giscus.app
   category: "Comments", // Discussion category name
   categoryId: "", // data-category-id from giscus.app
