@@ -11,9 +11,9 @@
 // hidden in production (and shows a small reminder in dev).
 export const giscusConfig = {
   repo: "heyjosephme/personal_page",
-  repoId: "", // data-repo-id from giscus.app
-  category: "Comments", // Discussion category name
-  categoryId: "", // data-category-id from giscus.app
+  repoId: "R_kgDON5cClQ", // heyjosephme/personal_page (fetched via GitHub API)
+  category: "Announcements", // giscus opens threads in this category (announcement-type = no spam)
+  categoryId: "DIC_kwDON5cClc4DAVAR", // "Announcements" category (fetched via GitHub API)
 } as const;
 
 export const giscusEnabled =

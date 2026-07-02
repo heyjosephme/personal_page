@@ -1,6 +1,6 @@
 ---
 title: "What I'm up to now"
-lastUpdated: 2026-04-04T00:00:00Z
+lastUpdated: 2026-07-02T00:00:00Z
 description: "What Joseph is currently working on and focused on"
 ---
 
