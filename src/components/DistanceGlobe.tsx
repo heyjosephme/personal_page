@@ -45,6 +45,7 @@ export function DistanceGlobe() {
   const [distance, setDistance] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [GlobeComponent, setGlobeComponent] = useState<any>(null);
+  const [isDark, setIsDark] = useState(true);
   const globeEl = useRef<any>(null);
 
   // Dynamically import Globe component only on client
@@ -52,6 +53,15 @@ export function DistanceGlobe() {
     import('react-globe.gl').then((mod) => {
       setGlobeComponent(() => mod.default);
     });
+  }, []);
+
+  // Follow the site's light/dark theme (ThemeSwitcher dispatches "themechange")
+  useEffect(() => {
+    const syncTheme = () =>
+      setIsDark(document.documentElement.classList.contains('dark'));
+    syncTheme();
+    window.addEventListener('themechange', syncTheme);
+    return () => window.removeEventListener('themechange', syncTheme);
   }, []);
 
   useEffect(() => {
@@ -126,6 +136,14 @@ export function DistanceGlobe() {
     color: ['red', 'blue'],
   }] : [];
 
+  // Earth texture + background follow the theme
+  const globeImageUrl = isDark
+    ? '//unpkg.com/three-globe/example/img/earth-night.jpg'
+    : '//unpkg.com/three-globe/example/img/earth-day.jpg';
+  const backgroundImageUrl = isDark
+    ? '//unpkg.com/three-globe/example/img/night-sky.png'
+    : undefined;
+
   // Show loading state until Globe component is loaded
   if (!GlobeComponent) {
     return (
@@ -142,8 +160,9 @@ export function DistanceGlobe() {
       <div className="relative w-full max-w-sm aspect-square">
         <GlobeComponent
           ref={globeEl}
-          globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-          backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
+          globeImageUrl={globeImageUrl}
+          backgroundImageUrl={backgroundImageUrl}
+          backgroundColor="rgba(0,0,0,0)"
           pointsData={pointsData}
           pointAltitude={0.01}
           pointColor="color"
