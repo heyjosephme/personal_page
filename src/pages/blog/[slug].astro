@@ -57,7 +57,7 @@ function formatDate(dateStr: string) {
 <Layout
   title={`${post.data.title} - Joseph Ju`}
   description={post.data.description}
-  image={post.data.ogImage}
+  image={post.data.ogImage ?? `/og/blog/${post.id}.png`}
 >
   <StructuredData
     type="blogPost"
