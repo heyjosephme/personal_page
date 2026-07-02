@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import StructuredData from "@/components/StructuredData.astro";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Star, Calendar, User, BookOpen } from "lucide-react";
 import type { GetStaticPaths } from "astro";
@@ -60,6 +61,7 @@ const statusLabels = {
 <Layout
   title={`${book.data.title} - Reading`}
   description={`${book.data.title} by ${book.data.author}`}
+  image={book.data.coverImage}
 >
   <div class="px-4 py-24 mx-auto max-w-4xl">
     <Breadcrumb
@@ -68,6 +70,15 @@ const statusLabels = {
         { label: book.data.title },
       ]}
       className="mb-6"
+    />
+    <StructuredData
+      type="breadcrumb"
+      data={{
+        items: [
+          { label: "Reading", href: "/reading" },
+          { label: book.data.title },
+        ],
+      }}
     />
 
     <a
@@ -85,7 +96,7 @@ const statusLabels = {
           <div class="flex-shrink-0">
             <img
               src={book.data.coverImage}
-              alt={book.data.title}
+              alt={`Cover of ${book.data.title}`}
               class="w-48 h-auto object-cover rounded-lg shadow-xl"
             />
           </div>

@@ -1,6 +1,6 @@
 ---
 interface Props {
-  type: "person" | "blogPost";
+  type: "person" | "blogPost" | "website" | "breadcrumb";
   data?: any;
 }
 
@@ -63,6 +63,40 @@ if (type === "person") {
     },
     image: data.image || "https://heyjoseph.me/og-image.png",
     keywords: data.categories?.join(", "),
+  };
+} else if (type === "website") {
+  // WebSite schema for the homepage (site-wide identity)
+  structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Joseph Ju",
+    url: "https://heyjoseph.me",
+    description:
+      "Full-stack developer in Tokyo — Rails 8 + Hotwire, TypeScript, and React.",
+    inLanguage: "en",
+    author: {
+      "@type": "Person",
+      name: "Joseph Ju",
+      url: "https://heyjoseph.me",
+    },
+  };
+} else if (type === "breadcrumb" && data?.items) {
+  // BreadcrumbList schema (Home is prepended automatically)
+  const site = "https://heyjoseph.me";
+  structuredData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+      ...data.items.map(
+        (item: { label: string; href?: string }, i: number) => ({
+          "@type": "ListItem",
+          position: i + 2,
+          name: item.label,
+          ...(item.href ? { item: new URL(item.href, site).toString() } : {}),
+        })
+      ),
+    ],
   };
 }
 ---

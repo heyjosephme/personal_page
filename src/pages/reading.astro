@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import StructuredData from "@/components/StructuredData.astro";
 import { Badge } from "@/components/ui/badge";
 import { Book, Star } from "lucide-react";
 
@@ -45,6 +46,7 @@ function formatDate(date: Date | undefined) {
 >
   <div class="px-4 py-24 mx-auto max-w-5xl">
     <Breadcrumb items={[{ label: "Reading" }]} className="mb-6" />
+    <StructuredData type="breadcrumb" data={{ items: [{ label: "Reading" }] }} />
 
     <div class="mb-12">
       <h1 class="text-4xl font-bold mb-4 flex items-center gap-3">
@@ -72,7 +74,7 @@ function formatDate(date: Date | undefined) {
               {book.data.coverImage && (
                 <img
                   src={book.data.coverImage}
-                  alt={book.data.title}
+                  alt={`Cover of ${book.data.title}`}
                   class="w-20 h-28 object-cover rounded-md shadow-md group-hover:shadow-lg transition-shadow"
                 />
               )}
@@ -112,7 +114,7 @@ function formatDate(date: Date | undefined) {
               {book.data.coverImage && (
                 <img
                   src={book.data.coverImage}
-                  alt={book.data.title}
+                  alt={`Cover of ${book.data.title}`}
                   class="w-full h-48 object-cover rounded-md shadow-md group-hover:shadow-lg transition-shadow mb-4"
                 />
               )}
@@ -155,7 +157,7 @@ function formatDate(date: Date | undefined) {
               {book.data.coverImage && (
                 <img
                   src={book.data.coverImage}
-                  alt={book.data.title}
+                  alt={`Cover of ${book.data.title}`}
                   class="w-12 h-16 object-cover rounded shadow"
                 />
               )}
