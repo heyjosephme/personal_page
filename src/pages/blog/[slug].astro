@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import { canonicalPageURL } from "@/lib/seo";
 import Layout from "@/layouts/Layout.astro";
 import StructuredData from "@/components/StructuredData.astro";
 import { enhanceBlogPosts } from "@/lib/blog-helpers";
@@ -43,6 +44,9 @@ const recentlyUpdated = [...allPosts].sort((a, b) => {
   );
 });
 
+const postURL = canonicalPageURL(`/blog/${post.id}`, Astro.site);
+const postImage = new URL(post.data.ogImage ?? `/og/blog/${post.id}.png`, Astro.site).href;
+
 // Format date helper
 function formatDate(dateStr: string) {
   const date = new Date(dateStr);
@@ -57,7 +61,11 @@ function formatDate(dateStr: string) {
 <Layout
   title={`${post.data.title} - Joseph Ju`}
   description={post.data.description}
-  image={post.data.ogImage ?? `/og/blog/${post.id}.png`}
+  image={postImage}
+  canonicalURL={postURL}
+  ogType="article"
+  publishedTime={post.timestamps.createdAt}
+  modifiedTime={post.timestamps.updatedAt}
 >
   <StructuredData
     type="blogPost"
@@ -66,7 +74,8 @@ function formatDate(dateStr: string) {
       description: post.data.description,
       publishedAt: post.timestamps.createdAt,
       updatedAt: post.timestamps.updatedAt,
-      url: `https://heyjoseph.me/blog/${post.id}`,
+      url: postURL,
+      image: postImage,
       categories: post.data.categories,
     }}
   />
@@ -82,7 +91,7 @@ function formatDate(dateStr: string) {
           >
             <div class="flex items-center gap-1">
               <CalendarIcon className="w-4 h-4" />
-              <time>{formatDate(post.timestamps.createdAt)}</time>
+              <time datetime={post.timestamps.createdAt}>{formatDate(post.timestamps.createdAt)}</time>
             </div>
 
             <div class="flex items-center gap-1">

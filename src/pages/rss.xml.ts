@@ -24,7 +24,7 @@ export async function GET(context: APIContext) {
   return rss({
     title: "Joseph's Blog",
     description:
-      "Thoughts, tutorials, and insights about web development from a full-stack developer in Tokyo",
+      "Thoughts, tutorials, and insights about web development from a freelance forward deployed engineer and full-stack developer in Tokyo",
     site: context.site || "https://heyjoseph.me",
     items: sortedPosts.map((post) => ({
       title: post.data.title,

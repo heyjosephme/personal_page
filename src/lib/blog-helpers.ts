@@ -2,7 +2,7 @@ import type { CollectionEntry } from "astro:content";
 
 export interface BlogFrontmatter {
   title: string;
-  date?: Date;
+  date: Date;
   lastUpdated?: Date;
   draft: boolean;
   categories: string[];
@@ -23,10 +23,9 @@ export interface EnhancedBlogPost extends CollectionEntry<"blog"> {
 export function getBlogTimestamps(
   post: CollectionEntry<"blog">
 ): BlogTimestamps {
-  const now = new Date().toISOString();
   return {
-    createdAt: post.data.date?.toISOString() ?? now,
-    updatedAt: post.data.lastUpdated?.toISOString() ?? post.data.date?.toISOString() ?? now,
+    createdAt: post.data.date.toISOString(),
+    updatedAt: post.data.lastUpdated?.toISOString() ?? post.data.date.toISOString(),
   };
 }
 

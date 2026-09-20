@@ -1,4 +1,6 @@
 ---
+import { SITE_DESCRIPTION } from "@/lib/seo";
+
 interface Props {
   type: "person" | "blogPost" | "website" | "breadcrumb";
   data?: any;
@@ -15,11 +17,8 @@ if (type === "person") {
     "@type": "Person",
     name: "Joseph Ju",
     url: "https://heyjoseph.me",
-    jobTitle: "Full-Stack Developer",
-    worksFor: {
-      "@type": "Organization",
-      name: "Freelance",
-    },
+    jobTitle: "Freelance Forward Deployed Engineer / Full-Stack Developer",
+    description: SITE_DESCRIPTION,
     address: {
       "@type": "PostalAddress",
       addressLocality: "Tokyo",
@@ -71,8 +70,7 @@ if (type === "person") {
     "@type": "WebSite",
     name: "Joseph Ju",
     url: "https://heyjoseph.me",
-    description:
-      "Full-stack developer in Tokyo — Rails 8 + Hotwire, TypeScript, and React.",
+    description: SITE_DESCRIPTION,
     inLanguage: "en",
     author: {
       "@type": "Person",
