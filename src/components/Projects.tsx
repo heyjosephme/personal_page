@@ -7,7 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowRight, Github, ExternalLink } from "lucide-react";
+import { RiGithubLine } from "@remixicon/react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { projects, type Project } from "@/data/projects";
 
@@ -76,7 +77,7 @@ function ProjectCard({ project }: { project: Project }) {
                 rel="noopener noreferrer"
                 aria-label="GitHub repository"
               >
-                <Github className="h-4 w-4" />
+                <RiGithubLine className="h-4 w-4" />
               </a>
             </Button>
           )}

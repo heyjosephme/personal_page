@@ -1,8 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { Button } from "@/components/ui/button";
-import { RiMailLine, RiTwitterXLine, RiGithubLine } from "@remixicon/react";
-import { Linkedin } from "lucide-react";
+import { RiMailLine, RiTwitterXLine, RiGithubLine, RiLinkedinBoxLine } from "@remixicon/react";
 
 const title = "Contact - Joseph Ju";
 const description =
@@ -200,7 +199,7 @@ const description =
             rel="noopener noreferrer"
             class="flex items-center gap-3 p-4 border border-border rounded-md hover:bg-accent transition-colors group"
           >
-            <Linkedin
+            <RiLinkedinBoxLine
               className="w-5 h-5 text-muted-foreground group-hover:text-primary"
               client:load
             />

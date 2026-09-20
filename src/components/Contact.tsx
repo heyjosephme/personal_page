@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import {
   RiGithubLine,
+  RiLinkedinBoxLine,
   RiTwitterLine,
   RiMailLine,
   RiDiscordLine,
 } from "@remixicon/react";
-import { Linkedin } from "lucide-react";
 
 const username = "heyjosephme";
 const email = "contact@heyjoseph.me";
@@ -24,7 +24,7 @@ const Contact = () => {
     },
     {
       name: "LinkedIn",
-      icon: <Linkedin className="w-4 h-4" />,
+      icon: <RiLinkedinBoxLine className="w-4 h-4" />,
       url: `https://www.linkedin.com/in/tokyojoseph/`,
     },
     {

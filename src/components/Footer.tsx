@@ -1,11 +1,11 @@
 import { Button } from "./ui/button";
 import {
   RiGithubLine,
+  RiLinkedinBoxLine,
   RiTwitterXLine,
   RiMailLine,
   RiRssLine,
 } from "@remixicon/react";
-import { Linkedin } from "lucide-react";
 import { features, type Feature } from "@/config/features";
 
 interface FooterProps {
@@ -53,7 +53,7 @@ const Footer = ({ commitHash, buildDate }: FooterProps) => {
     {
       name: "LinkedIn",
       url: "https://www.linkedin.com/in/tokyojoseph/",
-      icon: <Linkedin className="w-5 h-5" />,
+      icon: <RiLinkedinBoxLine className="w-5 h-5" />,
       external: true,
     },
     {
