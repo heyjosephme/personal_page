@@ -1,8 +1,9 @@
+import type { Locale } from "@/i18n/config";
 import Contact from "@/components/Contact";
 import { Projects } from "@/components/Projects";
 import { features } from "@/config/features";
 
-const LandingPage = () => {
+const LandingPage = ({ locale = "en" }: { locale?: Locale }) => {
   return (
     <div className="min-h-screen bg-background">
       {/* Featured Projects */}
@@ -33,7 +34,7 @@ const LandingPage = () => {
       {features.projects && (
         <Projects limit={3} className="py-12 max-w-7xl mx-auto px-4" />
       )}
-      <Contact />
+      <Contact locale={locale} />
     </div>
   );
 };

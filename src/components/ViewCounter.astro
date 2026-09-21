@@ -1,10 +1,13 @@
 ---
+import { ui } from "@/i18n/ui";
+import type { Locale } from "@/i18n/config";
 interface Props {
+  locale?: Locale;
   slug: string;
   increment?: boolean;
   class?: string;
 }
-const { slug, increment = false, class: className } = Astro.props;
+const { locale = "en", slug, increment = false, class: className } = Astro.props;
 ---
 
 <span
@@ -29,7 +32,7 @@ const { slug, increment = false, class: className } = Astro.props;
     <circle cx="12" cy="12" r="3"></circle>
   </svg>
   <span class="view-count tabular-nums">–</span>
-  <span class="sr-only">views</span>
+  <span class="sr-only">{ui[locale].views}</span>
 </span>
 
 <script>

@@ -1,0 +1,53 @@
+---
+import { type Locale, localePath } from "@/i18n/config";
+import { localizedPosts, pageAlternates } from "@/i18n/content";
+import { ui } from "@/i18n/ui";
+import Layout from "@/layouts/Layout.astro";
+
+interface Props { locale: Locale; slug?: string; }
+const { locale, slug } = Astro.props;
+const t = ui[locale];
+
+import { Badge } from "@/components/ui/badge";
+import { getAllCategories } from "@/lib/blog-helpers";
+
+// Get all blog posts
+const posts = await localizedPosts(locale);
+
+// Get categories with post counts
+const categories = getAllCategories(posts);
+
+// Sort categories alphabetically
+const sortedCategories = Object.entries(categories).sort((a, b) =>
+  a[0].localeCompare(b[0])
+);
+const alternates = pageAlternates("category/");
+
+---
+
+<Layout locale={locale} alternates={alternates}
+  title={t.categories}
+  description={t.topicsDescription}
+>
+  <div class="container py-12">
+    <h1 class="text-4xl font-bold mb-8">{t.categories}</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {
+        sortedCategories.map(([category, count]) => (
+          <a
+            href={localePath(locale, `category/${category.toLowerCase()}`)}
+            class="group flex items-center justify-between p-4 border rounded-lg hover:bg-secondary/50 transition-colors"
+          >
+            <span class="text-lg group-hover:text-primary transition-colors">
+              {category}
+            </span>
+            <Badge variant="secondary">
+              {count} {t.posts}
+            </Badge>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</Layout>

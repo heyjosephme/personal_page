@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { isLocale } from "@/i18n/config";
+import { ui } from "@/i18n/ui";
+import Layout from "@/layouts/Layout.astro";
+
+const locale = isLocale(Astro.props.locale) ? Astro.props.locale : "en";
+const key = Astro.props.page;
+const pages = await getCollection("pages");
+const translations = pages.filter((page) => (page.data.translationKey ?? page.id) === key);
+const page = translations.find((entry) => entry.data.lang === locale);
+if (!page) throw new Error(`Missing ${locale} page: ${key}`);
+const { Content } = await render(page);
+const alternates = translations.map((entry) => ({ locale: entry.data.lang, href: getRelativeLocaleUrl(entry.data.lang, `${key}/`) }));
+---
+<Layout locale={locale} title={page.data.title} description={page.data.description} alternates={alternates}>
+ <div class="px-4 py-24 mx-auto max-w-4xl">
+  <article class="prose dark:prose-invert max-w-none">
+   <Content />
+   {page.data.lastUpdated && <p class="text-sm text-muted-foreground italic mt-8">{ui[locale].lastUpdated}: <time datetime={page.data.lastUpdated.toISOString()}>{page.data.lastUpdated.toLocaleDateString(locale, {year: "numeric", month: "long", day: "numeric", timeZone: "UTC"})}</time></p>}
+  </article>
+ </div>
+</Layout>

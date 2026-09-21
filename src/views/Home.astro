@@ -1,0 +1,47 @@
+---
+import { isLocale } from "@/i18n/config";
+import { localizedPosts } from "@/i18n/content";
+import { ui } from "@/i18n/ui";
+
+const locale = isLocale(Astro.props.locale) ? Astro.props.locale : "en";
+const t = ui[locale];
+
+import Hero from "@/components/Hero";
+import { RecentBlogPosts } from "@/components/RecentBlogPosts";
+import StructuredData from "@/components/StructuredData.astro";
+import LandingPage from "@/LandingPage.tsx";
+import Layout from "@/layouts/Layout.astro";
+import { enhanceBlogPosts } from "@/lib/blog-helpers";
+
+const title = t.siteTitle;
+const description = t.siteDescription;
+
+// Get recent blog posts
+const allPosts = await localizedPosts(locale);
+const posts = import.meta.env.DEV
+  ? allPosts
+  : allPosts.filter((post) => !post.data.draft);
+const enhancedPosts = enhanceBlogPosts(posts);
+const sortedPosts = enhancedPosts.sort((a, b) => {
+  return (
+    new Date(b.timestamps.createdAt).getTime() -
+    new Date(a.timestamps.createdAt).getTime()
+  );
+});
+---
+
+<Layout locale={locale} title={title} description={description}>
+  <StructuredData locale={locale} type="person" />
+  <StructuredData locale={locale} type="website" />
+  <div class="relative overflow-hidden">
+    <section class="container px-4 py-16 mx-auto relative z-10">
+      <div class="w-full mx-auto text-center md:w-11/12 xl:w-9/12 mb-12">
+        <Hero locale={locale} />
+      </div>
+    </section>
+
+    <RecentBlogPosts locale={locale} posts={sortedPosts} maxPosts={5} client:load />
+
+    <LandingPage locale={locale} />
+  </div>
+</Layout>

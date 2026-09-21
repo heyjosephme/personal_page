@@ -1,0 +1,10 @@
+---
+import { getCollection } from "astro:content";
+import ContentPage from "@/views/ContentPage.astro";
+export const prerender = true;
+export async function getStaticPaths() {
+ const pages = await getCollection("pages", ({ data }) => data.lang !== "en");
+ return pages.map((page) => ({ params: { locale: page.data.lang, page: page.data.translationKey ?? page.id.replace(/^(ja|zh-cn)\//, "") }, props: { locale: page.data.lang, page: page.data.translationKey ?? page.id.replace(/^(ja|zh-cn)\//, "") } }));
+}
+---
+<ContentPage {...Astro.props} />

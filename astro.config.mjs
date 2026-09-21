@@ -1,3 +1,4 @@
+import { locales, defaultLocale } from "./src/i18n/config";
 import { defineConfig } from "astro/config";
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
@@ -7,6 +8,11 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   output: "server",
+  i18n: {
+    locales: [...locales],
+    defaultLocale,
+    routing: { prefixDefaultLocale: false },
+  },
   adapter: cloudflare({
     prerenderEnvironment: "node",
     // v14 changed the default image service from "compile" to "cloudflare-binding",

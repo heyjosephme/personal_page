@@ -1,0 +1,96 @@
+---
+import { type Locale, localePath } from "@/i18n/config";
+import { localizedPosts, } from "@/i18n/content";
+import { ui } from "@/i18n/ui";
+import Layout from "@/layouts/Layout.astro";
+
+interface Props { locale: Locale; slug?: string; }
+const { locale, slug } = Astro.props;
+const t = ui[locale];
+
+import { Tags } from "lucide-react";
+import { BlogCard } from "@/components/BlogCard";
+import { RecentlyUpdated } from "@/components/RecentlyUpdated";
+import { TrendingTags } from "@/components/TrendingTags";
+import { enhanceBlogPosts } from "@/lib/blog-helpers";
+
+
+const tag = slug ?? "";
+const tagTitle = tag.charAt(0).toUpperCase() + tag.slice(1);
+
+// Get all posts
+const allPosts = await localizedPosts(locale);
+const posts = import.meta.env.DEV
+  ? allPosts
+  : allPosts.filter((post) => !post.data.draft);
+
+// Enhance posts with timestamps
+const enhancedPosts = enhanceBlogPosts(posts);
+
+// Filter posts by tag (case insensitive)
+const tagPosts = enhancedPosts.filter(
+  (post) =>
+    post.data.tags &&
+    post.data.tags.some((t) => t.toLowerCase() === tag.toLowerCase())
+);
+
+// Sort by creation time
+const sortedPosts = [...tagPosts].sort((a, b) => {
+  return (
+    new Date(b.timestamps.createdAt).getTime() -
+    new Date(a.timestamps.createdAt).getTime()
+  );
+});
+
+// Sort by update time for sidebar
+const recentlyUpdated = [...enhancedPosts].sort((a, b) => {
+  return (
+    new Date(b.timestamps.updatedAt).getTime() -
+    new Date(a.timestamps.updatedAt).getTime()
+  );
+});
+const alternates = [{ locale, href: localePath(locale, `tag/${slug}`) }];
+
+---
+
+<Layout locale={locale} alternates={alternates}
+  title={`#${tagTitle} - Joseph Ju`}
+  description={`${t.tags}: ${tagTitle}`}
+>
+  <div class="px-4 py-24 mx-auto max-w-7xl">
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- Main content -->
+      <div class="w-full md:w-4/5">
+        <h1 class="text-3xl font-bold mb-6 flex items-center gap-2">
+          <Tags className="w-7 h-7 text-primary" />
+          <span class="text-primary">{tagTitle}</span>
+          <span class="text-lg text-muted-foreground"
+            >({sortedPosts.length} {t.posts})</span
+          >
+        </h1>
+
+        {
+          sortedPosts.length === 0 && (
+            <p class="text-muted-foreground">{t.noPosts}</p>
+          )
+        }
+
+        <div class="grid gap-6">
+          {sortedPosts.map((post) => <BlogCard post={post} />)}
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="w-full md:w-1/5">
+        <div class="flex flex-col gap-10">
+          <RecentlyUpdated locale={locale}
+            posts={recentlyUpdated}
+            maxPosts={5}
+            client:visible
+          />
+          <TrendingTags locale={locale} posts={enhancedPosts} />
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

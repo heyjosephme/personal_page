@@ -6,6 +6,8 @@ const blogCollection = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
+    lang: z.enum(["en", "ja", "zh-cn"]).default("en"),
+    translationKey: z.string().regex(/^[a-z0-9-]+$/).optional(),
     date: z.date(),
     lastUpdated: z.date().optional(),
     draft: z.boolean().optional().default(false),
@@ -20,6 +22,8 @@ const pagesCollection = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }),
   schema: z.object({
     title: z.string(),
+    lang: z.enum(["en", "ja", "zh-cn"]).default("en"),
+    translationKey: z.string().regex(/^[a-z0-9-]+$/).optional(),
     lastUpdated: z.date().optional(),
     description: z.string().optional(),
   }),

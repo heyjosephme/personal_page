@@ -1,0 +1,125 @@
+---
+import { type Locale, localePath } from "@/i18n/config";
+import { localizedPosts, pageAlternates } from "@/i18n/content";
+import { ui } from "@/i18n/ui";
+import Layout from "@/layouts/Layout.astro";
+
+interface Props { locale: Locale; slug?: string; }
+const { locale, slug } = Astro.props;
+const t = ui[locale];
+
+import { Tag } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { getAllTags } from "@/lib/blog-helpers";
+
+// Get all blog posts
+const posts = await localizedPosts(locale);
+
+// Get all unique tags with their counts
+const tagsWithCount = getAllTags(posts);
+
+// Sort tags alphabetically
+const sortedTags = Object.entries(tagsWithCount).sort((a, b) =>
+  a[0].localeCompare(b[0])
+);
+const alternates = pageAlternates("tag/");
+
+---
+
+<Layout locale={locale} alternates={alternates} title={t.tags} description={t.topicsDescription}>
+  <div class="container py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-3 animate-fade-in">{t.tags}</h1>
+      <p class="text-muted-foreground max-w-2xl mx-auto">
+        {t.topicsDescription}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        sortedTags.map(([tag, count], index) => (
+          <a
+            href={localePath(locale, `tag/${tag.toLowerCase()}`)}
+            class="tag-card group relative overflow-hidden p-5 border rounded-lg hover:border-primary transition-all duration-300 ease-in-out"
+            style={`animation-delay: ${index * 50}ms`}
+          >
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" />
+
+            <div class="flex items-center justify-between relative z-10">
+              <div class="flex items-center space-x-3">
+                <Tag className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors duration-300" />
+                <span class="text-lg font-medium group-hover:text-primary transition-colors duration-300">
+                  {tag}
+                </span>
+              </div>
+              <Badge
+                variant="secondary"
+                className="group-hover:bg-primary/10 group-hover:text-primary transition-all duration-300"
+              >
+                {count} {t.posts}
+              </Badge>
+            </div>
+
+            <div class="absolute bottom-0 left-0 h-1 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-in-out" />
+          </a>
+        ))
+      }
+    </div>
+
+    {
+      sortedTags.length === 0 && (
+        <div class="text-center py-12">
+          <p class="text-muted-foreground">{t.noTags}</p>
+        </div>
+      )
+    }
+  </div>
+</Layout>
+
+<style>
+  .tag-card {
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Add a subtle pulse animation to the badge on hover */
+  .tag-card:hover .badge {
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  /* Add a subtle hover effect */
+  .tag-card {
+    transition: all 0.3s ease;
+  }
+
+  .tag-card:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 10px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+</style>

@@ -1,10 +1,13 @@
+import { localeFromPath, languageTags } from "@/i18n/config";
+import { ui } from "@/i18n/ui";
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import { enhanceBlogPosts } from "@/lib/blog-helpers";
 import type { APIContext } from "astro";
 
 export async function GET(context: APIContext) {
-  const allPosts = await getCollection("blog");
+  const locale = localeFromPath(context.url.pathname);
+  const allPosts = await getCollection("blog", ({ data }) => data.lang === locale);
 
   // Filter out drafts in production
   const posts = import.meta.env.DEV
@@ -22,17 +25,16 @@ export async function GET(context: APIContext) {
   });
 
   return rss({
-    title: "Joseph's Blog",
-    description:
-      "Thoughts, tutorials, and insights about web development from a freelance forward deployed engineer and full-stack developer in Tokyo",
+    title: `${ui[locale].blog} — Joseph`,
+    description: ui[locale].blogDescription,
     site: context.site || "https://heyjoseph.me",
     items: sortedPosts.map((post) => ({
       title: post.data.title,
       description: post.data.description || "",
       pubDate: new Date(post.timestamps.createdAt),
-      link: `/blog/${post.id}/`,
+      link: post.url,
       categories: post.data.categories,
     })),
-    customData: `<language>en-us</language>`,
+    customData: `<language>${languageTags[locale]}</language>`,
   });
 }

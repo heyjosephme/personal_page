@@ -4,8 +4,13 @@ import Footer from "@/components/Footer";
 import { BackToTop } from "@/components/BackToTop";
 import { VERSION } from "@/version";
 import "@/styles/global.css";
-import { canonicalPageURL, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/seo";
+import { canonicalPageURL } from "@/lib/seo";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { ui } from "@/i18n/ui";
+import { locales, isLocale, localeFromPath, unlocalizedPath, translatedPages, languageNames, languageTags, ogLocales, type Locale } from "@/i18n/config";
 interface Props {
+  locale?: Locale;
+  alternates?: { locale: Locale; href: string }[];
   title?: string;
   description?: string;
   image?: string;
@@ -15,9 +20,21 @@ interface Props {
   modifiedTime?: string;
 }
 
+const locale = Astro.props.locale ?? (isLocale(Astro.currentLocale) ? Astro.currentLocale : localeFromPath(Astro.url.pathname));
+const t = ui[locale];
+const path = unlocalizedPath(Astro.url.pathname).replace(/\/$/, "") || "/";
+const alternates = Astro.props.alternates ?? (translatedPages.includes(path)
+  ? locales.map((language) => ({ locale: language, href: getRelativeLocaleUrl(language, path.replace(/^\//, "")) }))
+  : [{ locale, href: Astro.url.pathname }]);
+const defaultAlternate = alternates.find((alternate) => alternate.locale === "en");
+const languages = locales.map((language) => {
+  const alternate = alternates.find((entry) => entry.locale === language);
+  return { locale: language, href: alternate?.href ?? getRelativeLocaleUrl(language, ""), label: languageNames[language] + (alternate ? "" : ` · ${ui[language].languageHome}`) };
+});
+
 const {
-  title = SITE_TITLE,
-  description = SITE_DESCRIPTION,
+  title = t.siteTitle,
+  description = t.siteDescription,
   image = "/og-image.png",
   canonicalURL,
   ogType = "website",
@@ -40,7 +57,7 @@ const siteTitle = title.includes("Joseph") ? title : `${title} | Joseph`;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={languageTags[locale]}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -71,6 +88,9 @@ const siteTitle = title.includes("Joseph") ? title : `${title} | Joseph`;
     <meta name="description" content={description} />
     <link rel="canonical" href={pageURL} />
 
+    {alternates.map((alternate) => <link rel="alternate" hreflang={languageTags[alternate.locale]} href={canonicalPageURL(alternate.href, Astro.site)} />)}
+    {defaultAlternate && <link rel="alternate" hreflang="x-default" href={canonicalPageURL(defaultAlternate.href, Astro.site)} />}
+
     {/* Open Graph / Facebook */}
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={pageURL} />
@@ -80,13 +100,13 @@ const siteTitle = title.includes("Joseph") ? title : `${title} | Joseph`;
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Joseph Ju" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content={ogLocales[locale]} />
 
     {ogType === "article" && (
       <>
         {publishedTime && <meta property="article:published_time" content={publishedTime} />}
         {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
-        <meta property="article:author" content={new URL("/about/", Astro.site).href} />
+        <meta property="article:author" content={new URL(getRelativeLocaleUrl(locale, "about/"), Astro.site).href} />
       </>
     )}
 
@@ -108,8 +128,8 @@ const siteTitle = title.includes("Joseph") ? title : `${title} | Joseph`;
     <link
       rel="alternate"
       type="application/rss+xml"
-      title="Joseph's Blog"
-      href={new URL("rss.xml", Astro.site).href}
+      title={`${t.blog} — Joseph`}
+      href={new URL(getRelativeLocaleUrl(locale, "rss.xml"), Astro.site).href}
     />
 
     {/* Theme initialization script - prevents flash on page load */}
@@ -130,12 +150,12 @@ const siteTitle = title.includes("Joseph") ? title : `${title} | Joseph`;
   </head>
   <body>
     <div class="flex min-h-screen flex-col bg-background">
-      <Navbar client:load />
+      <Navbar locale={locale} languages={languages} client:load />
       <main class="flex-1">
         <slot />
       </main>
-      <Footer commitHash={commitHash} buildDate={buildDate} client:load />
-      <BackToTop client:load />
+      <Footer locale={locale} commitHash={commitHash} buildDate={buildDate} client:load />
+      <BackToTop locale={locale} client:load />
     </div>
   </body>
 </html>

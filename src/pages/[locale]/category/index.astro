@@ -1,0 +1,7 @@
+---
+import CategoryIndex from "@/views/CategoryIndex.astro";
+export const prerender = true;
+export function getStaticPaths() { return (["ja", "zh-cn"] as const).map((locale) => ({params: {locale}, props: {locale}})); }
+const locale = Astro.props.locale ?? "en";
+---
+<CategoryIndex locale={locale}  />

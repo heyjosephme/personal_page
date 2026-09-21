@@ -1,0 +1,13 @@
+---
+import { localizedPosts } from "@/i18n/content";
+import TagDetail from "@/views/TagDetail.astro";
+export const prerender = true;
+export async function getStaticPaths() {
+ return (await Promise.all((["ja", "zh-cn"] as const).map(async (locale) => {
+  const posts = await localizedPosts(locale);
+  const topics = new Set(posts.flatMap((post) => post.data.tags.map((topic) => topic.toLowerCase())));
+  return [...topics].map((slug) => ({params: { locale, slug }, props: {locale, slug}}));
+ }))).flat();
+}
+---
+<TagDetail {...Astro.props}  />

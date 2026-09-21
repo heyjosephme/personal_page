@@ -1,0 +1,161 @@
+---
+import { render } from "astro:content";
+import { RiFolderOpenLine } from "@remixicon/react";
+import { CalendarIcon, Clock } from "lucide-react";
+import Comments from "@/components/Comments.astro";
+import StructuredData from "@/components/StructuredData.astro";
+import { TableOfContents } from "@/components/TableOfContents";
+import { Badge } from "@/components/ui/badge";
+import ViewCounter from "@/components/ViewCounter.astro";
+import { localePath } from "@/i18n/config";
+import { postAlternates } from "@/i18n/content";
+import { ui } from "@/i18n/ui";
+import Layout from "@/layouts/Layout.astro";
+import type { EnhancedBlogPost } from "@/lib/blog-helpers";
+
+interface Props { post: EnhancedBlogPost; allPosts: EnhancedBlogPost[]; }
+
+import { canonicalPageURL } from "@/lib/seo";
+
+// Get the current post
+const { post, allPosts } = Astro.props;
+const locale = post.data.lang;
+const t = ui[locale];
+const alternates = await postAlternates(post);
+const { Content } = await render(post);
+
+// Sort by update time for sidebar
+const recentlyUpdated = [...allPosts].sort((a, b) => {
+  return (
+    new Date(b.timestamps.updatedAt).getTime() -
+    new Date(a.timestamps.updatedAt).getTime()
+  );
+});
+
+const postURL = canonicalPageURL(post.url, Astro.site);
+const postImage = new URL(post.data.ogImage ?? `/og/blog/${post.id}.png`, Astro.site).href;
+
+// Format date helper
+function formatDate(dateStr: string) {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString(locale, {
+    timeZone: "UTC",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+---
+
+<Layout locale={locale} alternates={alternates}
+  title={`${post.data.title} - Joseph Ju`}
+  description={post.data.description}
+  image={postImage}
+  canonicalURL={postURL}
+  ogType="article"
+  publishedTime={post.timestamps.createdAt}
+  modifiedTime={post.timestamps.updatedAt}
+>
+  <StructuredData locale={locale}
+    type="blogPost"
+    data={{
+      title: post.data.title,
+      description: post.data.description,
+      publishedAt: post.timestamps.createdAt,
+      updatedAt: post.timestamps.updatedAt,
+      url: postURL,
+      image: postImage,
+      categories: post.data.categories,
+    }}
+  />
+  <div class="px-4 py-24 mx-auto max-w-7xl">
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- Main content - increased width -->
+      <article class="w-full md:w-4/5">
+        <div class="prose dark:prose-invert max-w-none">
+          <h1 class="mb-4">{post.data.title}</h1>
+
+          <div
+            class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8"
+          >
+            <div class="flex items-center gap-1">
+              <CalendarIcon className="w-4 h-4" />
+              <time datetime={post.timestamps.createdAt}>{formatDate(post.timestamps.createdAt)}</time>
+            </div>
+
+            <div class="flex items-center gap-1">
+              <Clock className="w-4 h-4" />
+              <span>{post.readingTime} {t.minRead}</span>
+            </div>
+
+            <ViewCounter locale={locale} slug={post.viewSlug} increment />
+
+            {
+              post.data.categories && post.data.categories.length > 0 && (
+                <div class="flex items-center gap-2">
+                  <RiFolderOpenLine className="w-4 h-4" />
+                  <div class="flex flex-wrap gap-1">
+                    {post.data.categories.map((category) => (
+                      <Badge
+                        variant="secondary"
+                        className="text-xs hover:bg-secondary/80 transition-colors"
+                      >
+                        <a
+                          href={localePath(locale, `category/${category.toLowerCase()}`)}
+                          class="hover:text-primary"
+                        >
+                          {category}
+                        </a>
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )
+            }
+          </div>
+
+          {
+            post.data.description && (
+              <p class="text-xl text-muted-foreground mb-8">
+                {post.data.description}
+              </p>
+            )
+          }
+
+          <Content />
+        </div>
+      </article>
+
+      <!-- Sidebar - with fixed layout -->
+      <div class="w-full md:w-1/5">
+        <div class="flex flex-col gap-10">
+          {/* Table of Contents */}
+          <TableOfContents locale={locale} client:load />
+
+          {/*
+            Commented out - Move to /blog index page for better UX
+            TOC is more valuable in sidebar for individual posts
+          */}
+          {/* <RecentlyUpdated
+            posts={recentlyUpdated}
+            currentSlug={post.id}
+            maxPosts={5}
+            client:visible
+          />
+          <TrendingTags posts={allPosts} /> */}
+        </div>
+      </div>
+    </div>
+
+    <Comments locale={locale} />
+  </div>
+</Layout>
+
+<style is:global>
+  .prose {
+    max-width: none;
+  }
+  .prose img {
+    margin: 2rem auto;
+  }
+</style>

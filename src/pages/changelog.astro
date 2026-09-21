@@ -1,24 +1,5 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import { getEntry, render } from "astro:content";
-
+import ContentPage from "@/views/ContentPage.astro";
 export const prerender = true;
-
-// Get the changelog page content
-const changelogPage = await getEntry("pages", "changelog");
-
-if (!changelogPage) {
-  throw new Error("Changelog page not found");
-}
-
-const { Content } = await render(changelogPage);
-const { title, description } = changelogPage.data;
 ---
-
-<Layout title={`${title} | Joseph`} description={description}>
-  <div class="px-4 py-24 mx-auto max-w-4xl">
-    <article class="prose dark:prose-invert max-w-none">
-      <Content />
-    </article>
-  </div>
-</Layout>
+<ContentPage locale="en" page="changelog" />

@@ -1,4 +1,5 @@
 import type { CollectionEntry } from "astro:content";
+import { localePath, type Locale } from "@/i18n/config";
 
 export interface BlogFrontmatter {
   title: string;
@@ -18,6 +19,8 @@ export interface BlogTimestamps {
 export interface EnhancedBlogPost extends CollectionEntry<"blog"> {
   timestamps: BlogTimestamps;
   readingTime: number;
+  url: string;
+  viewSlug: string;
 }
 
 export function getBlogTimestamps(
@@ -33,7 +36,13 @@ export function getBlogTimestamps(
  * Calculate reading time based on word count
  * Average reading speed: 200 words per minute
  */
-export function calculateReadingTime(content: string): number {
+export function calculateReadingTime(content: string, locale: Locale = "en"): number {
+  if (locale !== "en") {
+    // Character-based estimate for text that does not use spaces between words.
+    const characters = content.match(/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/gu)?.length ?? 0;
+    const otherWords = content.replace(/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/gu, " ").trim().split(/\s+/).filter(Boolean).length;
+    return Math.max(1, Math.ceil(characters / 400 + otherWords / 200));
+  }
   const wordsPerMinute = 200;
   const words = content.trim().split(/\s+/).length;
   const minutes = Math.ceil(words / wordsPerMinute);
@@ -45,11 +54,15 @@ export function enhanceBlogPosts(
 ): EnhancedBlogPost[] {
   return posts.map((post) => {
     const timestamps = getBlogTimestamps(post);
-    const readingTime = calculateReadingTime(post.body ?? "");
+    const readingTime = calculateReadingTime(post.body ?? "", post.data.lang);
 
     const enhanced = post as EnhancedBlogPost;
     enhanced.timestamps = timestamps;
     enhanced.readingTime = readingTime;
+    const slug = post.id.replace(/^(en|ja|zh-cn)\//, "");
+    enhanced.url = localePath(post.data.lang, `blog/${slug}`);
+    // Share counts between translations and preserve existing English KV keys.
+    enhanced.viewSlug = `/blog/${post.data.translationKey ?? slug}`;
 
     return enhanced;
   });

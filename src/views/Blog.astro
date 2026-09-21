@@ -1,0 +1,84 @@
+---
+import { isLocale } from "@/i18n/config";
+import { localizedPosts } from "@/i18n/content";
+import { ui } from "@/i18n/ui";
+
+const locale = isLocale(Astro.props.locale) ? Astro.props.locale : "en";
+const t = ui[locale];
+
+import type { CollectionEntry } from "astro:content";
+import { BlogSearch } from "@/components/BlogSearch";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { RecentlyUpdated } from "@/components/RecentlyUpdated";
+import StructuredData from "@/components/StructuredData.astro";
+import { TrendingTags } from "@/components/TrendingTags";
+import Layout from "@/layouts/Layout.astro";
+import { enhanceBlogPosts } from "@/lib/blog-helpers";
+
+const allPosts = await localizedPosts(locale);
+const posts = import.meta.env.DEV
+  ? allPosts
+  : allPosts.filter(
+      (post): post is CollectionEntry<"blog"> => !post.data.draft
+    );
+
+// Enhance posts with timestamps
+const enhancedPosts = enhanceBlogPosts(posts);
+
+// Sort by creation time for main list
+const sortedPosts = [...enhancedPosts].sort((a, b) => {
+  return (
+    new Date(b.timestamps.createdAt).getTime() -
+    new Date(a.timestamps.createdAt).getTime()
+  );
+});
+
+// Sort by update time for sidebar
+const recentlyUpdated = [...enhancedPosts].sort((a, b) => {
+  return (
+    new Date(b.timestamps.updatedAt).getTime() -
+    new Date(a.timestamps.updatedAt).getTime()
+  );
+});
+
+// For debugging
+if (import.meta.env.DEV) {
+  console.log(
+    "Posts sorted by date:",
+    sortedPosts.map((post) => ({
+      title: post.data.title,
+      createTime: post.timestamps.createdAt,
+      categories: post.data.categories,
+    }))
+  );
+}
+---
+
+<Layout locale={locale}
+  title={`${t.blog} - Joseph Ju`}
+  description={t.blogDescription}
+>
+  <div class="px-4 py-24 mx-auto max-w-7xl">
+    <Breadcrumb locale={locale} items={[{ label: t.blog }]} className="mb-6" />
+    <StructuredData locale={locale} type="breadcrumb" data={{ items: [{ label: t.blog }] }} />
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- Main content with search -->
+      <div class="w-full md:w-4/5">
+        <h1 class="text-3xl font-bold mb-6">{t.blog}</h1>
+        <BlogSearch locale={locale} posts={sortedPosts} client:load />
+      </div>
+
+      <!-- Sidebar - with fixed layout -->
+      <div class="w-full md:w-1/5">
+        <div class="flex flex-col gap-10">
+          <RecentlyUpdated locale={locale}
+            posts={recentlyUpdated}
+            maxPosts={5}
+            client:visible
+          />
+          <TrendingTags locale={locale} posts={enhancedPosts} client:visible />
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

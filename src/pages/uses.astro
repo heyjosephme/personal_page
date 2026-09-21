@@ -1,37 +1,5 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import { getEntry, render } from "astro:content";
+import ContentPage from "@/views/ContentPage.astro";
 
-// Get the uses page content
-const usesPage = await getEntry("pages", "uses");
-
-if (!usesPage) {
-  throw new Error("Uses page not found");
-}
-
-const { Content } = await render(usesPage);
-const { title, description, lastUpdated } = usesPage.data;
-
-// Format date helper
-function formatDate(date: Date) {
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
 ---
-
-<Layout title={`${title} | Joseph`} description={description}>
-  <div class="px-4 py-24 mx-auto max-w-4xl">
-    <article class="prose dark:prose-invert max-w-none">
-      <Content />
-
-      {lastUpdated && (
-        <p class="text-sm text-muted-foreground italic mt-8">
-          Last updated: {formatDate(lastUpdated)}
-        </p>
-      )}
-    </article>
-  </div>
-</Layout>
+<ContentPage locale="en" page="uses" />

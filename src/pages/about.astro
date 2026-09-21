@@ -1,11 +1,4 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import AboutContent from "../components/AboutContent";
+import About from "@/views/About.astro";
 ---
-
-<Layout
-  title="About Me - Joseph Ju"
-  description="Meet Joseph Ju, a freelance forward deployed engineer and full-stack developer in Tokyo, building with Ruby and TypeScript and indie hacking after hours."
->
-  <AboutContent client:load />
-</Layout>
+<About locale="en" />

@@ -1,12 +1,14 @@
 ---
-import { SITE_DESCRIPTION } from "@/lib/seo";
 
+import { ui } from "@/i18n/ui";
+import { localePath, languageTags, type Locale } from "@/i18n/config";
 interface Props {
+  locale?: Locale;
   type: "person" | "blogPost" | "website" | "breadcrumb";
   data?: any;
 }
 
-const { type, data } = Astro.props;
+const { type, data, locale = "en" } = Astro.props;
 
 let structuredData = {};
 
@@ -16,9 +18,9 @@ if (type === "person") {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Joseph Ju",
-    url: "https://heyjoseph.me",
+    url: new URL(localePath(locale), "https://heyjoseph.me").href,
     jobTitle: "Freelance Forward Deployed Engineer / Full-Stack Developer",
-    description: SITE_DESCRIPTION,
+    description: ui[locale].siteDescription,
     address: {
       "@type": "PostalAddress",
       addressLocality: "Tokyo",
@@ -44,13 +46,14 @@ if (type === "person") {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: data.title,
+    inLanguage: languageTags[locale],
     description: data.description,
     datePublished: data.publishedAt,
     dateModified: data.updatedAt || data.publishedAt,
     author: {
       "@type": "Person",
       name: "Joseph Ju",
-      url: "https://heyjoseph.me",
+      url: new URL(localePath(locale), "https://heyjoseph.me").href,
     },
     publisher: {
       "@type": "Person",
@@ -69,13 +72,13 @@ if (type === "person") {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Joseph Ju",
-    url: "https://heyjoseph.me",
-    description: SITE_DESCRIPTION,
-    inLanguage: "en",
+    url: new URL(localePath(locale), "https://heyjoseph.me").href,
+    description: ui[locale].siteDescription,
+    inLanguage: languageTags[locale],
     author: {
       "@type": "Person",
       name: "Joseph Ju",
-      url: "https://heyjoseph.me",
+      url: new URL(localePath(locale), "https://heyjoseph.me").href,
     },
   };
 } else if (type === "breadcrumb" && data?.items) {
@@ -85,7 +88,7 @@ if (type === "person") {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+      { "@type": "ListItem", position: 1, name: ui[locale].home, item: new URL(localePath(locale), site).href },
       ...data.items.map(
         (item: { label: string; href?: string }, i: number) => ({
           "@type": "ListItem",

@@ -1,0 +1,13 @@
+---
+import { localizedPosts, postSlug } from "@/i18n/content";
+import { enhanceBlogPosts } from "@/lib/blog-helpers";
+import BlogPost from "@/views/BlogPost.astro";
+export const prerender = true;
+export async function getStaticPaths() {
+ return (await Promise.all((["ja", "zh-cn"] as const).map(async (locale) => {
+  const allPosts = enhanceBlogPosts(await localizedPosts(locale));
+  return allPosts.map((post) => ({ params: { locale, slug: postSlug(post) }, props: { post, allPosts } }));
+ }))).flat();
+}
+---
+<BlogPost {...Astro.props} />

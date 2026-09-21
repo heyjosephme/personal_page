@@ -1,0 +1,17 @@
+---
+import { isLocale } from "@/i18n/config";
+import { ui } from "@/i18n/ui";
+
+const locale = isLocale(Astro.props.locale) ? Astro.props.locale : "en";
+const t = ui[locale];
+
+import AboutContent from "@/components/AboutContent";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout locale={locale}
+  title={`${t.aboutMe} - Joseph Ju`}
+  description={t.aboutDescription}
+>
+  <AboutContent locale={locale} client:load />
+</Layout>

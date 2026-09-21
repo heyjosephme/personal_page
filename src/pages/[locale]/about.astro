@@ -1,0 +1,9 @@
+---
+import About from "@/views/About.astro";
+export const prerender = true;
+export function getStaticPaths() {
+ return ["ja", "zh-cn"].map((locale) => ({ params: { locale }, props: { locale } }));
+}
+const { locale } = Astro.props;
+---
+<About locale={locale} />

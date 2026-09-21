@@ -1,0 +1,6 @@
+---
+import Contact from "@/views/Contact.astro";
+export const prerender = true;
+export function getStaticPaths() { return ["ja", "zh-cn"].map((locale) => ({params: {locale}, props: {locale}})); }
+---
+<Contact locale={Astro.props.locale} />

@@ -13,7 +13,10 @@ const posts = (await getCollection("blog")).filter(
 
 export const { getStaticPaths, GET } = await OGImageRoute({
   pages: Object.fromEntries(posts.map((post) => [post.id, post.data])),
-  getImageOptions: (_id, data) => ({
+  getImageOptions: (_id, data) => {
+    const family = data.lang === "ja" ? "Noto Sans CJK JP" : data.lang === "zh-cn" ? "Noto Sans CJK SC" : "Noto Sans";
+    const cjkPath = data.lang === "ja" ? "Japanese/NotoSansCJKjp" : "SimplifiedChinese/NotoSansCJKsc";
+    return ({
     title: data.title,
     description: data.description ?? "",
     bgGradient: [
@@ -27,19 +30,23 @@ export const { getStaticPaths, GET } = await OGImageRoute({
         color: [250, 250, 250],
         weight: "Bold",
         size: 64,
-        families: ["Noto Sans"],
+        families: [family],
       },
       description: {
         color: [161, 161, 170],
         weight: "Normal",
         size: 32,
-        families: ["Noto Sans"],
+        families: [family],
       },
     },
-    fonts: [
+    fonts: data.lang === "en" ? [
       "https://api.fontsource.org/v1/fonts/noto-sans/latin-700-normal.ttf",
       "https://api.fontsource.org/v1/fonts/noto-sans/latin-400-normal.ttf",
+    ] : [
+      `https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF/${cjkPath}-Regular.otf`,
+      `https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF/${cjkPath}-Bold.otf`,
     ],
     format: "PNG",
-  }),
+  });
+  },
 });

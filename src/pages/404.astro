@@ -3,46 +3,55 @@ import Layout from "@/layouts/Layout.astro";
 import { Button } from "@/components/ui/button";
 import { features } from "@/config/features";
 
-const title = "404 - Page Not Found";
-const description = "The page you're looking for doesn't exist.";
+import { localeFromPath, localePath } from "@/i18n/config";
+import { ui } from "@/i18n/ui";
+const locale = localeFromPath(Astro.url.pathname);
+const t = ui[locale];
+const messages = {
+ en: { title: "404 - Page Not Found", description: "The page you're looking for doesn't exist.", lost: "Lost in Tokyo... I mean, the internet", detail: "This page doesn't exist. Like a perfectly bug-free Rails app on the first try.", hint: "It's always DNS, or maybe you just mistyped the URL", links: "Looking for something specific? Try these:" },
+ ja: { title: "404 - ページが見つかりません", description: "お探しのページは存在しません。", lost: "東京で迷子…いえ、インターネットで迷子です", detail: "このページは見つかりませんでした。最初からバグのないRailsアプリと同じくらい、見つけるのが難しいようです。", hint: "DNSのせいかもしれませんが、URLの入力ミスかもしれません。", links: "こちらのページもご覧ください：" },
+ "zh-cn": { title: "404 - 页面未找到", description: "你要找的页面不存在。", lost: "在东京迷路了……我是说，在互联网上", detail: "这个页面不存在，就像第一次就完全没有 bug 的 Rails 应用一样。", hint: "可能又是 DNS 的问题，也可能只是输错了网址。", links: "试试这些页面：" },
+}[locale];
+const title = messages.title;
+const description = messages.description;
 ---
 
-<Layout title={title} description={description}>
+<Layout locale={locale} title={title} description={description}>
   <div class="container px-4 py-24 mx-auto">
     <div class="flex flex-col items-center justify-center min-h-[60vh] text-center">
       <h1 class="text-9xl font-extrabold text-primary mb-4">404</h1>
-      <h2 class="text-3xl font-bold mb-4">Lost in Tokyo... I mean, the internet</h2>
+      <h2 class="text-3xl font-bold mb-4">{messages.lost}</h2>
       <p class="text-lg text-muted-foreground mb-4 max-w-md">
-        This page doesn't exist. Like a perfectly bug-free Rails app on the first try.
+        {messages.detail}
       </p>
       <p class="text-sm text-muted-foreground/80 mb-8 max-w-md italic">
-        (It's always DNS, or maybe you just mistyped the URL)
+        {messages.hint}
       </p>
 
       <div class="flex gap-4">
         <Button asChild>
-          <a href="/">Go Home</a>
+          <a href={localePath(locale, "/")}>{t.home}</a>
         </Button>
         <Button variant="outline" asChild>
-          <a href="/blog">Read Blog</a>
+          <a href={localePath(locale, "/blog")}>{t.readBlog}</a>
         </Button>
       </div>
 
       <!-- Optional: Search or popular links -->
       <div class="mt-12 text-sm text-muted-foreground">
-        <p class="mb-2">Looking for something specific? Try these:</p>
+        <p class="mb-2">{messages.links}</p>
         <div class="flex gap-4 justify-center">
           {features.projects && (
             <>
-              <a href="/projects" class="hover:text-foreground transition-colors">Projects</a>
+              <a href="/projects" class="hover:text-foreground transition-colors">{t.projects}</a>
               <span>·</span>
             </>
           )}
-          <a href="/now" class="hover:text-foreground transition-colors">Now</a>
+          <a href={localePath(locale, "/now")} class="hover:text-foreground transition-colors">{t.now}</a>
           <span>·</span>
-          <a href="/uses" class="hover:text-foreground transition-colors">Uses</a>
+          <a href={localePath(locale, "/uses")} class="hover:text-foreground transition-colors">{t.uses}</a>
           <span>·</span>
-          <a href="mailto:contact@heyjoseph.me" class="hover:text-foreground transition-colors">Contact</a>
+          <a href="mailto:contact@heyjoseph.me" class="hover:text-foreground transition-colors">{t.contact}</a>
         </div>
       </div>
     </div>
